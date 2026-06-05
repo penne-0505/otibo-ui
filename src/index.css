@@ -1,0 +1,7 @@
+/*
+ * Cascade layer order — Panda CSS will emit @layer rules using the names
+ * configured in panda.config.ts. Keeping this file alone (no @import of
+ * styled-system/styles.css needed) means Panda's generated CSS is consumed
+ * via the entry-point import, and these `@layer` lines just lock ordering.
+ */
+@layer otibo-reset, otibo-base, otibo-tokens, otibo-recipes, otibo-utilities;

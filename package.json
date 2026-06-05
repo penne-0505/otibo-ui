@@ -1,0 +1,32 @@
+{
+  "name": "otibo-ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "otibo Design System UI library (Base UI + Panda CSS)",
+  "scripts": {
+    "prepare": "panda codegen",
+    "panda": "panda",
+    "panda:codegen": "panda codegen",
+    "panda:watch": "panda --watch",
+    "ladle": "ladle serve",
+    "ladle:build": "ladle build",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
+  },
+  "dependencies": {
+    "@base-ui-components/react": "^1.0.0-beta.6",
+    "gen-interface-jp": "^0.6.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@ladle/react": "^5.0.3",
+    "@pandacss/dev": "^0.53.7",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript": "^5.7.3"
+  }
+}
