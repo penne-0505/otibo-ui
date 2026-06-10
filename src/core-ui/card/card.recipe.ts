@@ -109,12 +109,17 @@ export const cardRecipe = defineSlotRecipe({
       },
     },
     padding: {
-      // 余白:ゆったり(理念.md §3)。padding と gap を同値に揃え、size variant
-      // を比例で動かす。md gap は 1.5-1.65 を 0.03 刻みで目視判定し 1.5rem に
-      // 確定(1.75 以上は逆に間延びして見えた)。
-      sm: { root: { padding: "5", gap: "5" } },  // 1.25rem
-      md: { root: { padding: "6", gap: "6" } },  // 1.5rem
-      lg: { root: { padding: "8", gap: "8" } },  // 2rem
+      // 余白:ゆったり(理念.md §3)。padding と gap を size variant で動かす。
+      // 当初 padding と gap を同値で揃えていたが、AccountForm(Card 内 Field
+      // 複数)で header → body の境目が「もう一本の Field 間 gap」と読まれて
+      // 視覚階層が崩れた:
+      //   - md gap=1.75rem は Field 間 gap=1.5rem との差が 0.25rem しかなく、
+      //     title 組と body 組が「同じカテゴリの連続」に見えてしまう
+      // 2026-06-12: md gap を 2.5rem(Field 間 gap の 1.67×)に逃がして、
+      // title 組と body 組を別カテゴリとして明示する。lg も同様に 2.5rem。
+      sm: { root: { padding: "5", gap: "5" } },   // 1.25rem
+      md: { root: { padding: "6", gap: "10" } },  // padding 1.5rem / gap 2.5rem
+      lg: { root: { padding: "8", gap: "10" } },  // padding 2rem / gap 2.5rem
     },
     interactive: {
       true: {

@@ -2,8 +2,8 @@ import { mergeProps } from "@base-ui-components/react/merge-props"
 import { useRender } from "@base-ui-components/react/use-render"
 import { forwardRef, type HTMLAttributes } from "react"
 
-import { card } from "@/styled-system/recipes"
-import { cx } from "@/lib/utils"
+import { card } from "../../../styled-system/recipes"
+import { cx } from "../../lib/utils"
 
 type CardVariants = NonNullable<Parameters<typeof card>[0]>
 

@@ -1,7 +1,7 @@
 import { forwardRef, type InputHTMLAttributes } from "react"
 
-import { cx } from "@/lib/utils"
-import { input } from "@/styled-system/recipes"
+import { cx } from "../../lib/utils"
+import { input } from "../../../styled-system/recipes"
 
 type InputVariants = NonNullable<Parameters<typeof input>[0]>
 

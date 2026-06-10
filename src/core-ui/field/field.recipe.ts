@@ -34,11 +34,17 @@ export const fieldRecipe = defineSlotRecipe({
       letterSpacing: "normal",
     },
     error: {
-      // destructive 専用 token は token 第一原理導出フェーズで確定する。
-      // 暫定で hardcode のwarm red。
+      // error state という affordance 表現の専用 token を参照する。
+      // grammar §Danger Is A State, Not A Semantic Family 参照。
+      //
+      // weight は description(regular)より一段上げて medium。同じ sm size /
+      // snug lineHeight の中で「これは error、これは description」を icon に
+      // 頼らず typography で disambiguate する(grammar §Danger Is A State の
+      // 「彩度で訴える代わりに配置と文言で伝える」を weight 軸に拡張)。
       fontSize: "sm",
+      fontWeight: "medium",
       lineHeight: "snug",
-      color: "oklch(0.58 0.13 30)",
+      color: "danger",
       letterSpacing: "normal",
     },
   },

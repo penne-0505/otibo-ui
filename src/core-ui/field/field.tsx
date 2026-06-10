@@ -1,8 +1,8 @@
 import { Field as BaseField } from "@base-ui-components/react/field"
 import { forwardRef } from "react"
 
-import { mergeClass } from "@/lib/utils"
-import { field, input } from "@/styled-system/recipes"
+import { mergeClass } from "../../lib/utils"
+import { field, input } from "../../../styled-system/recipes"
 
 type FieldVariants = NonNullable<Parameters<typeof field>[0]>
 type InputSize = NonNullable<Parameters<typeof input>[0]>["size"]

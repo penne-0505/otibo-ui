@@ -12,7 +12,7 @@ import { defineRecipe } from "@pandacss/dev"
  *
  * State:
  *   - _focus / _focusVisible:focused affordance(inset shadow が濃くなる)
- *   - _disabled:opacity 一括(disabled 専用 token は別フェーズで判断)
+ *   - _disabled:opacity 一括(grammar §Disabled As Quiet Surface)
  *   - aria-invalid="true":error affordance(inset shadow が赤系に)
  */
 export const inputRecipe = defineRecipe({
@@ -25,6 +25,9 @@ export const inputRecipe = defineRecipe({
     lineHeight: "tight",
     letterSpacing: "normal",
     color: "fg",
+    // otibo_ds パターン:input bg は surface(白)に置き、page 側の bg が
+    // 暗いことで「白い紙が暗いページに沈んでいる」構図を作る。凹みは
+    // bg-color の差ではなく shadow が担う(field shadow 参照)。
     bg: "surface",
     border: "none",
     borderRadius: "sm",
@@ -48,7 +51,7 @@ export const inputRecipe = defineRecipe({
     },
     _disabled: {
       cursor: "not-allowed",
-      opacity: 0.55,
+      opacity: "disabled",
     },
   },
   variants: {

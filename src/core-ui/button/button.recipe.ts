@@ -38,41 +38,55 @@ export const buttonRecipe = defineRecipe({
     transitionProperty: "background-color, color, box-shadow, transform",
     transitionDuration: "quick",
     transitionTimingFunction: "standard",
-    _disabled: {
+    // disabled は intent 横断で `opacity: disabled`(= 0.55)。
+    // grammar §Disabled As Quiet Surface ── 個別 token shift ではなく
+    // surface 全体を quiet 化することで warm-neutral voice を保つ。
+    //
+    // aria-disabled="true" も同じ視覚処理にする(Disabled Reveals Reason
+    // On Attempt パターン:button は visually disabled だが click event は
+    // 受けて attempt を検出可能にする ─ Form 側で「試したが通らなかった」を
+    // 教える)。
+    "&:is(:disabled, [aria-disabled='true'])": {
       cursor: "not-allowed",
-      // disabled は intent 横断で opacity 0.55 に戻す。intent specific に
-      // bg / color を変える試みは「secondary disabled が secondary に見える」
-      // 問題を解消できなかった(既存 token の組み合わせでは disabled 専用色を
-      // 表現しきれない)。disabled 専用 token は token 第一原理導出フェーズの
-      // 宿題として保留。
-      opacity: 0.55,
+      opacity: "disabled",
     },
     _focusVisible: {
       boxShadow: "focus",
     },
   },
   variants: {
+    // hover / active は intent 別 ── ただし grammar §Disabled Suspends
+    // Pointer Feedback により、disabled / aria-disabled の時は発火させない。
+    // 「押せる」signal は disabled の自己矛盾になるため。
     intent: {
       primary: {
         bg: "fg.strong",
         color: "surface",
-        _hover: { bg: "fg" },
-        _active: { transform: "translateY(0.5px)" },
+        "&:not(:disabled):not([aria-disabled='true']):hover": { bg: "fg" },
+        "&:not(:disabled):not([aria-disabled='true']):active": {
+          transform: "translateY(0.5px)",
+        },
       },
       secondary: {
         bg: "surface.muted",
         color: "fg.strong",
-        _hover: { bg: "bg.subtle" },
-        _active: { transform: "translateY(0.5px)" },
+        "&:not(:disabled):not([aria-disabled='true']):hover": { bg: "bg.subtle" },
+        "&:not(:disabled):not([aria-disabled='true']):active": {
+          transform: "translateY(0.5px)",
+        },
       },
       ghost: {
         // 本文 18px と Button 16px の size 差で operable と本文の区別が出る
-        // ようになったため、ghost の color を fg.secondary に戻す
-        // (Button md fontSize を base に戻したことで成立した判断)。
+        // ようになったため、ghost の color を fg.secondary に戻す。
         bg: "transparent",
         color: "fg.secondary",
-        _hover: { bg: "surface.muted", color: "fg.strong" },
-        _active: { transform: "translateY(0.5px)" },
+        "&:not(:disabled):not([aria-disabled='true']):hover": {
+          bg: "surface.muted",
+          color: "fg.strong",
+        },
+        "&:not(:disabled):not([aria-disabled='true']):active": {
+          transform: "translateY(0.5px)",
+        },
       },
     },
     size: {

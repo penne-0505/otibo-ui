@@ -2,8 +2,8 @@ import { mergeProps } from "@base-ui-components/react/merge-props"
 import { useRender } from "@base-ui-components/react/use-render"
 import { forwardRef } from "react"
 
-import { cx } from "@/lib/utils"
-import { button } from "@/styled-system/recipes"
+import { cx } from "../../lib/utils"
+import { button } from "../../../styled-system/recipes"
 
 type ButtonVariants = NonNullable<Parameters<typeof button>[0]>
 
