@@ -524,6 +524,8 @@ Card 単体での visual 評価では機能している。実 UI 化フェーズ
 | Letter spacing | `letterSpacings.tight/normal/wide/wider` | title 微調整、small metadata | 原則 normal。tight は title だけ。wide は prototype 期未使用(Deferred §8)。 | display text の decoration。 |
 | Font family | `fonts.body/display/mono` | 全 UI、prose、code | body と display は Gen Interface JP で同一 family。 | weight 違い以外の font escalation。 |
 
+> **Long-form reading surface uses 16px body (NEW: otibo-dev legal pages 判断)** ── 法務 / 長文リファレンス(privacy / terms / tokushoho)は body を `base`(16px)+ `lineHeight.normal`(1.55)で組む別 reading surface とする。app 本体・portfolio の body は `md`(18px)のまま。狙いは見出しとの比を開くこと(`md` 本文だと h2(`lg`)/body = 1.33× で attention がフラット化する。`base` 本文なら h2 1.5× / h1(`xl`)1.75×)。表セルは `sm` 据え置き。
+
 ## Motion And Layer Families
 
 | Token family | Existing tokens | Grammar connection | Usage rule | Avoid |
