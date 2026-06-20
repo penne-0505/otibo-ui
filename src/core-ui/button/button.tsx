@@ -2,14 +2,12 @@ import { mergeProps } from "@base-ui-components/react/merge-props"
 import { useRender } from "@base-ui-components/react/use-render"
 import { forwardRef } from "react"
 
+import { button } from "@otibo/ui/styled-system/recipes"
 import { cx } from "../../lib/utils"
-import { button } from "../../../styled-system/recipes"
 
 type ButtonVariants = NonNullable<Parameters<typeof button>[0]>
 
-interface ButtonProps
-  extends Omit<useRender.ComponentProps<"button">, "render">,
-    ButtonVariants {
+interface ButtonProps extends Omit<useRender.ComponentProps<"button">, "render">, ButtonVariants {
   render?: useRender.ComponentProps<"button">["render"]
 }
 

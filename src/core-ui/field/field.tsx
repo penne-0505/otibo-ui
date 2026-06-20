@@ -1,8 +1,8 @@
 import { Field as BaseField } from "@base-ui-components/react/field"
 import { forwardRef } from "react"
 
+import { field, input } from "@otibo/ui/styled-system/recipes"
 import { mergeClass } from "../../lib/utils"
-import { field, input } from "../../../styled-system/recipes"
 
 type FieldVariants = NonNullable<Parameters<typeof field>[0]>
 type InputSize = NonNullable<Parameters<typeof input>[0]>["size"]
@@ -17,28 +17,17 @@ type InputSize = NonNullable<Parameters<typeof input>[0]>["size"]
 const FieldRoot = forwardRef<HTMLDivElement, BaseField.Root.Props & FieldVariants>(
   function FieldRoot({ className, density, ...props }, ref) {
     const slot = field({ density })
-    return (
-      <BaseField.Root
-        ref={ref}
-        className={mergeClass(slot.root, className)}
-        {...props}
-      />
-    )
+    return <BaseField.Root ref={ref} className={mergeClass(slot.root, className)} {...props} />
   },
 )
 
-const FieldLabel = forwardRef<HTMLLabelElement, BaseField.Label.Props>(
-  function FieldLabel({ className, ...props }, ref) {
-    const slot = field()
-    return (
-      <BaseField.Label
-        ref={ref}
-        className={mergeClass(slot.label, className)}
-        {...props}
-      />
-    )
-  },
-)
+const FieldLabel = forwardRef<HTMLLabelElement, BaseField.Label.Props>(function FieldLabel(
+  { className, ...props },
+  ref,
+) {
+  const slot = field()
+  return <BaseField.Label ref={ref} className={mergeClass(slot.label, className)} {...props} />
+})
 
 interface FieldInputProps extends Omit<BaseField.Control.Props, "size"> {
   size?: InputSize
@@ -49,11 +38,7 @@ const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>(function FieldI
   ref,
 ) {
   return (
-    <BaseField.Control
-      ref={ref}
-      className={mergeClass(input({ size }), className)}
-      {...props}
-    />
+    <BaseField.Control ref={ref} className={mergeClass(input({ size }), className)} {...props} />
   )
 })
 
@@ -75,13 +60,7 @@ const FieldError = forwardRef<HTMLDivElement, BaseField.Error.Props>(function Fi
   ref,
 ) {
   const slot = field()
-  return (
-    <BaseField.Error
-      ref={ref}
-      className={mergeClass(slot.error, className)}
-      {...props}
-    />
-  )
+  return <BaseField.Error ref={ref} className={mergeClass(slot.error, className)} {...props} />
 })
 
 export const Field = {

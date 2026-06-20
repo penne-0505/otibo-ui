@@ -47,15 +47,13 @@ export const ComponentNotes: Story = () => (
       <Card.Body>
         <p>
           Base UI の <code>useRender</code> を経由するため、{`<article>`}・{`<section>`}・
-          {`<button>`} など任意の semantic tag に着地できます。意味は host
-          が決め、recipe は構造を提供する分担です。
+          {`<button>`} など任意の semantic tag に着地できます。意味は host が決め、recipe
+          は構造を提供する分担です。
         </p>
       </Card.Body>
     </Card.Root>
   </div>
 )
-
-
 
 // 2. Dashboard metric — Object role + Surface inside a Flow composition.
 export const DashboardMetric: Story = () => (
@@ -113,11 +111,7 @@ export const SettingsSection: Story = () => (
           value="オフ"
           hint="重要な変更は別途メールで届きます。"
         />
-        <SettingRow
-          label="通知音"
-          value="紙の音"
-          hint="3 種類から選べます。"
-        />
+        <SettingRow label="通知音" value="紙の音" hint="3 種類から選べます。" />
       </Card.Body>
     </Card.Root>
     <Card.Root surface="flat" padding="md">
@@ -127,11 +121,7 @@ export const SettingsSection: Story = () => (
       </Card.Header>
       <Card.Body>
         <SettingRow label="メールアドレス" value="claude@otibo.dev" />
-        <SettingRow
-          label="表示言語"
-          value="日本語"
-          hint="再起動後に反映されます。"
-        />
+        <SettingRow label="表示言語" value="日本語" hint="再起動後に反映されます。" />
       </Card.Body>
     </Card.Root>
   </div>
@@ -159,9 +149,7 @@ function SettingRow({
       }}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "0.125rem" }}>
-        <span style={{ fontSize: "1rem", color: "var(--colors-fg)" }}>
-          {label}
-        </span>
+        <span style={{ fontSize: "1rem", color: "var(--colors-fg)" }}>{label}</span>
         {hint && (
           <span
             style={{
@@ -238,7 +226,8 @@ export const ProseCallout: Story = () => (
     }}
   >
     <p>
-      otibo は誰かのひと手間に基づきます。架空のペルソナや、調査の数字を出発点にしません。万能を目指さず、特定の状況、特定の姿勢、特定の認知のかたちに、ぴったりはまるように作ります。
+      otibo
+      は誰かのひと手間に基づきます。架空のペルソナや、調査の数字を出発点にしません。万能を目指さず、特定の状況、特定の姿勢、特定の認知のかたちに、ぴったりはまるように作ります。
     </p>
     <Card.Root surface="muted" padding="md">
       <Card.Body>

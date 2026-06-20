@@ -1,16 +1,16 @@
 import {
+  type ChangeEvent,
+  type KeyboardEvent,
   forwardRef,
   useCallback,
   useEffect,
   useId,
   useRef,
   useState,
-  type KeyboardEvent,
-  type ChangeEvent,
 } from "react"
 
-import { cx } from "../../../styled-system/css"
-import { inlineEdit } from "../../../styled-system/recipes"
+import { cx } from "@otibo/ui/styled-system/css"
+import { inlineEdit } from "@otibo/ui/styled-system/recipes"
 
 /**
  * InlineEdit — 読み専用がデフォルト、ユーザーの能動的なアクションで編集モードに
@@ -44,108 +44,106 @@ export interface InlineEditProps {
   allowEmpty?: boolean
 }
 
-export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(
-  function InlineEdit(
-    {
-      value,
-      onCommit,
-      placeholder = "未設定",
-      className,
-      defaultEditing = false,
-      allowEmpty = true,
-      "aria-label": ariaLabel,
-    },
-    ref,
-  ) {
-    const slot = inlineEdit()
-    const [editing, setEditing] = useState(defaultEditing)
-    const [draft, setDraft] = useState(value)
-    const inputRef = useRef<HTMLInputElement>(null)
-    // commit/cancel が短時間に多重起動するのを防ぐ(blur と Enter が連続する等)
-    const settledRef = useRef(false)
-    const inputId = useId()
+export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(function InlineEdit(
+  {
+    value,
+    onCommit,
+    placeholder = "未設定",
+    className,
+    defaultEditing = false,
+    allowEmpty = true,
+    "aria-label": ariaLabel,
+  },
+  ref,
+) {
+  const slot = inlineEdit()
+  const [editing, setEditing] = useState(defaultEditing)
+  const [draft, setDraft] = useState(value)
+  const inputRef = useRef<HTMLInputElement>(null)
+  // commit/cancel が短時間に多重起動するのを防ぐ(blur と Enter が連続する等)
+  const settledRef = useRef(false)
+  const inputId = useId()
 
-    // value が外部から変化したら draft を追従(edit 中でない時のみ)
-    useEffect(() => {
-      if (!editing) setDraft(value)
-    }, [editing, value])
+  // value が外部から変化したら draft を追従(edit 中でない時のみ)
+  useEffect(() => {
+    if (!editing) setDraft(value)
+  }, [editing, value])
 
-    // edit モードに入ったら入力 focus + 全選択
-    useEffect(() => {
-      if (editing && inputRef.current) {
-        inputRef.current.focus()
-        inputRef.current.select()
-        settledRef.current = false
-      }
-    }, [editing])
+  // edit モードに入ったら入力 focus + 全選択
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus()
+      inputRef.current.select()
+      settledRef.current = false
+    }
+  }, [editing])
 
-    const commit = useCallback(() => {
-      if (settledRef.current) return
-      settledRef.current = true
-      const next = draft.trim()
-      if (!allowEmpty && next === "") {
-        setDraft(value)
-        setEditing(false)
-        return
-      }
-      if (next !== value) onCommit?.(next)
-      setEditing(false)
-    }, [allowEmpty, draft, onCommit, value])
-
-    const cancel = useCallback(() => {
-      if (settledRef.current) return
-      settledRef.current = true
+  const commit = useCallback(() => {
+    if (settledRef.current) return
+    settledRef.current = true
+    const next = draft.trim()
+    if (!allowEmpty && next === "") {
       setDraft(value)
       setEditing(false)
-    }, [value])
+      return
+    }
+    if (next !== value) onCommit?.(next)
+    setEditing(false)
+  }, [allowEmpty, draft, onCommit, value])
 
-    const handleKeyDown = useCallback(
-      (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-          event.preventDefault()
-          commit()
-        } else if (event.key === "Escape") {
-          event.preventDefault()
-          cancel()
-        }
-      },
-      [cancel, commit],
-    )
+  const cancel = useCallback(() => {
+    if (settledRef.current) return
+    settledRef.current = true
+    setDraft(value)
+    setEditing(false)
+  }, [value])
 
-    const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-      setDraft(event.target.value)
-    }, [])
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        event.preventDefault()
+        commit()
+      } else if (event.key === "Escape") {
+        event.preventDefault()
+        cancel()
+      }
+    },
+    [cancel, commit],
+  )
 
-    const isEmpty = !value
-    const displayed = value || placeholder
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setDraft(event.target.value)
+  }, [])
 
-    return (
-      <div ref={ref} className={cx(slot.root, className)}>
-        {editing ? (
-          <input
-            ref={inputRef}
-            id={inputId}
-            type="text"
-            className={slot.edit}
-            value={draft}
-            placeholder={placeholder}
-            onChange={handleChange}
-            onBlur={commit}
-            onKeyDown={handleKeyDown}
-            aria-label={ariaLabel}
-          />
-        ) : (
-          <button
-            type="button"
-            className={slot.read}
-            onClick={() => setEditing(true)}
-            data-empty={isEmpty ? "true" : undefined}
-            aria-label={ariaLabel}
-          >
-            {displayed}
-          </button>
-        )}
-      </div>
-    )
-  },
-)
+  const isEmpty = !value
+  const displayed = value || placeholder
+
+  return (
+    <div ref={ref} className={cx(slot.root, className)}>
+      {editing ? (
+        <input
+          ref={inputRef}
+          id={inputId}
+          type="text"
+          className={slot.edit}
+          value={draft}
+          placeholder={placeholder}
+          onChange={handleChange}
+          onBlur={commit}
+          onKeyDown={handleKeyDown}
+          aria-label={ariaLabel}
+        />
+      ) : (
+        <button
+          type="button"
+          className={slot.read}
+          onClick={() => setEditing(true)}
+          data-empty={isEmpty ? "true" : undefined}
+          aria-label={ariaLabel}
+        >
+          {displayed}
+        </button>
+      )}
+    </div>
+  )
+})

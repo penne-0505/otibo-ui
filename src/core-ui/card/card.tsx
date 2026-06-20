@@ -1,15 +1,13 @@
 import { mergeProps } from "@base-ui-components/react/merge-props"
 import { useRender } from "@base-ui-components/react/use-render"
-import { forwardRef, type HTMLAttributes } from "react"
+import { type HTMLAttributes, forwardRef } from "react"
 
-import { card } from "../../../styled-system/recipes"
+import { card } from "@otibo/ui/styled-system/recipes"
 import { cx } from "../../lib/utils"
 
 type CardVariants = NonNullable<Parameters<typeof card>[0]>
 
-interface CardRootProps
-  extends Omit<useRender.ComponentProps<"div">, "render">,
-    CardVariants {
+interface CardRootProps extends Omit<useRender.ComponentProps<"div">, "render">, CardVariants {
   render?: useRender.ComponentProps<"div">["render"]
 }
 
@@ -33,10 +31,7 @@ const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
     ref,
     defaultTagName: "div",
     render,
-    props: mergeProps<"div">(
-      { className: cx(slot.root, className) },
-      props,
-    ),
+    props: mergeProps<"div">({ className: cx(slot.root, className) }, props),
     state: {
       surface: surface ?? "paper",
       padding: padding ?? "md",
@@ -57,9 +52,7 @@ function makeCardSlot(
   ) {
     const slot = card({})
     const TagName = defaultTag as "div"
-    return (
-      <TagName ref={ref} className={cx(slot[slotKey], className)} {...props} />
-    )
+    return <TagName ref={ref} className={cx(slot[slotKey], className)} {...props} />
   })
   Component.displayName = `Card.${slotKey[0]!.toUpperCase()}${slotKey.slice(1)}`
   return Component
@@ -84,13 +77,6 @@ export const Card = {
   Footer: CardFooter,
 }
 
-export {
-  CardRoot,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardBody,
-  CardFooter,
-}
+export { CardRoot, CardHeader, CardTitle, CardDescription, CardBody, CardFooter }
 
 export type { CardRootProps }

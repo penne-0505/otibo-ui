@@ -2,7 +2,7 @@
 
 ## 0. System Metadata
 
-- **Current Max ID**: `Next ID No: 5` (タスク追加時にインクリメント必須)
+- **Current Max ID**: `Next ID No: 10` (タスク追加時にインクリメント必須)
 - **ID Source of Truth**: このファイルの `Next ID No` 行が、全プロジェクトにおける唯一の ID 発番元である。
 
 ## 1. Task Lifecycle (State Machine)
@@ -374,6 +374,87 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 - **Description**:
   - Context: OSS 配布前に著作者表示をプロジェクトに合わせる。
   - Notes: `Size XS` かつ `Risk Low` のため Plan / Intent / QA は不要。
+- **Plan**: None
+- **Intent**: None
+- **QA**: None
+- **Verification**: None
+
+### Pkg-Doc-7: [Doc] README fix — include canonical + RSC flat export note
+
+- **Title**: [Doc] README fix — include canonical + RSC flat export note
+- **ID**: Pkg-Doc-7
+- **Priority**: P1
+- **Size**: XS
+- **Risk**: Low
+- **Area**: Pkg
+- **Dependencies**: []
+- **Goal**: README の consumer 向け Usage 例が、Approach 4 の正本設定および Next.js App Router RSC consumer での安全な import 形式を反映している。
+- **Acceptance Criteria**:
+  - AC-001: README の `panda.config.ts` 設定例の `include` が `./node_modules/@otibo/ui/dist/panda.buildinfo.json`(Approach 4 canonical、1 ファイル)になっており、古い `./node_modules/@otibo/ui/dist/**/*.{js,cjs}` glob 表記は除去されている。
+  - AC-002: README の Usage 例(`<Field.Root>` 等の namespace 形式)に、Next.js App Router の Server Component で使う場合は **flat export(`FieldRoot` 等)を推奨** する短い note が併記されている(理由:RSC bundler が namespace property を Client Manifest で resolve できず build 失敗する)。
+  - AC-003: 既存の Usage 例自体は残す(SPA / Pages Router / その他 consumer での namespace 形式は引き続き有効)。
+- **Steps**:
+  1. [ ] README の `include` 表記を Approach 4 canonical に置換する
+  2. [ ] Usage 例に RSC flat export note を追加する
+  3. [ ] markdownlint / 表記揺れを軽く確認
+- **Description**:
+  - Context: `otibo-dev/App-Feat-11`(`@otibo/ui@0.1.1` の consumer 統合)で発見。README の include glob は古い表記(canonical Intent §I は buildinfo 1 ファイル)。また Usage 例(`<Field.Root>`)を Next.js App Router の Server Component から使うと build が落ちる。
+  - Notes: `Size XS / Risk Low` のため Plan / Intent / QA は不要。**Pkg-Enhance-8 と関連**(本 task は README の Usage 例 1 箇所と include 表記の修正のみ、namespace export の全体設計判断は別 task)。
+- **Plan**: None
+- **Intent**: None
+- **QA**: None
+- **Verification**: None
+
+### Pkg-Enhance-8: [Enhance] Namespace export design — docs note vs deprecate
+
+- **Title**: [Enhance] Namespace export design — docs note vs deprecate
+- **ID**: Pkg-Enhance-8
+- **Priority**: P2
+- **Size**: M
+- **Risk**: Medium
+- **Area**: Pkg
+- **Dependencies**: [Pkg-Doc-7]
+- **Goal**: namespace export を持つ全 component(`Field` / `Card` / `Tabs` / `Toast` / `Combobox` / `NavigationMenu` / `Menu` / `Popover` / `PreviewCard` / `Dialog` / `Tooltip` / `Pagination` / `Accordion` / `Breadcrumb` / `SegmentedControl` / `Select` / `Table` / `RadioGroup` / `ChipGroup` / `NumberField` / `InlineEdit` / `Slider` / `ScrollArea` / 等)について、Next.js App Router RSC consumer に対する正しい使い方が library として明確に方針付けされている(docs note で済ますか、namespace 自体を deprecate するか)。
+- **Acceptance Criteria**:
+  - AC-001: namespace export を持つ全 component が棚卸しされ、`_docs/intent/Pkg/namespace-export-design/decision.md` に方針(docs note / deprecate / 維持の選択 + 理由)が記録されている。
+  - AC-002: 採用方針に応じた library / docs / per-component spec(`_docs/reference/DesignSystem/components/<name>.md`)への反映が完了している。
+  - AC-003: deprecate を選んだ場合、SemVer に従って bump 戦略(major / minor + deprecation period)が plan / intent に明記されている。
+  - AC-004: typecheck / lint / build / publish dry-run が通る。
+- **Steps**:
+  1. [ ] Plan / Intent / QA を作成する(Plan で方針候補を列挙、Intent で決定)
+  2. [ ] namespace export の現状棚卸し(grep + per-component spec)
+  3. [ ] 採用方針に応じた実装(docs 追加 / API 変更 / 両方)
+  4. [ ] Test:typecheck / lint / build、必要なら Ladle で動作確認
+  5. [ ] Verification を残す
+- **Description**:
+  - Context: `otibo-dev/App-Feat-11` で `<Field.Root>` が Next.js App Router の RSC で build 失敗することを発見(Intent §Discovered)。同じ pattern を持つ component が多数あり、library 設計として方針を統一する必要がある。`flat export` は既に各 component で同居しているので、API breaking なしで docs だけ整える選択肢もある。
+  - Notes: Plan / Intent / QA 必須(Size M, Risk Medium)。namespace deprecate を選ぶと breaking change(major / 大きめ minor bump)。docs note のみなら patch。Pkg-Doc-7 が完了して README の最小 fix が出てから本 task に取りかかる(`Pkg-Doc-7` を Dependencies に置く)。
+- **Plan**: None
+- **Intent**: None
+- **QA**: None
+- **Verification**: None
+
+### Pkg-Chore-9: [Chore] Evaluate Base UI peer caret behaviour (beta → rc drift)
+
+- **Title**: [Chore] Evaluate Base UI peer caret behaviour (beta → rc drift)
+- **ID**: Pkg-Chore-9
+- **Priority**: P2
+- **Size**: XS
+- **Risk**: Low
+- **Area**: Pkg
+- **Dependencies**: []
+- **Goal**: `@otibo/ui` の `peerDependencies."@base-ui-components/react"` が consumer 側で意図通りの version を install させるか確認され、必要なら range 表記を更新する判断が記録されている。
+- **Acceptance Criteria**:
+  - AC-001: `^1.0.0-beta.6` が consumer の `npm install` で `^1.0.0-rc.0` を install する挙動(pre-release tag またぎ)が npm semver の仕様として正しいか、Base UI の breaking change rule(beta / rc 間)と整合しているかが確認されている。
+  - AC-002: 結論(現状維持 / range を `>=1.0.0-beta.6 <2` 等に変更 / `^1.0.0-rc.0` に bump)が `_docs/intent` または本 task の Description に記録されている。
+  - AC-003: range を変更する場合、`@otibo/ui` の patch / minor bump 戦略が明記されている(peer 変更は consumer に影響、breaking としての評価)。
+- **Steps**:
+  1. [ ] `npm semver` ドキュメントと Base UI 公式 release notes を確認
+  2. [ ] otibo-ui の Button / Field 以外の component(Toast / Dialog / Combobox 等)で rc.0 の hook signature 差異が顕在化するか軽く検証(必要なら Ladle で)
+  3. [ ] 判断を記録、必要なら別 follow-up task を起票
+- **Description**:
+  - Context: `otibo-dev/App-Feat-11` で peer `^1.0.0-beta.6` のはずが Base UI `^1.0.0-rc.0` が install された(npm の semver caret が pre-release tag またぎを許容する場合あり)。本 task ではまず評価のみ。range 変更は別 task に切り出して可。
+  - Notes: `Size XS / Risk Low` のため Plan / Intent / QA は不要。range を変更する場合は Risk が上がるので、本 task は **評価のみで停止**し、変更は別 task で起票する設計。
 - **Plan**: None
 - **Intent**: None
 - **QA**: None

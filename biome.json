@@ -7,7 +7,15 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["styled-system", "dist", "build", "node_modules", ".ladle/dist"]
+    "ignore": [
+      "styled-system",
+      "dist",
+      "build",
+      "node_modules",
+      ".ladle/dist",
+      "**/*.stories.tsx",
+      "src/_explore/**"
+    ]
   },
   "formatter": {
     "enabled": true,

@@ -20,14 +20,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@/styled-system/*": ["styled-system/*"]
+      "@otibo/ui/styled-system/*": ["styled-system/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "styled-system/**/*",
-    "panda.config.ts",
-    ".ladle/**/*"
-  ],
+  "include": ["src/**/*", "styled-system/**/*", "panda.config.ts", ".ladle/**/*"],
   "exclude": ["node_modules", "dist", "build"]
 }

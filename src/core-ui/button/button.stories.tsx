@@ -38,9 +38,7 @@ export const Matrix: Story = () => (
 )
 
 // 2. Single primary — 「気づけば終わる」を 1 行で
-export const Primary: Story = () => (
-  <Button intent="primary">送信する</Button>
-)
+export const Primary: Story = () => <Button intent="primary">送信する</Button>
 
 // 3. Disabled — 操作不能を「opacity + cursor」で示す(grammar: disabled affordance)。
 // 全 button が disabled の例として、視覚的に「使えないものは詰めて目立たせない」
@@ -69,9 +67,7 @@ export const InCard: Story = () => (
         <Card.Description>静かな受け取りを基本に、必要なものだけ。</Card.Description>
       </Card.Header>
       <Card.Body>
-        <p>
-          設定変更は次のセッションから反映されます。すでに開いている画面には影響しません。
-        </p>
+        <p>設定変更は次のセッションから反映されます。すでに開いている画面には影響しません。</p>
       </Card.Body>
       <Card.Footer>
         <Button intent="ghost">変更を取り消す</Button>

@@ -40,6 +40,10 @@ export const inputRecipe = defineRecipe({
     _placeholder: {
       color: "fg.subtle",
     },
+    // hover ── inset を弱めて浮き上がる feedback。focus が source order で勝つよう前に置く。
+    "&:hover:not(:disabled):not(:focus)": {
+      boxShadow: "field.hover",
+    },
     _focus: {
       boxShadow: "field.focus",
     },
@@ -60,13 +64,11 @@ export const inputRecipe = defineRecipe({
         fontSize: "sm",
         paddingInline: "3",
         paddingBlock: "1.5",
-        minHeight: "8",
       },
       md: {
         fontSize: "md",
         paddingInline: "4",
         paddingBlock: "2",
-        minHeight: "10",
       },
     },
   },

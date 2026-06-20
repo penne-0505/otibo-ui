@@ -2,6 +2,7 @@
 export default {
   stories: "src/**/*.stories.{js,jsx,ts,tsx}",
   defaultStory: "core-ui--card--default",
+  viteConfig: "vite.config.ts",
   appendToHead: `
     <meta name="theme-color" content="#f5f1eb" />
   `,

@@ -59,10 +59,12 @@ export const buttonRecipe = defineRecipe({
     // Pointer Feedback により、disabled / aria-disabled の時は発火させない。
     // 「押せる」signal は disabled の自己矛盾になるため。
     intent: {
+      // primary = 単一 accent を主行動に据える(2026-06-16 確定)。
+      // 旧 primary(墨=fg.strong)は accent に置換。墨が要る場面が出たら別 variant を起こす。
       primary: {
-        bg: "fg.strong",
+        bg: "accent",
         color: "surface",
-        "&:not(:disabled):not([aria-disabled='true']):hover": { bg: "fg" },
+        "&:not(:disabled):not([aria-disabled='true']):hover": { bg: "accent.hover" },
         "&:not(:disabled):not([aria-disabled='true']):active": {
           transform: "translateY(0.5px)",
         },
@@ -94,17 +96,15 @@ export const buttonRecipe = defineRecipe({
         // 13px(0.8125rem hardcode)。14px から更に一段下げて、サイズ階層を
         // 明確化。これでまだ大きいなら 12px(xs)に下げる。
         fontSize: "0.8125rem",
-        paddingInline: "3",      // 12px
+        paddingInline: "3", // 12px
         paddingBlock: "1.5",
-        minHeight: "8",          // 32px
       },
       md: {
         // body 18px に対して 16px。Button が本文より一段引いた声色で
         // 「強調しすぎない」UI を作る。
-        fontSize: "base",        // 16px
-        paddingInline: "5",      // 20px(height 40 × 0.5 比率)
+        fontSize: "base", // 16px
+        paddingInline: "5", // 20px
         paddingBlock: "2",
-        minHeight: "10",         // 40px
       },
     },
   },

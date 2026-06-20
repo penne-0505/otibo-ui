@@ -1,13 +1,11 @@
-import { forwardRef, type InputHTMLAttributes } from "react"
+import { type InputHTMLAttributes, forwardRef } from "react"
 
+import { input } from "@otibo/ui/styled-system/recipes"
 import { cx } from "../../lib/utils"
-import { input } from "../../../styled-system/recipes"
 
 type InputVariants = NonNullable<Parameters<typeof input>[0]>
 
-interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">,
-    InputVariants {}
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">, InputVariants {}
 
 /**
  * Input — standalone text input.
@@ -21,12 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref,
 ) {
   return (
-    <input
-      ref={ref}
-      type={type ?? "text"}
-      className={cx(input({ size }), className)}
-      {...props}
-    />
+    <input ref={ref} type={type ?? "text"} className={cx(input({ size }), className)} {...props} />
   )
 })
 

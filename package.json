@@ -1,31 +1,39 @@
 {
-  "name": "otibo-ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@otibo/ui",
+  "version": "0.1.1",
   "type": "module",
   "description": "otibo Design System UI library (Base UI + Panda CSS)",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "license": "MIT",
+  "author": "penne / ぺんね",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penne-0505/otibo-ui.git"
+  },
+  "homepage": "https://github.com/penne-0505/otibo-ui#readme",
+  "bugs": {
+    "url": "https://github.com/penne-0505/otibo-ui/issues"
+  },
+  "keywords": ["design-system", "react", "panda-css", "base-ui", "ui-library", "otibo"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./preset": {
-      "types": "./preset.ts",
-      "import": "./preset.ts"
-    },
-    "./styles.css": "./src/index.css"
+      "types": "./dist/preset.d.ts",
+      "import": "./dist/preset.js",
+      "require": "./dist/preset.cjs"
+    }
   },
-  "sideEffects": [
-    "*.css",
-    "./src/index.css"
-  ],
-  "files": [
-    "src",
-    "preset.ts",
-    "panda.config.ts"
-  ],
+  "sideEffects": false,
+  "files": ["dist", "README.md", "LICENSE.txt"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "panda codegen",
     "panda": "panda",
@@ -35,20 +43,27 @@
     "ladle:build": "ladle build",
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
-    "lint:fix": "biome check --write ."
+    "lint:fix": "biome check --write .",
+    "build": "tsup && panda ship --outfile dist/panda.buildinfo.json",
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@base-ui-components/react": "^1.0.0-beta.6",
-    "gen-interface-jp": "^0.6.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@pandacss/dev": "^0.53.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
+    "@base-ui-components/react": "^1.0.0-beta.6",
     "@biomejs/biome": "^1.9.4",
     "@ladle/react": "^5.0.3",
     "@pandacss/dev": "^0.53.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "gen-interface-jp": "^0.6.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.3"
   }
 }

@@ -34,8 +34,10 @@ export const cardRecipe = defineSlotRecipe({
       bg: "surface",
       color: "fg",
       borderRadius: "lg",
+      // quiet register(standard・段階化なし)だが tier=medium:card は大きな object が
+      // 物理的に浮く(hover lift)ため、button/input の light より一段重い尺で substantial に。
       transitionProperty: "box-shadow, transform, background-color",
-      transitionDuration: "base",
+      transitionDuration: "medium",
       transitionTimingFunction: "standard",
     },
     header: {
@@ -117,9 +119,9 @@ export const cardRecipe = defineSlotRecipe({
       //     title 組と body 組が「同じカテゴリの連続」に見えてしまう
       // 2026-06-12: md gap を 2.5rem(Field 間 gap の 1.67×)に逃がして、
       // title 組と body 組を別カテゴリとして明示する。lg も同様に 2.5rem。
-      sm: { root: { padding: "5", gap: "5" } },   // 1.25rem
-      md: { root: { padding: "6", gap: "10" } },  // padding 1.5rem / gap 2.5rem
-      lg: { root: { padding: "8", gap: "10" } },  // padding 2rem / gap 2.5rem
+      sm: { root: { padding: "5", gap: "5" } }, // 1.25rem
+      md: { root: { padding: "6", gap: "10" } }, // padding 1.5rem / gap 2.5rem
+      lg: { root: { padding: "8", gap: "10" } }, // padding 2rem / gap 2.5rem
     },
     interactive: {
       true: {

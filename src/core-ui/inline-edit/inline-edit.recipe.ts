@@ -27,8 +27,14 @@ export const inlineEditRecipe = defineSlotRecipe({
     read: {
       // button reset:周囲 text と完全に同化させる
       display: "block",
-      width: "100%",
-      margin: "0",
+      // 文頭を周囲の通常文に揃える(bleed パターン):hover/focus 領域の余白として
+      // paddingInline は残しつつ、同量の負 marginInline で外へ逃がす。これで「文字の
+      // 開始位置」は親の content 端と一致し、hover bg は左右に 1 段はみ出す。
+      // width は負 margin 分を足し戻して row を満たす(border-box)。
+      // marginInline -2 = -0.5rem ×2 / 足し戻し +1rem = spacing.2 ×2。
+      width: "calc(100% + 1rem)",
+      marginBlock: "0",
+      marginInline: "-2",
       paddingInline: "2",
       paddingBlock: "1",
       bg: "transparent",
@@ -64,8 +70,10 @@ export const inlineEditRecipe = defineSlotRecipe({
     },
     edit: {
       display: "block",
-      width: "100%",
-      margin: "0",
+      // read と同じ bleed。read↔edit で文頭が動かず、かつ周囲文と揃う。
+      width: "calc(100% + 1rem)",
+      marginBlock: "0",
+      marginInline: "-2",
       paddingInline: "2",
       paddingBlock: "1",
       // edit signature:bottom underline。bg-tint は使わず、純粋に下線で

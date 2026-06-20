@@ -13,11 +13,7 @@ export const Default: Story = () => {
   const [value, setValue] = useState("penne")
   return (
     <div style={{ maxWidth: 360 }}>
-      <InlineEdit
-        value={value}
-        onCommit={setValue}
-        aria-label="表示名を編集"
-      />
+      <InlineEdit value={value} onCommit={setValue} aria-label="表示名を編集" />
     </div>
   )
 }
@@ -123,9 +119,7 @@ function SettingRow({ label, children }: SettingRowProps) {
         gap: "1rem",
       }}
     >
-      <div style={{ color: "var(--colors-fg-muted)", fontSize: "0.875rem" }}>
-        {label}
-      </div>
+      <div style={{ color: "var(--colors-fg-muted)", fontSize: "0.875rem" }}>{label}</div>
       <div>{children}</div>
     </div>
   )

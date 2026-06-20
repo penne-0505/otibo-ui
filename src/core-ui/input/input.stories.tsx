@@ -31,10 +31,6 @@ export const Disabled: Story = () => (
 // 4. Error — aria-invalid="true" で inset shadow が赤系に。
 export const Error: Story = () => (
   <div style={{ maxWidth: 360 }}>
-    <Input
-      defaultValue="claude@otibo"
-      aria-invalid="true"
-      placeholder="メールアドレス"
-    />
+    <Input defaultValue="claude@otibo" aria-invalid="true" placeholder="メールアドレス" />
   </div>
 )
