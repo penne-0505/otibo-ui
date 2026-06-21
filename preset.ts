@@ -36,6 +36,20 @@ import { tabsRecipe } from "./src/core-ui/tabs/tabs.recipe"
 import { toastRecipe } from "./src/core-ui/toast/toast.recipe"
 import { toggleRecipe } from "./src/core-ui/toggle/toggle.recipe"
 import { tooltipRecipe } from "./src/core-ui/tooltip/tooltip.recipe"
+import { asideRecipe } from "./src/editorial-ui/aside/aside.recipe"
+import { calloutRecipe } from "./src/editorial-ui/callout/callout.recipe"
+import { pageContainerRecipe } from "./src/editorial-ui/container/container.recipe"
+import { displayRecipe } from "./src/editorial-ui/display/display.recipe"
+import { eyebrowRecipe } from "./src/editorial-ui/eyebrow/eyebrow.recipe"
+import { figureRecipe } from "./src/editorial-ui/figure/figure.recipe"
+import { footnoteRecipe } from "./src/editorial-ui/footnote/footnote.recipe"
+import { hairlineRecipe } from "./src/editorial-ui/hairline/hairline.recipe"
+import { ledeRecipe } from "./src/editorial-ui/lede/lede.recipe"
+import { proseRecipe } from "./src/editorial-ui/prose/prose.recipe"
+import { pullRecipe } from "./src/editorial-ui/pull/pull.recipe"
+import { sectionMarkRecipe } from "./src/editorial-ui/section-mark/section-mark.recipe"
+import { sectionRecipe } from "./src/editorial-ui/section/section.recipe"
+import { signOffRecipe } from "./src/editorial-ui/sign-off/sign-off.recipe"
 
 /**
  * otibo Design System — Panda CSS preset.
@@ -130,11 +144,33 @@ export const otiboPreset = definePreset({
           "20": { value: "5rem" },
           "24": { value: "6rem" },
           full: { value: "100%" },
+          // editorial layout grammar ── Container/Prose/Lede の maxWidth 帯。
+          // 数値ではなく「役割」で参照する(maxWidth="prose" で「本文の読みやすい幅」が出る)。
+          //
+          //   prose   = 本文段組(60-65ch 相当)。Gen Interface JP の和文 1em=18px で
+          //             45ch ≒ 36rem は欧文より広く取らないと和文 1 行で 22 字に届かない。
+          //             34rem(≒ 36 字)を採用、漢字混じり 1 行で 30-36 字の読み心地。
+          //   lede    = 導入文 / 説明文(prose よりやや狭く、肩が立つ)。
+          //   narrow  = small content card / 設定パネル幅。
+          //   container = section の基本幅。display 帯を 64rem の枠内に置く目安。
+          //   wide    = bleed しない最大幅。図版・table の主領域。
+          //   bleed は max-width:none を直接書く(token にしない=「枠を持たない」明示)。
+          prose: { value: "34rem" }, // 544px ─ 本文段組
+          lede: { value: "28rem" }, // 448px ─ 導入文
+          narrow: { value: "40rem" }, // 640px
+          container: { value: "64rem" }, // 1024px
+          wide: { value: "80rem" }, // 1280px
         },
         fontSizes: {
           // hierarchy gap from md (body 18px) to xl (title 28px) ≈ 1.55×。
           // 20px は editorial / brand surface 用の領域で、app の core-ui Card
           // 本文としては大きすぎたため 18px に戻した(目視判定)。
+          //
+          // 4xl 以上は editorial-ui の display 帯。app surface には乗らない。
+          // 倍率は 4xl(64)→5xl(88)≈1.38× → 6xl(120)≈1.36× → 7xl(168)≈1.40×。
+          // 倍率を 1.55(本文側)より小さく取るのは、display 帯では一段ごとの
+          // jump を「圧倒する飛躍」ではなく「同じ声の音量差」として聞かせるため。
+          // 同じ書体(Gen Interface JP)で 12px から 168px まで貫通させる。
           xs: { value: "0.75rem" }, // 12px
           sm: { value: "0.875rem" }, // 14px
           base: { value: "1rem" }, // 16px — description / lead
@@ -142,7 +178,11 @@ export const otiboPreset = definePreset({
           lg: { value: "1.5rem" }, // 24px — secondary heading
           xl: { value: "1.75rem" }, // 28px — card title
           "2xl": { value: "2.25rem" }, // 36px — section heading
-          "3xl": { value: "3rem" }, // 48px — display heading
+          "3xl": { value: "3rem" }, // 48px — display heading (app surface 上限)
+          "4xl": { value: "4rem" }, // 64px — editorial section title
+          "5xl": { value: "5.5rem" }, // 88px — editorial display
+          "6xl": { value: "7.5rem" }, // 120px — hero display
+          "7xl": { value: "10.5rem" }, // 168px — overscale (1 word / 1 字)
         },
         fontWeights: {
           regular: { value: "400" },
@@ -150,6 +190,12 @@ export const otiboPreset = definePreset({
           semibold: { value: "600" },
         },
         lineHeights: {
+          // display ── editorial 大型タイポ(4xl 以上)用の bound 値。
+          // 1.0 は単行 display、1.08 は 2-3 行で組む display を「呼吸」させる値。
+          // 大型タイポでは leading を絶対値より tighter に取らないと「文字列」ではなく
+          // 「段組」に読めてしまう ── タイトルは塊として読ませる。
+          display: { value: "1.0" }, // single line, hero / overscale
+          displaySnug: { value: "1.08" }, // 2-3 line display (section title)
           tight: { value: "1.25" }, // headings(card title 等)
           snug: { value: "1.4" }, // description / dense text
           body: { value: "1.49" }, // body / prose。
@@ -165,10 +211,16 @@ export const otiboPreset = definePreset({
           relaxed: { value: "1.7" }, // 余白を取りたい場面(未使用)
         },
         letterSpacings: {
+          // display は overscale で「字面の距離」が大きく見える ── 大型では字を寄せる、
+          // 小型では字を離す、という活字慣習に従い、tight より一段詰めた値を用意する。
+          // -0.02em は 6xl/7xl 帯で「字どうしが噛み合う」点を目視で詰めた値。
+          display: { value: "-0.02em" },
           tight: { value: "-0.01em" },
           normal: { value: "0" },
           wide: { value: "0.005em" }, // warm-structure microadjustment
           wider: { value: "0.02em" },
+          // eyebrow / kicker / signoff 等の小型 caps 表示で字間を意図的に広げる。
+          eyebrow: { value: "0.08em" },
         },
         // opacity: disabled 表現の token 化。grammar §Disabled As Quiet Surface
         // 参照。otibo は disabled を「surface 全体が静かになる」と定義し、
@@ -374,6 +426,17 @@ export const otiboPreset = definePreset({
         link: linkRecipe,
         separator: separatorRecipe,
         scrollArea: scrollAreaRecipe,
+        // editorial-ui ── 単一 recipe(slot を持たないもの)
+        // recipe 名は pageContainer(panda の built-in pattern `container` と衝突するため。
+        // JSX / 公開 API は `Container` のまま)
+        pageContainer: pageContainerRecipe,
+        section: sectionRecipe,
+        display: displayRecipe,
+        eyebrow: eyebrowRecipe,
+        lede: ledeRecipe,
+        prose: proseRecipe,
+        hairline: hairlineRecipe,
+        aside: asideRecipe,
       },
       slotRecipes: {
         accordion: accordionRecipe,
@@ -405,11 +468,36 @@ export const otiboPreset = definePreset({
         select: selectRecipe,
         slider: sliderRecipe,
         toast: toastRecipe,
+        // editorial-ui ── slot を持つ recipe
+        sectionMark: sectionMarkRecipe,
+        figure: figureRecipe,
+        pull: pullRecipe,
+        callout: calloutRecipe,
+        footnote: footnoteRecipe,
+        signOff: signOffRecipe,
       },
     },
   },
 
   globalCss: {
+    // ─────────────────────────────────────────────────────────────
+    // editorial 視覚言語の常駐レイヤー(Phase 2A)
+    //
+    // コンセプトビジュアル(otibo 理念 §4)に従い、surface には「素材が居る」
+    // 状態を常駐させる。紙・石・布のいずれとも同定できない繊細な grain を、
+    // SVG turbulence(fractalNoise)で生成し、Section の ::before で
+    // overlay として被せる(mix-blend-mode: multiply、opacity 控えめ)。
+    //
+    // ・--paper-grain ── 全 Section が共有する grain pattern(URL data SVG)
+    // ・baseFrequency 0.85 = 中粒度の grain(0.5=粗、1.5=細かい)
+    // ・stitchTiles="stitch" で repeat 時の境目を消す
+    //
+    // 自走しない: この grain は静的。motion は Phase 2D(微揺らぎ)で追加する。
+    // ─────────────────────────────────────────────────────────────
+    ":root": {
+      "--paper-grain":
+        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>\")",
+    },
     "html, body, #root": {
       bg: "bg",
       color: "fg",

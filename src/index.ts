@@ -149,3 +149,72 @@ export type { SliderProps } from "./core-ui/slider"
 
 // Toast
 export { Toast } from "./core-ui/toast"
+
+// ──────────────────────────────────────────────────────────────
+// editorial-ui ── editorial / brand surface 用の primitive 群。
+// core-ui は「操作」、editorial-ui は「魅せる」。同じ preset 上で
+// 同じ token grammar を共有するが、用途が異なる ─ 編集物的レイアウト、
+// 大型タイポ、章送り、額装、引用、署名 等。
+// ──────────────────────────────────────────────────────────────
+
+// Container
+export { Container } from "./editorial-ui/container"
+export type { ContainerProps } from "./editorial-ui/container"
+
+// Section
+export { Section } from "./editorial-ui/section"
+export type { SectionProps } from "./editorial-ui/section"
+
+// Display
+export { Display } from "./editorial-ui/display"
+export type { DisplayProps } from "./editorial-ui/display"
+
+// Eyebrow
+export { Eyebrow } from "./editorial-ui/eyebrow"
+export type { EyebrowProps } from "./editorial-ui/eyebrow"
+
+// Lede
+export { Lede } from "./editorial-ui/lede"
+export type { LedeProps } from "./editorial-ui/lede"
+
+// SectionMark
+export { SectionMark } from "./editorial-ui/section-mark"
+export type { SectionMarkProps } from "./editorial-ui/section-mark"
+
+// Prose
+export { Prose } from "./editorial-ui/prose"
+export type { ProseProps } from "./editorial-ui/prose"
+
+// Hairline
+export { Hairline } from "./editorial-ui/hairline"
+export type { HairlineProps } from "./editorial-ui/hairline"
+
+// Figure
+export {
+  Figure,
+  FigureRoot,
+  FigureFrame,
+  FigureCaption,
+  FigureNumber,
+} from "./editorial-ui/figure"
+export type { FigureRootProps } from "./editorial-ui/figure"
+
+// Pull
+export { Pull, PullRoot, PullBody, PullAttribution } from "./editorial-ui/pull"
+export type { PullRootProps } from "./editorial-ui/pull"
+
+// Aside
+export { Aside } from "./editorial-ui/aside"
+export type { AsideProps } from "./editorial-ui/aside"
+
+// Callout
+export { Callout, CalloutRoot, CalloutTitle, CalloutBody } from "./editorial-ui/callout"
+export type { CalloutRootProps } from "./editorial-ui/callout"
+
+// Footnote
+export { Footnote, FootnoteRoot, FootnoteItem } from "./editorial-ui/footnote"
+export type { FootnoteRootProps, FootnoteItemProps } from "./editorial-ui/footnote"
+
+// SignOff
+export { SignOff, SignOffRoot, SignOffMark, SignOffDetail } from "./editorial-ui/sign-off"
+export type { SignOffRootProps } from "./editorial-ui/sign-off"
