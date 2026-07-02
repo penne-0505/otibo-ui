@@ -379,32 +379,6 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 - **QA**: None
 - **Verification**: None
 
-### Pkg-Doc-7: [Doc] README fix — include canonical + RSC flat export note
-
-- **Title**: [Doc] README fix — include canonical + RSC flat export note
-- **ID**: Pkg-Doc-7
-- **Priority**: P1
-- **Size**: XS
-- **Risk**: Low
-- **Area**: Pkg
-- **Dependencies**: []
-- **Goal**: README の consumer 向け Usage 例が、Approach 4 の正本設定および Next.js App Router RSC consumer での安全な import 形式を反映している。
-- **Acceptance Criteria**:
-  - AC-001: README の `panda.config.ts` 設定例の `include` が `./node_modules/@otibo/ui/dist/panda.buildinfo.json`(Approach 4 canonical、1 ファイル)になっており、古い `./node_modules/@otibo/ui/dist/**/*.{js,cjs}` glob 表記は除去されている。
-  - AC-002: README の Usage 例(`<Field.Root>` 等の namespace 形式)に、Next.js App Router の Server Component で使う場合は **flat export(`FieldRoot` 等)を推奨** する短い note が併記されている(理由:RSC bundler が namespace property を Client Manifest で resolve できず build 失敗する)。
-  - AC-003: 既存の Usage 例自体は残す(SPA / Pages Router / その他 consumer での namespace 形式は引き続き有効)。
-- **Steps**:
-  1. [ ] README の `include` 表記を Approach 4 canonical に置換する
-  2. [ ] Usage 例に RSC flat export note を追加する
-  3. [ ] markdownlint / 表記揺れを軽く確認
-- **Description**:
-  - Context: `otibo-dev/App-Feat-11`(`@otibo/ui@0.1.1` の consumer 統合)で発見。README の include glob は古い表記(canonical Intent §I は buildinfo 1 ファイル)。また Usage 例(`<Field.Root>`)を Next.js App Router の Server Component から使うと build が落ちる。
-  - Notes: `Size XS / Risk Low` のため Plan / Intent / QA は不要。**Pkg-Enhance-8 と関連**(本 task は README の Usage 例 1 箇所と include 表記の修正のみ、namespace export の全体設計判断は別 task)。
-- **Plan**: None
-- **Intent**: None
-- **QA**: None
-- **Verification**: None
-
 ### Pkg-Enhance-8: [Enhance] Namespace export design — docs note vs deprecate
 
 - **Title**: [Enhance] Namespace export design — docs note vs deprecate
@@ -413,7 +387,7 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 - **Size**: M
 - **Risk**: Medium
 - **Area**: Pkg
-- **Dependencies**: [Pkg-Doc-7]
+- **Dependencies**: [](Pkg-Doc-7 完了済み・解決)
 - **Goal**: namespace export を持つ全 component(`Field` / `Card` / `Tabs` / `Toast` / `Combobox` / `NavigationMenu` / `Menu` / `Popover` / `PreviewCard` / `Dialog` / `Tooltip` / `Pagination` / `Accordion` / `Breadcrumb` / `SegmentedControl` / `Select` / `Table` / `RadioGroup` / `ChipGroup` / `NumberField` / `InlineEdit` / `Slider` / `ScrollArea` / 等)について、Next.js App Router RSC consumer に対する正しい使い方が library として明確に方針付けされている(docs note で済ますか、namespace 自体を deprecate するか)。
 - **Acceptance Criteria**:
   - AC-001: namespace export を持つ全 component が棚卸しされ、`_docs/intent/Pkg/namespace-export-design/decision.md` に方針(docs note / deprecate / 維持の選択 + 理由)が記録されている。

@@ -28,6 +28,23 @@ export function Example() {
 }
 ```
 
+**Next.js App Router(Server Components)で使う場合は flat export を推奨します。**
+RSC bundler は namespace property(`Field.Label` 等)を Client Manifest で正しく resolve できず build が失敗するためです。
+
+```tsx
+import { FieldRoot, FieldLabel, FieldInput, FieldDescription } from "@otibo/ui"
+
+export function Example() {
+  return (
+    <FieldRoot>
+      <FieldLabel>メールアドレス</FieldLabel>
+      <FieldInput type="email" />
+      <FieldDescription>仕事用のアドレスをご利用ください</FieldDescription>
+    </FieldRoot>
+  )
+}
+```
+
 提供 component の一覧は `dist/index.d.ts` の export を参照(button / link / input / field / card / select / combobox / toggle / chip / segmented-control / tabs / breadcrumb / pagination / navigation-menu / dialog / popover / menu / tooltip / preview-card / table / toast / checkbox / switch / radio / number-field / badge / avatar / icon / accordion / inline-edit / spinner / skeleton / progress / meter / slider / scroll-area / separator)。
 
 ### Panda preset
@@ -42,8 +59,9 @@ export default defineConfig({
   presets: [otiboPreset],
   include: [
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@otibo/ui/dist/**/*.{js,cjs}",
+    "./node_modules/@otibo/ui/dist/panda.buildinfo.json",
   ],
+  importMap: "@otibo/ui/styled-system",
   // 重要: runtime / manager 描画される component は static usage 検出されないため、
   // staticCss で常時 emit する必要がある(toast / pagination / combobox 等)。
   staticCss: {
