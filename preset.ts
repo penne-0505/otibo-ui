@@ -36,20 +36,6 @@ import { tabsRecipe } from "./src/core-ui/tabs/tabs.recipe"
 import { toastRecipe } from "./src/core-ui/toast/toast.recipe"
 import { toggleRecipe } from "./src/core-ui/toggle/toggle.recipe"
 import { tooltipRecipe } from "./src/core-ui/tooltip/tooltip.recipe"
-import { asideRecipe } from "./src/editorial-ui/aside/aside.recipe"
-import { calloutRecipe } from "./src/editorial-ui/callout/callout.recipe"
-import { pageContainerRecipe } from "./src/editorial-ui/container/container.recipe"
-import { displayRecipe } from "./src/editorial-ui/display/display.recipe"
-import { eyebrowRecipe } from "./src/editorial-ui/eyebrow/eyebrow.recipe"
-import { figureRecipe } from "./src/editorial-ui/figure/figure.recipe"
-import { footnoteRecipe } from "./src/editorial-ui/footnote/footnote.recipe"
-import { hairlineRecipe } from "./src/editorial-ui/hairline/hairline.recipe"
-import { ledeRecipe } from "./src/editorial-ui/lede/lede.recipe"
-import { proseRecipe } from "./src/editorial-ui/prose/prose.recipe"
-import { pullRecipe } from "./src/editorial-ui/pull/pull.recipe"
-import { sectionMarkRecipe } from "./src/editorial-ui/section-mark/section-mark.recipe"
-import { sectionRecipe } from "./src/editorial-ui/section/section.recipe"
-import { signOffRecipe } from "./src/editorial-ui/sign-off/sign-off.recipe"
 
 /**
  * otibo Design System — Panda CSS preset.
@@ -426,17 +412,6 @@ export const otiboPreset = definePreset({
         link: linkRecipe,
         separator: separatorRecipe,
         scrollArea: scrollAreaRecipe,
-        // editorial-ui ── 単一 recipe(slot を持たないもの)
-        // recipe 名は pageContainer(panda の built-in pattern `container` と衝突するため。
-        // JSX / 公開 API は `Container` のまま)
-        pageContainer: pageContainerRecipe,
-        section: sectionRecipe,
-        display: displayRecipe,
-        eyebrow: eyebrowRecipe,
-        lede: ledeRecipe,
-        prose: proseRecipe,
-        hairline: hairlineRecipe,
-        aside: asideRecipe,
       },
       slotRecipes: {
         accordion: accordionRecipe,
@@ -468,36 +443,11 @@ export const otiboPreset = definePreset({
         select: selectRecipe,
         slider: sliderRecipe,
         toast: toastRecipe,
-        // editorial-ui ── slot を持つ recipe
-        sectionMark: sectionMarkRecipe,
-        figure: figureRecipe,
-        pull: pullRecipe,
-        callout: calloutRecipe,
-        footnote: footnoteRecipe,
-        signOff: signOffRecipe,
       },
     },
   },
 
   globalCss: {
-    // ─────────────────────────────────────────────────────────────
-    // editorial 視覚言語の常駐レイヤー(Phase 2A)
-    //
-    // コンセプトビジュアル(otibo 理念 §4)に従い、surface には「素材が居る」
-    // 状態を常駐させる。紙・石・布のいずれとも同定できない繊細な grain を、
-    // SVG turbulence(fractalNoise)で生成し、Section の ::before で
-    // overlay として被せる(mix-blend-mode: multiply、opacity 控えめ)。
-    //
-    // ・--paper-grain ── 全 Section が共有する grain pattern(URL data SVG)
-    // ・baseFrequency 0.85 = 中粒度の grain(0.5=粗、1.5=細かい)
-    // ・stitchTiles="stitch" で repeat 時の境目を消す
-    //
-    // 自走しない: この grain は静的。motion は Phase 2D(微揺らぎ)で追加する。
-    // ─────────────────────────────────────────────────────────────
-    ":root": {
-      "--paper-grain":
-        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>\")",
-    },
     "html, body, #root": {
       bg: "bg",
       color: "fg",

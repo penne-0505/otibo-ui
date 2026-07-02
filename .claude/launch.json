@@ -4,8 +4,8 @@
     {
       "name": "ladle",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["ladle", "serve", "--port", "61234"],
-      "port": 61234
+      "runtimeArgs": ["ladle", "serve"],
+      "autoPort": true
     }
   ]
 }
