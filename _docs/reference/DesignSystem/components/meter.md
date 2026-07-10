@@ -46,7 +46,7 @@ slot recipe(Panda)+ Base UI Meter 委譲。slot は `root` / `label` / `value` /
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/meter`(Root / Label / Value / Track / Indicator)。
+- **primitive** ── `@base-ui/react/meter`(Root / Label / Value / Track / Indicator)。
 - **role** ── `meter`(`aria-valuenow` / `aria-valuemin` / `aria-valuemax` 自動配線)。
 - **SR 読み上げ** ── 「42/100」(Progress の「読み込み中、42%」と区別される)。
 - **HTML 要素** ── `<meter>` 要素を内部で使う(`<progress>` とは別)。
@@ -98,5 +98,5 @@ Progress と同じ。reduced-motion で `transitionProperty: none`。
 - 別 feedback:Spinner / Skeleton / Toast
 - 隣接:Slider(同 track grain、対話 control 版)
 - 住み分け:`component-selection-map.md` §feedback(Progress vs Meter の一行ルール)
-- 詳細:`src/core-ui/meter/meter.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/meter`
+- 詳細:`src/core-ui/meter/meter.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/meter`
 - memory:[[otibo-ds-progress]](Meter の決定全般)

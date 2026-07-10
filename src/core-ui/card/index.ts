@@ -1,3 +1,4 @@
+export type { CardRootProps } from "./card"
 export {
   Card,
   CardBody,
@@ -7,4 +8,3 @@ export {
   CardRoot,
   CardTitle,
 } from "./card"
-export type { CardRootProps } from "./card"

@@ -1,8 +1,7 @@
-import { Toggle as BaseToggle } from "@base-ui-components/react/toggle"
-import { ToggleGroup as BaseToggleGroup } from "@base-ui-components/react/toggle-group"
-import { forwardRef } from "react"
-
+import { Toggle as BaseToggle } from "@base-ui/react/toggle"
+import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group"
 import { chip } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

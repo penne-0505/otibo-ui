@@ -1,7 +1,6 @@
-import { NavigationMenu as BaseNav } from "@base-ui-components/react/navigation-menu"
-import { forwardRef } from "react"
-
+import { NavigationMenu as BaseNav } from "@base-ui/react/navigation-menu"
 import { navigationMenu } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { cx, mergeClass } from "../../lib/utils"
 import { Icon } from "../icon/icon"
 
@@ -35,7 +34,7 @@ const NavRoot = forwardRef<HTMLElement, BaseNav.Root.Props>(function NavRoot(
   return <BaseNav.Root ref={ref} className={className} {...props} />
 })
 
-const NavList = forwardRef<HTMLDivElement, BaseNav.List.Props>(function NavList(
+const NavList = forwardRef<HTMLUListElement, BaseNav.List.Props>(function NavList(
   { className, ...props },
   ref,
 ) {
@@ -43,7 +42,7 @@ const NavList = forwardRef<HTMLDivElement, BaseNav.List.Props>(function NavList(
   return <BaseNav.List ref={ref} className={mergeClass(slot.list, className)} {...props} />
 })
 
-const NavItem = forwardRef<HTMLDivElement, BaseNav.Item.Props>(function NavItem(
+const NavItem = forwardRef<HTMLLIElement, BaseNav.Item.Props>(function NavItem(
   { className, ...props },
   ref,
 ) {

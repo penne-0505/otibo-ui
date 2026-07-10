@@ -14,7 +14,7 @@ related_prs: []
 
 ## Overview
 
-otibo-ui には**「同じことをする」 component が複数ある**(例:選択を表す Toggle / Chip / SegmentedControl / Switch / Checkbox / Radio、6 種類)。同じ primitive(`@base-ui-components/react/toggle`)の上に **otibo が用途と視覚イディオムで positioning を分けて**いるためで、消費側にとっては「いつ何を使うか」が即決できる必要がある。
+otibo-ui には**「同じことをする」 component が複数ある**(例:選択を表す Toggle / Chip / SegmentedControl / Switch / Checkbox / Radio、6 種類)。同じ primitive(`@base-ui/react/toggle`)の上に **otibo が用途と視覚イディオムで positioning を分けて**いるためで、消費側にとっては「いつ何を使うか」が即決できる必要がある。
 
 この文書は **本丸 UI を組み立てるときに開く ledger**。同カテゴリ内の住み分けを表と決定木で整理する。recipe の決定の **why** は `token-semantic-usage-map.md` / `motion-grammar.md` を、a11y/primitive の選定は `headless-primitive-policy.md` を参照。
 

@@ -51,7 +51,7 @@ list 下端に `border.subtle` の hairline が引かれ、tab の 2px 下線が
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/tabs`(Tabs.Root / Tabs.List / Tabs.Tab / Tabs.Panel)。
+- **primitive** ── `@base-ui/react/tabs`(Tabs.Root / Tabs.List / Tabs.Tab / Tabs.Panel)。
 - **role** ── `tablist` / `tab` / `tabpanel`(WAI-ARIA Authoring Practices)。
 - **keyboard** ── ←→ で tab 移動、Home / End で先頭 / 末尾、Enter / Space で activate(Base UI 既定)。`activationMode='manual'` で focus と activate を分離可能。
 - **focus ring** ── `outline: 2px solid accent`(box-shadow ではない、tab 行が overflow したときの fragment 化を避ける)。
@@ -107,5 +107,5 @@ reduced-motion:panel の `animationName: none`(opacity 即時、内容だけ替�
 - 上位:`principles.md` §5(accent precious、active 時のみ accent)、§7(motion = 状態の証言、slide の嘘を避ける)、§14(Base UI 一本)
 - 兄弟:SegmentedControl(同 primitive 別 positioning、滑る pill)、NavigationMenu(ページ遷移版)、Breadcrumb(現在地表示)
 - 住み分け:`component-selection-map.md` §navigation
-- 詳細:`src/core-ui/tabs/tabs.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/tabs`
+- 詳細:`src/core-ui/tabs/tabs.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/tabs`
 - memory:[[otibo-ds-progress]](Tabs の決定全般)

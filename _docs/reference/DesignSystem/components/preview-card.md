@@ -60,7 +60,7 @@ Trigger wrapper は `cloneElement` で **className を auto-merge** ── consu
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/preview-card`(Root / Trigger / Portal / Positioner / Popup)。
+- **primitive** ── `@base-ui/react/preview-card`(Root / Trigger / Portal / Positioner / Popup)。
 - **role** ── popup は `dialog`(non-modal)。preview は補足表示で focus を奪わない。
 - **Trigger 構造** ── `<a>` を `render` 推奨(URL がある場合 ── ネイティブ link で a11y / kb / SEO すべて自然)。
 - **keyboard** ── Tab で trigger に focus すると open(focus も hover の trigger になる)、Esc で close、Enter で render した `<a>` の遷移。
@@ -127,6 +127,6 @@ reduced-motion:opacity snap だけなので travel を抜く必要なし。
 - 兄弟(treatment B 同文法):Link / Breadcrumb crumb / NavigationMenu Trigger
 - 別 overlay:Tooltip(hint chip)、Popover(click + paper)、Menu(action list scale)、NavigationMenu(共有 Viewport)
 - 住み分け:`component-selection-map.md` §overlay(Tooltip vs Popover vs PreviewCard)
-- 詳細:`src/core-ui/preview-card/preview-card.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/preview-card`
+- 詳細:`src/core-ui/preview-card/preview-card.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/preview-card`
 - motion 文法:`motion-grammar.md` §Overlay Appearance、§Hover-Open Asymmetric Delay、§Image Load Fade
 - memory:[[otibo-ds-progress]](PreviewCard の決定全般)

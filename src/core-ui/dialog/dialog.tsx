@@ -1,7 +1,6 @@
-import { Dialog as BaseDialog } from "@base-ui-components/react/dialog"
-import { forwardRef } from "react"
-
+import { Dialog as BaseDialog } from "@base-ui/react/dialog"
 import { dialog } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

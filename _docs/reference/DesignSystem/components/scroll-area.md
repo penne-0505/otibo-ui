@@ -50,7 +50,7 @@ slot recipe(Panda)+ Base UI ScrollArea 委譲。slot は `root` / `viewport` / `
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/scroll-area`(Root / Viewport / Scrollbar / Thumb)。
+- **primitive** ── `@base-ui/react/scroll-area`(Root / Viewport / Scrollbar / Thumb)。
 - **role** ── ネイティブ scrollbar の機能を保持(Base UI が viewport の overflow を維持、SR は通常の overflow 領域として扱う)。
 - **keyboard** ── ネイティブ(↑↓ / PageUp/Down / Home/End)、focus 可能要素を viewport 内に置けば tab で移動。
 - **touch** ── viewport の overflow が auto なので touch scroll はネイティブ(scrollbar は overlay 装飾)。
@@ -100,5 +100,5 @@ quiet 領域。thumb 色の hover transition だけが motion。自走の脈動�
 - 隣接:Dialog(body 内 scroll)、Menu / Select / Combobox(popup 内 scroll、ただし overflow auto で十分な場合は ScrollArea を使わない)
 - 別構造:Separator(純構造)
 - 住み分け:`component-selection-map.md` §structure
-- 詳細:`src/core-ui/scroll-area/scroll-area.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/scroll-area`
+- 詳細:`src/core-ui/scroll-area/scroll-area.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/scroll-area`
 - memory:[[otibo-ds-progress]](ScrollArea の決定全般)

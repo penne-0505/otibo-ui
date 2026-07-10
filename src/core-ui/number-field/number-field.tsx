@@ -1,7 +1,6 @@
-import { NumberField as BaseNumberField } from "@base-ui-components/react/number-field"
-import { forwardRef } from "react"
-
+import { NumberField as BaseNumberField } from "@base-ui/react/number-field"
 import { numberField } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 import { Icon } from "../icon/icon"
 

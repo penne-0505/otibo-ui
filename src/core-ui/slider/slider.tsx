@@ -1,7 +1,6 @@
-import { Slider as BaseSlider } from "@base-ui-components/react/slider"
-import { forwardRef } from "react"
-
+import { Slider as BaseSlider } from "@base-ui/react/slider"
 import { slider } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

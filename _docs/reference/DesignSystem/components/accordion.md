@@ -61,7 +61,7 @@ slot recipe(Panda)+ Base UI Accordion 委譲。slot は `root` / `item` / `heade
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/accordion`(Root / Item / Header / Trigger / Panel)。
+- **primitive** ── `@base-ui/react/accordion`(Root / Item / Header / Trigger / Panel)。
 - **role** ── trigger は `button` + `aria-expanded` + `aria-controls`、panel は `region` + `aria-labelledby`(Base UI 担保)。
 - **keyboard** ── ↑↓ で trigger 間移動、Enter / Space で toggle、Home / End で先頭 / 末尾(Base UI 担保)。
 - **header** ── `<h3>` などで wrap することを消費側が判断(Accordion.Header は `<div>` 既定、margin 0 で見出し階層に乗せる)。
@@ -116,6 +116,6 @@ reduced-motion:`transition: none`(height も瞬時で切替、travel を抜く)�
 - 上位:`principles.md` §1(構造区切りは hairline 最小)、§7(motion = 状態の証言、height reveal)、§14(Base UI 一本)
 - 別 container:Card(浮く paper)、Dialog(画面を奪う)
 - 住み分け:`component-selection-map.md` §container
-- 詳細:`src/core-ui/accordion/accordion.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/accordion`
+- 詳細:`src/core-ui/accordion/accordion.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/accordion`
 - motion 文法:`motion-grammar.md` §Deferred Decisions(Accordion の height reveal 検証)
 - memory:[[otibo-ds-progress]](Accordion の決定全般)

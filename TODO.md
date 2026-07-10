@@ -2,7 +2,7 @@
 
 ## 0. System Metadata
 
-- **Current Max ID**: `Next ID No: 10` (タスク追加時にインクリメント必須)
+- **Current Max ID**: `Next ID No: 11` (タスク追加時にインクリメント必須)
 - **ID Source of Truth**: このファイルの `Next ID No` 行が、全プロジェクトにおける唯一の ID 発番元である。
 
 ## 1. Task Lifecycle (State Machine)
@@ -403,32 +403,6 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 - **Description**:
   - Context: `otibo-dev/App-Feat-11` で `<Field.Root>` が Next.js App Router の RSC で build 失敗することを発見(Intent §Discovered)。同じ pattern を持つ component が多数あり、library 設計として方針を統一する必要がある。`flat export` は既に各 component で同居しているので、API breaking なしで docs だけ整える選択肢もある。
   - Notes: Plan / Intent / QA 必須(Size M, Risk Medium)。namespace deprecate を選ぶと breaking change(major / 大きめ minor bump)。docs note のみなら patch。Pkg-Doc-7 が完了して README の最小 fix が出てから本 task に取りかかる(`Pkg-Doc-7` を Dependencies に置く)。
-- **Plan**: None
-- **Intent**: None
-- **QA**: None
-- **Verification**: None
-
-### Pkg-Chore-9: [Chore] Evaluate Base UI peer caret behaviour (beta → rc drift)
-
-- **Title**: [Chore] Evaluate Base UI peer caret behaviour (beta → rc drift)
-- **ID**: Pkg-Chore-9
-- **Priority**: P2
-- **Size**: XS
-- **Risk**: Low
-- **Area**: Pkg
-- **Dependencies**: []
-- **Goal**: `@otibo/ui` の `peerDependencies."@base-ui-components/react"` が consumer 側で意図通りの version を install させるか確認され、必要なら range 表記を更新する判断が記録されている。
-- **Acceptance Criteria**:
-  - AC-001: `^1.0.0-beta.6` が consumer の `npm install` で `^1.0.0-rc.0` を install する挙動(pre-release tag またぎ)が npm semver の仕様として正しいか、Base UI の breaking change rule(beta / rc 間)と整合しているかが確認されている。
-  - AC-002: 結論(現状維持 / range を `>=1.0.0-beta.6 <2` 等に変更 / `^1.0.0-rc.0` に bump)が `_docs/intent` または本 task の Description に記録されている。
-  - AC-003: range を変更する場合、`@otibo/ui` の patch / minor bump 戦略が明記されている(peer 変更は consumer に影響、breaking としての評価)。
-- **Steps**:
-  1. [ ] `npm semver` ドキュメントと Base UI 公式 release notes を確認
-  2. [ ] otibo-ui の Button / Field 以外の component(Toast / Dialog / Combobox 等)で rc.0 の hook signature 差異が顕在化するか軽く検証(必要なら Ladle で)
-  3. [ ] 判断を記録、必要なら別 follow-up task を起票
-- **Description**:
-  - Context: `otibo-dev/App-Feat-11` で peer `^1.0.0-beta.6` のはずが Base UI `^1.0.0-rc.0` が install された(npm の semver caret が pre-release tag またぎを許容する場合あり)。本 task ではまず評価のみ。range 変更は別 task に切り出して可。
-  - Notes: `Size XS / Risk Low` のため Plan / Intent / QA は不要。range を変更する場合は Risk が上がるので、本 task は **評価のみで停止**し、変更は別 task で起票する設計。
 - **Plan**: None
 - **Intent**: None
 - **QA**: None

@@ -1,7 +1,6 @@
-import { Avatar as BaseAvatar } from "@base-ui-components/react/avatar"
-import { forwardRef } from "react"
-
+import { Avatar as BaseAvatar } from "@base-ui/react/avatar"
 import { avatar } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

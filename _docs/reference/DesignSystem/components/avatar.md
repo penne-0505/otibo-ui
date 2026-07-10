@@ -48,7 +48,7 @@ Base UI Avatar が **Image を loaded のときだけマウント**する(load �
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/avatar`(Root / Image / Fallback)。
+- **primitive** ── `@base-ui/react/avatar`(Root / Image / Fallback)。
 - **image alt** ── 必須(消費側で人物名や説明を渡す、装飾的 avatar なら alt=""を avoid して fallback に任せる)。
 - **fallback として icon を入れる時** ── icon は `aria-hidden`(SR には alt が読まれる、または前後の context で人物が伝わる)。
 - **list の中の avatar** ── 文脈で「ユーザー名 + avatar」と読まれるよう、消費側で order を組む。
@@ -111,6 +111,6 @@ reduced-motion:`animationName: none`(opacity 即時)。
 - 兄弟(identity):Badge / Icon
 - 隣接:Card(avatar を含む list / grid)
 - 住み分け:`component-selection-map.md` §identity / §data
-- 詳細:`src/core-ui/avatar/avatar.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/avatar`
+- 詳細:`src/core-ui/avatar/avatar.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/avatar`
 - motion 文法:`motion-grammar.md` §Image Load Fade(decode 待ちの処方)
 - memory:[[otibo-ds-progress]](Avatar の決定全般)

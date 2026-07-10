@@ -54,7 +54,7 @@ slot recipe(Panda)+ Base UI Radio / RadioGroup 委譲。slot は `root` / `indic
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/radio` + `@base-ui-components/react/radio-group`。
+- **primitive** ── `@base-ui/react/radio` + `@base-ui/react/radio-group`。
 - **role** ── `radio` / `radiogroup`。
 - **keyboard** ── ↑↓ / ←→ で radio 間移動、Space で select(Base UI 担保)。
 - **focus management** ── group 内で focus は **checked radio**(または先頭)に着く(WAI-ARIA Radio Group ネイティブ)。
@@ -116,6 +116,6 @@ reduced-motion:transition `none`(travel を抜き、状態は即時)。
 - 兄弟(直接操作家系):Checkbox / Switch(段階的 motion 共有)
 - 親 wrapper:Field(label / description / error)
 - 住み分け:`component-selection-map.md` §選択
-- 詳細:`src/core-ui/radio/radio.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/radio` / `radio-group`
+- 詳細:`src/core-ui/radio/radio.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/radio` / `radio-group`
 - motion 文法:`motion-grammar.md` §Staged Motion(段階的 motion の家系)
 - memory:[[otibo-ds-progress]](Radio の決定全般)

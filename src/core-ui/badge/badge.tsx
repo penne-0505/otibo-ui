@@ -1,7 +1,6 @@
-import { type HTMLAttributes, forwardRef } from "react"
-
 import { cx } from "@otibo/ui/styled-system/css"
 import { badge } from "@otibo/ui/styled-system/recipes"
+import { forwardRef, type HTMLAttributes } from "react"
 
 type BadgeVariants = NonNullable<Parameters<typeof badge>[0]>
 

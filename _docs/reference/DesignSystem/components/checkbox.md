@@ -49,7 +49,7 @@ native checkbox は `border-radius` が GNOME/GTK で効かない等の環境依
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/checkbox`(Root / Indicator)。
+- **primitive** ── `@base-ui/react/checkbox`(Root / Indicator)。
 - **role** ── `checkbox`(Base UI 担保)。
 - **keyboard** ── Space で toggle。
 - **focus ring** ── `outline`(inset shadow と layering 干渉しないため)。
@@ -113,6 +113,6 @@ reduced-motion:stroke transition を `none`(状態は即時、描画演出だけ
 - 兄弟(直接操作家系):Switch(thumb 横断 trick)、Radio(dot bloom)
 - 親 wrapper:Field(label / description / error)
 - 住み分け:`component-selection-map.md` §選択(Checkbox vs Switch vs Toggle 等)
-- 詳細:`src/core-ui/checkbox/checkbox.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/checkbox`
+- 詳細:`src/core-ui/checkbox/checkbox.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/checkbox`
 - motion 文法:`motion-grammar.md` §Staged Motion(段階的 motion の正典)
 - memory:[[otibo-ds-progress]](Checkbox の決定全般)

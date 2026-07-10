@@ -50,7 +50,7 @@ trigger 隣接で表示位置(top / bottom / left / right)は Base UI が自動 
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/popover`(Root / Trigger / Portal / Positioner / Popup / Title / Description / Close)。
+- **primitive** ── `@base-ui/react/popover`(Root / Trigger / Portal / Positioner / Popup / Title / Description / Close)。
 - **role** ── `dialog`(modal=false、focus-trap 無し)。**Popup 内で focus を握る**が、外側 click や Esc で close できる(scroll-lock もしない、modal でないため)。
 - **outside-dismiss / Esc** ── 外側 click / Esc で close(Base UI 既定)。
 - **title / description の ARIA 関連付け** ── `aria-labelledby` / `aria-describedby` が自動接続。
@@ -109,6 +109,6 @@ reduced-motion:そもそも opacity だけなので travel を抜く必要なし
 - 上位:`principles.md` §1(構造区切りは余白、枠線最小)、§6(影の規範、lift 単一)、§10(overlay 出現 motion 分岐 ── 単一焦点は opacity-only)、§14(Base UI 一本)
 - 兄弟(別 overlay):Tooltip(同 motion 文法、hover transient)、Dialog(scrim + heavy)、Menu(list 型 scale)、PreviewCard(hover + treatment B)
 - 住み分け:`component-selection-map.md` §overlay
-- 詳細:`src/core-ui/popover/popover.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/popover`
+- 詳細:`src/core-ui/popover/popover.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/popover`
 - motion 文法:`motion-grammar.md` §Overlay Appearance(scale-on-text snap の回避基準)
 - memory:[[otibo-ds-progress]](Popover の決定全般)、[[shadow-banding-fix]](popover の影バンド調査の歴史)

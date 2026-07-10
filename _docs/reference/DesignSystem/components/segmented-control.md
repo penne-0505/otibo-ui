@@ -49,7 +49,7 @@ Tabs primitive を借りるが、UX は **設定の一択**(Tabs のような vi
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/tabs`(Tabs.Root / Tabs.List / Tabs.Indicator / Tabs.Tab)を流用。
+- **primitive** ── `@base-ui/react/tabs`(Tabs.Root / Tabs.List / Tabs.Indicator / Tabs.Tab)を流用。
 - **role** ── Tabs primitive 由来で `tablist` / `tab` role が付く。**設定の一択** という意味では完璧な ARIA 表現ではないが(`radiogroup` がより正確)、Base UI Tabs の indicator 自動追従 + keyboard nav が grain として勝るためこの妥協を取った。**SR は「tab」と読む**が、選択 → 即時反映の挙動が radio と同じなので致命的な不整合は出ない。
 - **keyboard** ── ↑↓ / ←→ で item 移動、Space / Enter で select(Base UI Tabs ネイティブ)。
 - **focus ring** ── item で `outline: 2px solid accent`(native OS focus ring を `outline: none` で抑止した上で `_focusVisible` で出す)。
@@ -108,6 +108,6 @@ reduced-motion:indicator の `transitionProperty: none`(travel を抜く)。色�
 - 上位:`principles.md` §6(影の規範、物理表現の凹み)、§7(motion = 状態の証言)、§14(Base UI 一本)
 - 兄弟:Toggle(四角 toolbar)、Chip(角丸 フィルタ)、Radio(form 一択)、Tabs(同 primitive 別 positioning)
 - 住み分け:`component-selection-map.md` §選択(三役の表)、§navigation(Tabs との対比)
-- 詳細:`src/core-ui/segmented-control/segmented-control.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/tabs`
+- 詳細:`src/core-ui/segmented-control/segmented-control.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/tabs`
 - motion 文法:`motion-grammar.md` §Two-Axis(色 trick 不要の検証)、§Reduced Motion
 - memory:[[otibo-ds-progress]](SegmentedControl の決定全般)

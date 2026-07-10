@@ -1,7 +1,6 @@
-import { Tabs as BaseTabs } from "@base-ui-components/react/tabs"
-import { forwardRef } from "react"
-
+import { Tabs as BaseTabs } from "@base-ui/react/tabs"
 import { segmentedControl } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

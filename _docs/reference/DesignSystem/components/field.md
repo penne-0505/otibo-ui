@@ -50,7 +50,7 @@ Field 自身は state を持たない(state は内側の control が持ち、Bas
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/field`(`Field.Root` / `Field.Label` / `Field.Description` / `Field.Error` / `Field.Validity`)。
+- **primitive** ── `@base-ui/react/field`(`Field.Root` / `Field.Label` / `Field.Description` / `Field.Error` / `Field.Validity`)。
 - **自動配線** ── label↔control の `for` / `id`、help↔control の `aria-describedby`、error 表示時の `aria-invalid` を Field primitive が引き受ける。consumer が手で `htmlFor` / `id` を書く必要がない。
 - **constraint validation** ── ネイティブ HTML validation(`required` / `pattern` / `type=email` 等)と統合。`Field.Validity` で `validity.valueMissing` 等にアクセスできる。
 - **error メッセージ** ── 表示と同時に SR に通知される(`role="alert"` 相当の挙動を Base UI が担保)。
@@ -95,5 +95,5 @@ Field 自身は motion を持たない(layout だけ)。state 遷移の motion �
 - 内部 control:Input / Select / Combobox / NumberField / InlineEdit / Switch / Checkbox / RadioGroup
 - 親:Form / Card(form 全体の構造、Field 複数を並べる文脈)
 - 住み分け:`component-selection-map.md` §form 値入力
-- 詳細:`src/core-ui/field/field.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/field`
+- 詳細:`src/core-ui/field/field.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/field`
 - memory:[[otibo-ds-progress]](Field の決定全般)

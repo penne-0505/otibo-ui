@@ -1,7 +1,6 @@
-import { Progress as BaseProgress } from "@base-ui-components/react/progress"
-import { forwardRef } from "react"
-
+import { Progress as BaseProgress } from "@base-ui/react/progress"
 import { progress } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

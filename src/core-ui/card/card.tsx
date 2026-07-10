@@ -1,8 +1,7 @@
-import { mergeProps } from "@base-ui-components/react/merge-props"
-import { useRender } from "@base-ui-components/react/use-render"
-import { type HTMLAttributes, forwardRef } from "react"
-
+import { mergeProps } from "@base-ui/react/merge-props"
+import { useRender } from "@base-ui/react/use-render"
 import { card } from "@otibo/ui/styled-system/recipes"
+import { forwardRef, type HTMLAttributes } from "react"
 import { cx } from "../../lib/utils"
 
 type CardVariants = NonNullable<Parameters<typeof card>[0]>
@@ -77,6 +76,5 @@ export const Card = {
   Footer: CardFooter,
 }
 
-export { CardRoot, CardHeader, CardTitle, CardDescription, CardBody, CardFooter }
-
 export type { CardRootProps }
+export { CardBody, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle }

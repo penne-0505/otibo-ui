@@ -1,6 +1,6 @@
 {
   "name": "@otibo/ui",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
   "description": "otibo Design System UI library (Base UI + Panda CSS)",
   "license": "MIT",
@@ -13,7 +13,14 @@
   "bugs": {
     "url": "https://github.com/penne-0505/otibo-ui/issues"
   },
-  "keywords": ["design-system", "react", "panda-css", "base-ui", "ui-library", "otibo"],
+  "keywords": [
+    "design-system",
+    "react",
+    "panda-css",
+    "base-ui",
+    "ui-library",
+    "otibo"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -30,40 +37,51 @@
     }
   },
   "sideEffects": false,
-  "files": ["dist", "README.md", "LICENSE.txt"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.txt"
+  ],
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "prepare": "panda codegen",
+    "prepare": "panda",
     "panda": "panda",
     "panda:codegen": "panda codegen",
     "panda:watch": "panda --watch",
     "ladle": "ladle serve",
-    "ladle:build": "ladle build",
+    "ladle:build": "node scripts/verify-ladle-build.mjs",
+    "ladle:build:raw": "ladle build",
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "build": "tsup && panda ship --outfile dist/panda.buildinfo.json",
-    "prepublishOnly": "npm run typecheck && npm run lint && npm run build"
+    "check": "npm run typecheck && npm run lint && npm run build && npm run ladle:build",
+    "audit": "npm audit --audit-level=high",
+    "prepublishOnly": "npm run check"
   },
   "peerDependencies": {
-    "@base-ui-components/react": "^1.0.0-beta.6",
-    "@pandacss/dev": "^0.53.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "@base-ui/react": "^1.6.0",
+    "@pandacss/dev": "^1.11.4",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@base-ui-components/react": "^1.0.0-beta.6",
-    "@biomejs/biome": "^1.9.4",
+    "@base-ui/react": "^1.6.0",
+    "@biomejs/biome": "^2.5.3",
     "@ladle/react": "^5.0.3",
-    "@pandacss/dev": "^0.53.7",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
+    "@pandacss/dev": "^1.11.4",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "gen-interface-jp": "^0.6.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "tsup": "^8.5.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.9.3",
+    "vite": "^6.4.3"
   }
 }

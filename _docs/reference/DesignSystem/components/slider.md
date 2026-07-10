@@ -55,7 +55,7 @@ slot recipe(Panda)+ Base UI Slider 委譲。slot は `root` / `value` / `control
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/slider`(Root / Value / Control / Track / Indicator / Thumb)。
+- **primitive** ── `@base-ui/react/slider`(Root / Value / Control / Track / Indicator / Thumb)。
 - **role** ── thumb は `slider`(`aria-valuenow` / `aria-valuemin` / `aria-valuemax` 自動配線)。
 - **keyboard** ── ↑↓ ←→ で step、PageUp/Down で largeStep、Home / End で min/max(Base UI ネイティブ)。
 - **focus management** ── thumb が tab-stop、focus visible で scale + accent ring。
@@ -119,6 +119,6 @@ reduced-motion:fill / thumb position の transition を `none`(travel 抜き、s
 - 隣接(同 track grain):Progress / Meter
 - 別 form 入力:NumberField(離散値 / stepper)
 - 住み分け:`component-selection-map.md` §form 値入力 / §選択
-- 詳細:`src/core-ui/slider/slider.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/slider`
+- 詳細:`src/core-ui/slider/slider.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/slider`
 - motion 文法:`motion-grammar.md` §Two-Axis(switch trick 不要の検証)
 - memory:[[otibo-ds-progress]](Slider の決定全般)

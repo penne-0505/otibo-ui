@@ -63,7 +63,7 @@ active / selected の二段運用は Select と完全に同じ。**searchIcon �
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/combobox`(Root / Control / Input / Icon / Portal / Positioner / Popup / List / Item / ItemIndicator / Empty)。
+- **primitive** ── `@base-ui/react/combobox`(Root / Control / Input / Icon / Portal / Positioner / Popup / List / Item / ItemIndicator / Empty)。
 - **role** ── control が `combobox` role、popup が `listbox`、item が `option`(WAI-ARIA Combobox Authoring Practices)。
 - **keyboard** ── ネイティブ(↑↓ で highlight 移動、Enter で select、Esc で close、type to filter、Backspace で削除)── すべて Base UI が担保。
 - **searchIcon `pointer-events: none`** ── icon が input の click をブロックしない(ユーザーは icon の上を click しても input が focus される)。
@@ -120,5 +120,5 @@ icon の chevron 反転は別 transition(`transform`、`quick` / `standard`)─�
 - 兄弟:Select(視覚言語共有、検索なし版)、Input(同じ受け皿)、Menu(同じ popup motion)
 - 親 wrapper:Field(label / description / error と組む)
 - 住み分け:`component-selection-map.md` §form 値入力(Select vs Combobox)
-- 詳細:`src/core-ui/combobox/combobox.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/combobox`
+- 詳細:`src/core-ui/combobox/combobox.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/combobox`
 - memory:[[otibo-ds-progress]](Combobox の決定全般)

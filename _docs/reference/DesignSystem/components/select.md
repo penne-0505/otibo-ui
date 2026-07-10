@@ -57,7 +57,7 @@ Trigger wrapper で `alignItemWithTrigger=false` を既定として渡してい�
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/select`(Root / Trigger / Value / Icon / Portal / Positioner / Popup / Item / ItemIndicator)。
+- **primitive** ── `@base-ui/react/select`(Root / Trigger / Value / Icon / Portal / Positioner / Popup / Item / ItemIndicator)。
 - **role** ── trigger は `combobox` role(WAI-ARIA Authoring Practices)、popup は `listbox`、item は `option`。
 - **keyboard** ── ネイティブ(↑↓ で highlight 移動、Enter で select、Esc で close、type-ahead で先頭一致 jump)── すべて Base UI が担保。
 - **focus management** ── open 時に highlight が selected(または先頭)に着く、close で trigger に戻る ── Base UI 既定。
@@ -118,5 +118,5 @@ reduced-motion:travel(scale)を抜く ── 通常が opacity 即時なので�
 - 兄弟:Input(同じ受け皿)、Combobox(同じ視覚言語 + 検索)、Menu(同じ popup motion、別 role)
 - 親 wrapper:Field(label / description / error と組む)
 - 住み分け:`component-selection-map.md` §form 値入力、§overlay
-- 詳細:`src/core-ui/select/select.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/select`
+- 詳細:`src/core-ui/select/select.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/select`
 - memory:[[otibo-ds-progress]](Select の決定全般)

@@ -1,7 +1,6 @@
-import { Checkbox as BaseCheckbox } from "@base-ui-components/react/checkbox"
-import { forwardRef } from "react"
-
+import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox"
 import { checkbox } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 import { Icon } from "../icon/icon"
 

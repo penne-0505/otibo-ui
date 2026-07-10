@@ -44,7 +44,7 @@ state を持たない静的構造。
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/separator`(role 担保)。
+- **primitive** ── `@base-ui/react/separator`(role 担保)。
 - **role** ── `separator`(decorative なら `aria-hidden`、消費側で判断)。
 - **orientation 属性** ── Base UI が `aria-orientation="horizontal/vertical"` 自動配線。
 
@@ -87,5 +87,5 @@ state を持たない静的構造。
 - 別構造:ScrollArea(scroll、純構造の別役)
 - 内蔵 hairline を持つ component(Separator を打ち直さない):Menu(divider)、Accordion(項目間)、Table(行間)、Tabs(list 下端)、Breadcrumb(item separator は `::before` で別途)
 - 住み分け:`component-selection-map.md` §structure
-- 詳細:`src/core-ui/separator/separator.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/separator`
+- 詳細:`src/core-ui/separator/separator.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/separator`
 - memory:[[otibo-ds-progress]](Separator の決定全般)

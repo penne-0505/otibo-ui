@@ -1,0 +1,61 @@
+name: Package CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22, 24]
+        react-version: ["18.3.1", "19.2.7"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Select React 18 compatibility dependencies
+        if: matrix.react-version == '18.3.1'
+        run: >-
+          npm install --no-save --package-lock=false --ignore-scripts
+          react@18.3.1 react-dom@18.3.1
+          @types/react@18.3.31 @types/react-dom@18.3.7
+
+      - name: Regenerate Panda artifacts
+        run: npm run panda
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build package
+        run: npm run build
+
+      - name: Build and verify Ladle stories
+        run: npm run ladle:build
+
+      - name: Audit high severity vulnerabilities
+        run: npm run audit
+
+      - name: Inspect publish artifact
+        if: matrix.node-version == 24 && matrix.react-version == '19.2.7'
+        run: npm pack --dry-run --ignore-scripts --json

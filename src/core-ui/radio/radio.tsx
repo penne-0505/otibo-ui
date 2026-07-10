@@ -1,9 +1,8 @@
-import { Radio as BaseRadio } from "@base-ui-components/react/radio"
-import { RadioGroup as BaseRadioGroup } from "@base-ui-components/react/radio-group"
-import { forwardRef } from "react"
-
+import { Radio as BaseRadio } from "@base-ui/react/radio"
+import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group"
 import { css } from "@otibo/ui/styled-system/css"
 import { radio } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

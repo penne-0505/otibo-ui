@@ -1,7 +1,6 @@
-import { ScrollArea as BaseScrollArea } from "@base-ui-components/react/scroll-area"
-import { forwardRef } from "react"
-
+import { ScrollArea as BaseScrollArea } from "@base-ui/react/scroll-area"
 import { scrollArea } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

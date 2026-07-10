@@ -54,7 +54,7 @@ slot recipe(Panda)+ Base UI NumberField 委譲。slot は `group` / `input` / `b
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/number-field`(Root / Group / Input / Increment / Decrement / ScrubArea)。
+- **primitive** ── `@base-ui/react/number-field`(Root / Group / Input / Increment / Decrement / ScrubArea)。
 - **role** ── input は `spinbutton`(WAI-ARIA、`aria-valuenow` / `aria-valuemin` / `aria-valuemax` で状態)。
 - **keyboard** ── ↑↓ で step、PageUp/Down で largeStep、Home/End で min/max(Base UI 担保)。
 - **wheel scrub** ── input にホイールを当てて値を上下(Base UI 機能)。
@@ -109,5 +109,5 @@ quiet 領域(Input と同じ家系)。値の変化(数字が増減する)は **�
 - 兄弟(同 field 言語):Input / Select / Combobox(受け皿 grain 共有)
 - 親 wrapper:Field(label / description / error)
 - 住み分け:`component-selection-map.md` §form 値入力
-- 詳細:`src/core-ui/number-field/number-field.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/number-field`
+- 詳細:`src/core-ui/number-field/number-field.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/number-field`
 - memory:[[otibo-ds-progress]](NumberField の決定全般)

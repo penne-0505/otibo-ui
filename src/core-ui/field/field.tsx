@@ -1,7 +1,6 @@
-import { Field as BaseField } from "@base-ui-components/react/field"
-import { forwardRef } from "react"
-
+import { Field as BaseField } from "@base-ui/react/field"
 import { field, input } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 type FieldVariants = NonNullable<Parameters<typeof field>[0]>
@@ -71,5 +70,5 @@ export const Field = {
   Error: FieldError,
 }
 
-export { FieldRoot, FieldLabel, FieldInput, FieldDescription, FieldError }
 export type { FieldInputProps }
+export { FieldDescription, FieldError, FieldInput, FieldLabel, FieldRoot }

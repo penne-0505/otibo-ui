@@ -1,12 +1,13 @@
 ---
 title: "Plan: Initial public publish of @otibo/ui"
-status: active
+status: superseded
 draft_status: n/a
 created_at: 2026-06-21
-updated_at: 2026-06-21
+updated_at: 2026-07-10
 references:
   - "_docs/intent/Pkg/initial-public-publish/decision.md"
   - "_docs/qa/Pkg/initial-public-publish/test-plan.md"
+  - "_docs/plan/Pkg/dependency-baseline-upgrade/plan.md"
 related_issues: []
 related_prs: []
 ---

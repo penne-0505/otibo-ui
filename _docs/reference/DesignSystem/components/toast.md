@@ -56,7 +56,7 @@ toast.add({
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/toast`(Provider / Viewport / Root / Title / Description / Close など)。
+- **primitive** ── `@base-ui/react/toast`(Provider / Viewport / Root / Title / Description / Close など)。
 - **role** ── viewport は `region`(SR が「toast region」と読む)、root は `status` / `alert`(優先度で分岐、Base UI が握る)。
 - **focus management** ── 通常は focus を奪わない(transient な通知の grain)。hover / focus(Tab で viewport に入る)で expanded、Esc で close 可能。
 - **swipe-to-dismiss** ── touch / pointer で横スワイプして dismiss(Base UI が `data-swiping` 供給、CSS は transition を切って指追従)。
@@ -114,7 +114,7 @@ reduced-motion:`transitionProperty: opacity` だけ残す(translateY 含む全 t
 - 上位:`principles.md` §6(影の規範、lift 単一)、§7(motion = 状態の証言)、§9(描画パイプライン罠、scale-on-text)、§14(Base UI 一本)
 - 別 overlay:Dialog(scrim + 中央 fix)、Popover(trigger 隣接 click)、Tooltip(hover transient)
 - 住み分け:`component-selection-map.md` §feedback、§overlay(Toast vs Dialog)
-- 詳細:`src/core-ui/toast/toast.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/toast`
+- 詳細:`src/core-ui/toast/toast.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/toast`
 - Panda 罠:[[panda-dynamic-component-staticcss]](runtime 描画 component の staticCss 必須)
 - motion 文法:`motion-grammar.md` §Overlay Appearance(scale-on-text snap)、§Reduced Motion
 - memory:[[otibo-ds-progress]](Toast の決定全般)

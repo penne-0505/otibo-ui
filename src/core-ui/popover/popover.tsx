@@ -1,7 +1,6 @@
-import { Popover as BasePopover } from "@base-ui-components/react/popover"
-import { forwardRef } from "react"
-
+import { Popover as BasePopover } from "@base-ui/react/popover"
 import { popover } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

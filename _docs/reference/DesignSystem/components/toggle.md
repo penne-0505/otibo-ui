@@ -50,7 +50,7 @@ ToggleGroup は `gap: 1` の `inline-flex` 行。Toggle 本体は icon-only で�
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/toggle`(単体)/ `@base-ui-components/react/toggle-group`(group)。
+- **primitive** ── `@base-ui/react/toggle`(単体)/ `@base-ui/react/toggle-group`(group)。
 - **role** ── Toggle 単体は `button` + `aria-pressed`(押し込み状態)、ToggleGroup は role を持たず内側の Toggle が `aria-checked` 相当を担う(Base UI の実装)。
 - **keyboard** ── Space / Enter で toggle、ToggleGroup 排他モードでは ↑↓ で移動も可。
 - **focus ring** ── `outline: 2px solid accent`(box-shadow ではない、inline-flex 要素なので outline で安全)。
@@ -103,5 +103,5 @@ quiet 領域(`motion-grammar.md` §Two-Axis)。on/off の切替は色だけで�
 - 上位:`principles.md` §4(白 on 色)、§5(accent precious)、§13(control floor の例外)、§14(Base UI 一本)
 - 兄弟:Chip(同 primitive 別見た目)、SegmentedControl(同分類 連結 pill)、Switch(永続 on/off)、Checkbox(フォーム複数選択)、Badge(押せない静的版)
 - 住み分け:`component-selection-map.md` §選択(三役の表)、§data(Badge との対比)
-- 詳細:`src/core-ui/toggle/toggle.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/toggle` / `toggle-group`
+- 詳細:`src/core-ui/toggle/toggle.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/toggle` / `toggle-group`
 - memory:[[otibo-ds-progress]](Toggle の決定全般)

@@ -50,7 +50,7 @@ slot recipe(Panda)+ Base UI Progress 委譲。slot は `root` / `label` / `value
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/progress`(Root / Label / Value / Track / Indicator)。
+- **primitive** ── `@base-ui/react/progress`(Root / Label / Value / Track / Indicator)。
 - **role** ── `progressbar`(`aria-valuenow` / `aria-valuemin` / `aria-valuemax` / `aria-valuetext` 自動配線)。
 - **SR 読み上げ** ── 「読み込み中、42%」など progressbar の標準読み上げ。
 - **Label と Value の関連付け** ── Progress.Root の `aria-labelledby` 自動配線。
@@ -109,5 +109,5 @@ reduced-motion:`transitionProperty: none`(値更新は瞬時で切替、travel �
 - 別 feedback:Spinner(不定 wait)、Skeleton(content 到着前)
 - 隣接:Slider(同 track grain、対話 control 版)
 - 住み分け:`component-selection-map.md` §feedback(Progress vs Meter の一行ルール)
-- 詳細:`src/core-ui/progress/progress.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/progress`
+- 詳細:`src/core-ui/progress/progress.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/progress`
 - memory:[[otibo-ds-progress]](Progress の決定全般)

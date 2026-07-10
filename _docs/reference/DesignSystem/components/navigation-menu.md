@@ -68,7 +68,7 @@ trigger 付き item は dropdown を持ち、trigger なし item は直リンク
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/navigation-menu`(Root / List / Item / Trigger / Icon / Content / Portal / Positioner / Viewport / Link)。
+- **primitive** ── `@base-ui/react/navigation-menu`(Root / List / Item / Trigger / Icon / Content / Portal / Positioner / Viewport / Link)。
 - **role** ── List は `menubar`、Item は `menuitem`、dropdown 内は WAI-ARIA Navigation Menu pattern に従う(Base UI 担保)。
 - **keyboard** ── tab で trigger 間移動、Enter / Space で open、↑↓ で content 内 link 移動、Esc で close。Base UI ネイティブ。
 - **focus management** ── open で content 先頭 link に focus 移動、close で trigger に戻る。
@@ -127,5 +127,5 @@ reduced-motion:viewport / content の transition を切る(opacity だけ瞬時�
 - 兄弟(treatment B 同文法):Link / Breadcrumb crumb / PreviewCard Trigger
 - 別 grain:Menu(action 群、role 違い)、Tabs(同一画面 content 切替)
 - 住み分け:`component-selection-map.md` §navigation、§overlay
-- 詳細:`src/core-ui/navigation-menu/navigation-menu.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/navigation-menu`
+- 詳細:`src/core-ui/navigation-menu/navigation-menu.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/navigation-menu`
 - memory:[[otibo-ds-progress]](NavigationMenu の決定全般)

@@ -45,7 +45,7 @@ slot recipe(Panda)+ Base UI Tooltip 委譲。slot は `popup`(1 slot のみ)。
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/tooltip`(Provider / Root / Trigger / Portal / Positioner / Popup)。
+- **primitive** ── `@base-ui/react/tooltip`(Provider / Root / Trigger / Portal / Positioner / Popup)。
 - **role** ── `tooltip`(WAI-ARIA Tooltip Authoring Practices)。
 - **trigger との関連付け** ── trigger 要素の `aria-describedby` が popup の id に自動接続。
 - **keyboard** ── Tab で trigger に focus した瞬間に open、Esc で close。focus を popup 内に移さない(transient なので)。
@@ -109,6 +109,6 @@ reduced-motion:opacity quick だけなので travel を抜く必要なし(自然
 - 兄弟(同 motion 文法 opacity-only):Popover / PreviewCard / NavigationMenu Viewport
 - 別 overlay:Popover(click + paper)、Menu(action list scale)、PreviewCard(hover + treatment B trigger + media)
 - 住み分け:`component-selection-map.md` §overlay
-- 詳細:`src/core-ui/tooltip/tooltip.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/tooltip`
+- 詳細:`src/core-ui/tooltip/tooltip.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/tooltip`
 - motion 文法:`motion-grammar.md` §Overlay Appearance、§Hover-Open Asymmetric Delay
 - memory:[[otibo-ds-progress]](Tooltip の決定全般)

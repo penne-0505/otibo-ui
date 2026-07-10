@@ -1,7 +1,6 @@
-import { Tooltip as BaseTooltip } from "@base-ui-components/react/tooltip"
-import { forwardRef } from "react"
-
+import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip"
 import { tooltip } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

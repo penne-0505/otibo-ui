@@ -1,7 +1,6 @@
-import { Meter as BaseMeter } from "@base-ui-components/react/meter"
-import { forwardRef } from "react"
-
+import { Meter as BaseMeter } from "@base-ui/react/meter"
 import { meter } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

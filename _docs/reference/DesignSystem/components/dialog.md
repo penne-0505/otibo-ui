@@ -52,7 +52,7 @@ slot recipe(Panda)+ Base UI Dialog 委譲。slot は `backdrop` / `popup` / `tit
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/dialog`(Root / Trigger / Portal / Backdrop / Popup / Title / Description / Close)。
+- **primitive** ── `@base-ui/react/dialog`(Root / Trigger / Portal / Backdrop / Popup / Title / Description / Close)。
 - **role** ── `dialog`(modal=true で `aria-modal="true"`)。
 - **focus-trap** ── Base UI が自動で focus を popup 内に trap、close で trigger に戻る。
 - **scroll-lock** ── 背景 body の scroll を止める(Base UI 既定)。
@@ -114,6 +114,6 @@ reduced-motion:**8px せり上げ + scale を抜き、センタリングは維�
 - 上位:`principles.md` §6(影の規範、scrim と影の衝突回避)、§7(motion = 状態の証言)、§10(overlay 出現 motion 分岐 ── modal は heavy 上がり)、§14(Base UI 一本)
 - 兄弟(別 overlay):Popover(scrim 無し、trigger 隣接)、Menu(action list)、Toast(自発)
 - 住み分け:`component-selection-map.md` §overlay、§feedback(Alert の不在で Dialog に倒す場面)
-- 詳細:`src/core-ui/dialog/dialog.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/dialog`
+- 詳細:`src/core-ui/dialog/dialog.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/dialog`
 - motion 文法:`motion-grammar.md` §Staged Motion、§Reduced Motion
 - memory:[[otibo-ds-progress]](Dialog の決定全般)

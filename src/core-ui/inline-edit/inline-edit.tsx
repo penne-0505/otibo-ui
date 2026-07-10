@@ -1,16 +1,15 @@
+import { cx } from "@otibo/ui/styled-system/css"
+import { inlineEdit } from "@otibo/ui/styled-system/recipes"
 import {
   type ChangeEvent,
-  type KeyboardEvent,
   forwardRef,
+  type KeyboardEvent,
   useCallback,
   useEffect,
   useId,
   useRef,
   useState,
 } from "react"
-
-import { cx } from "@otibo/ui/styled-system/css"
-import { inlineEdit } from "@otibo/ui/styled-system/recipes"
 
 /**
  * InlineEdit — 読み専用がデフォルト、ユーザーの能動的なアクションで編集モードに

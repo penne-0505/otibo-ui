@@ -1,7 +1,6 @@
-import { Menu as BaseMenu } from "@base-ui-components/react/menu"
-import { forwardRef } from "react"
-
+import { Menu as BaseMenu } from "@base-ui/react/menu"
 import { menu } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

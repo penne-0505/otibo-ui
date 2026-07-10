@@ -1,7 +1,6 @@
-import { Switch as BaseSwitch } from "@base-ui-components/react/switch"
-import { forwardRef } from "react"
-
+import { Switch as BaseSwitch } from "@base-ui/react/switch"
 import { switchRecipe } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

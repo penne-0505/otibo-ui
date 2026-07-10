@@ -242,12 +242,12 @@ related_prs: []
 
 ## 14. headless primitive は Base UI 一本
 
-**Rule.** otibo は **`@base-ui-components/react` を唯一の primitive library として採用**。a11y(focus management / ARIA / keyboard / constraint validation)は Base UI に委譲、見た目は Panda CSS で 100% 自前。
+**Rule.** otibo は **`@base-ui/react` を唯一の primitive library として採用**。a11y(focus management / ARIA / keyboard / constraint validation)は Base UI に委譲、見た目は Panda CSS で 100% 自前。
 
 **Why.** a11y を毎回自前で組み直さないため。primitive 選定の理由 / 採用基準 / 例外プロセスは `headless-primitive-policy.md` 参照。
 
 **How to apply.** 
-- 新 component を作るときはまず Base UI に該当 primitive があるか確認(`node_modules/@base-ui-components/react/<name>/`)。
+- 新 component を作るときはまず Base UI に該当 primitive があるか確認(`node_modules/@base-ui/react/<name>/`)。
 - Base UI に無いもの(Table / Breadcrumb / Pagination / Chip / Spinner / Skeleton 等)は **純 otibo** として組む(`<table>` / `<nav>` / `<button>` の semantic HTML + recipe)。
 - 別の primitive library を入れたくなったら、まず `headless-primitive-policy.md` の例外プロセス。
 

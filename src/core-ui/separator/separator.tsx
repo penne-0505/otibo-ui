@@ -1,7 +1,6 @@
-import { Separator as BaseSeparator } from "@base-ui-components/react/separator"
-import { forwardRef } from "react"
-
+import { Separator as BaseSeparator } from "@base-ui/react/separator"
 import { separator } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**

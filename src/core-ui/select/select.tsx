@@ -1,7 +1,6 @@
-import { Select as BaseSelect } from "@base-ui-components/react/select"
-import { forwardRef } from "react"
-
+import { Select as BaseSelect } from "@base-ui/react/select"
 import { select } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 import { Icon } from "../icon/icon"
 

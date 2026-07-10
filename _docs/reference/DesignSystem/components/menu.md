@@ -54,7 +54,7 @@ slot recipe(Panda)+ Base UI Menu 委譲。slot は `popup` / `item` / `separator
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/menu`(Root / Trigger / Portal / Positioner / Popup / Item / Separator / Group / GroupLabel)。
+- **primitive** ── `@base-ui/react/menu`(Root / Trigger / Portal / Positioner / Popup / Item / Separator / Group / GroupLabel)。
 - **role** ── popup が `menu` role、item が `menuitem`(Select の `listbox` / `option` とは別)。
 - **keyboard** ── ↑↓ で highlight 移動、Enter で activate、Esc で close、type-ahead で先頭一致 jump(Base UI が担保)。
 - **focus management** ── open で先頭 item に highlight、close で trigger に戻る。
@@ -114,6 +114,6 @@ reduced-motion:travel(scale)を抜く ── 通常が opacity 即時なので s
 - 兄弟(同 motion 文法):Select / Combobox(list 型 overlay)
 - 別 overlay:Popover(単一焦点 opacity-only)、Dialog(scrim + heavy)、NavigationMenu(遷移 link、別 role)、Tooltip(hover transient)
 - 住み分け:`component-selection-map.md` §overlay(Menu vs Select、Menu vs NavigationMenu)
-- 詳細:`src/core-ui/menu/menu.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/menu`
+- 詳細:`src/core-ui/menu/menu.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/menu`
 - motion 文法:`motion-grammar.md` §Overlay Appearance、§Deferred Decisions(Menu の予言検証)
 - memory:[[otibo-ds-progress]](Menu の決定全般)

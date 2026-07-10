@@ -1,7 +1,6 @@
-import { Accordion as BaseAccordion } from "@base-ui-components/react/accordion"
-import { forwardRef } from "react"
-
+import { Accordion as BaseAccordion } from "@base-ui/react/accordion"
 import { accordion } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 import { Icon } from "../icon/icon"
 

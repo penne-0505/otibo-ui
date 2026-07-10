@@ -1,4 +1,4 @@
-import { Toast as BaseToast } from "@base-ui-components/react/toast"
+import { Toast as BaseToast } from "@base-ui/react/toast"
 
 import { toast } from "@otibo/ui/styled-system/recipes"
 import { mergeClass } from "../../lib/utils"

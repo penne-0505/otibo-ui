@@ -1,6 +1,5 @@
-import { forwardRef } from "react"
-
 import { link } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { cx } from "../../lib/utils"
 
 /**

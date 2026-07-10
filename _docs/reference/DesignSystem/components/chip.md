@@ -45,7 +45,7 @@ ChipGroup は **`flex-wrap: wrap`** の `inline-flex` 行 ── 項目数が多
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/toggle`(Toggle と同じ)。
+- **primitive** ── `@base-ui/react/toggle`(Toggle と同じ)。
 - **role** ── `button` + `aria-pressed`。複数の Chip は独立に on/off できる(ChipGroup は単なる layout、排他 group ではない)。
 - **keyboard** ── Space / Enter で toggle、Tab で次の chip(group 内で arrow nav はしない、ChipGroup は単なる flex container)。
 - **focus ring** ── `outline` 採用(Toggle と同じ理由、inline-flex の line-break 跨ぎ対応)。
@@ -97,5 +97,5 @@ quiet 領域。on/off の切替は色だけで、translate / scale / 影の遷�
 - 上位:`principles.md` §4(白 on 色)、§5(accent precious)、§6(影の規範、物理表現の小影)、§14(Base UI 一本)
 - 兄弟:Toggle(同 primitive 別見た目)、Badge(押せない静的版)、SegmentedControl(連結 pill 一択)、Checkbox(フォーム複数選択)
 - 住み分け:`component-selection-map.md` §選択(三役の表)、§data(Badge vs Chip vs Toggle)
-- 詳細:`src/core-ui/chip/chip.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/toggle`
+- 詳細:`src/core-ui/chip/chip.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/toggle`
 - memory:[[otibo-ds-progress]](Chip の決定全般)、[[shadow-banding-fix]](off の極小影 処方)

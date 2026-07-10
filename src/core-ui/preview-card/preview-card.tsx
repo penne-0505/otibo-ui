@@ -1,7 +1,6 @@
-import { PreviewCard as BasePreviewCard } from "@base-ui-components/react/preview-card"
-import { cloneElement, forwardRef, isValidElement } from "react"
-
+import { PreviewCard as BasePreviewCard } from "@base-ui/react/preview-card"
 import { previewCard } from "@otibo/ui/styled-system/recipes"
+import { cloneElement, forwardRef, isValidElement } from "react"
 import { cx, mergeClass } from "../../lib/utils"
 
 /**
@@ -27,24 +26,23 @@ import { cx, mergeClass } from "../../lib/utils"
 // さらに `render` 要素に trigger slot の className を **自動 merge** する ── 「hover で何か起こる
 // 要素は予見させるべき」原則を満たすため、消費側が hover style を書かなくても accent + 下線出現の
 // response が乗る(Link の treatment B と同じ文法)。
-const Trigger = forwardRef<
-  React.ComponentRef<typeof BasePreviewCard.Trigger>,
-  BasePreviewCard.Trigger.Props
->(function PreviewCardTrigger({ delay = 350, closeDelay = 100, render, ...props }, ref) {
-  const slot = previewCard()
-  const enhancedRender = isValidElement<{ className?: string }>(render)
-    ? cloneElement(render, { className: cx(slot.trigger, render.props.className) })
-    : render
-  return (
-    <BasePreviewCard.Trigger
-      ref={ref}
-      delay={delay}
-      closeDelay={closeDelay}
-      render={enhancedRender}
-      {...props}
-    />
-  )
-})
+const Trigger = forwardRef<HTMLAnchorElement, BasePreviewCard.Trigger.Props>(
+  function PreviewCardTrigger({ delay = 350, closeDelay = 100, render, ...props }, ref) {
+    const slot = previewCard()
+    const enhancedRender = isValidElement<{ className?: string }>(render)
+      ? cloneElement(render, { className: cx(slot.trigger, render.props.className) })
+      : render
+    return (
+      <BasePreviewCard.Trigger
+        ref={ref}
+        delay={delay}
+        closeDelay={closeDelay}
+        render={enhancedRender}
+        {...props}
+      />
+    )
+  },
+)
 
 interface PopupProps extends BasePreviewCard.Popup.Props {
   side?: BasePreviewCard.Positioner.Props["side"]

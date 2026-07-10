@@ -1,7 +1,6 @@
-import { Combobox as BaseCombobox } from "@base-ui-components/react/combobox"
-import { forwardRef } from "react"
-
+import { Combobox as BaseCombobox } from "@base-ui/react/combobox"
 import { combobox } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { cx, mergeClass } from "../../lib/utils"
 import { Icon } from "../icon/icon"
 

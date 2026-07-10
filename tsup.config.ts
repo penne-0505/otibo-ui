@@ -1,6 +1,6 @@
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import { type Options, defineConfig } from "tsup"
+import { defineConfig, type Options } from "tsup"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -23,7 +23,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
  *
  * external dependencies は consumer が持つ前提で bundle に含めない:
  *   - react / react-dom         (peer、hook 共有のため同 instance 必須)
- *   - @base-ui-components/react (peer、hook 共有のため同 instance 必須)
+ *   - @base-ui/react (peer、hook 共有のため同 instance 必須)
  *   - @pandacss/dev             (peer、preset が runtime で definePreset を呼ぶ)
  *
  * alias:
@@ -43,7 +43,7 @@ const shared: Options = {
   dts: true,
   sourcemap: true,
   target: "es2020",
-  external: ["react", "react-dom", "@base-ui-components/react", "@pandacss/dev"],
+  external: ["react", "react-dom", "@base-ui/react", "@pandacss/dev"],
   esbuildOptions(options) {
     options.alias = {
       ...(options.alias ?? {}),

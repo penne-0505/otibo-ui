@@ -1,3 +1,4 @@
+export type { FieldInputProps } from "./field"
 export {
   Field,
   FieldDescription,
@@ -6,4 +7,3 @@ export {
   FieldLabel,
   FieldRoot,
 } from "./field"
-export type { FieldInputProps } from "./field"

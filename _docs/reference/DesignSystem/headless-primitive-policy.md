@@ -3,10 +3,11 @@ title: otibo-ui Headless Primitive Policy
 status: active
 draft_status: n/a
 created_at: 2026-06-12
-updated_at: 2026-06-12
+updated_at: 2026-07-10
 references:
   - "../../../package.json"
   - "token-semantic-usage-map.md"
+  - "_docs/intent/Pkg/dependency-baseline-upgrade/decision.md"
 related_issues: []
 related_prs: []
 ---
@@ -17,7 +18,7 @@ otibo-ui は **visual UI framework を採用しない**。component の見た目
 
 一方、**accessibility 配線(focus management、ARIA 属性、keyboard 操作、constraint validation 等)は headless primitive library に委譲する**。これは「a11y を毎回自前で組み直さない」という運用判断であり、grammar 上の本質ではない。
 
-primitive library として **`@base-ui-components/react`(Base UI)を採用する**。
+primitive library として **`@base-ui/react`(Base UI)を採用する**。
 
 ## Scope
 
@@ -38,13 +39,13 @@ primitive library として **`@base-ui-components/react`(Base UI)を採用す�
 
 **otibo-ui の component は次の二層で構成する**:
 
-1. **a11y / interaction layer**:Base UI primitive(`@base-ui-components/react/<part>`)
+1. **a11y / interaction layer**:Base UI primitive(`@base-ui/react/<part>`)
 2. **visual layer**:Panda CSS recipe(otibo の grammar 通り)
 
 両層が一つの component の中で組み合わさる。例(現状の Field):
 
 ```tsx
-import { Field as BaseField } from "@base-ui-components/react/field"
+import { Field as BaseField } from "@base-ui/react/field"
 import { field } from "@/styled-system/recipes"
 
 // a11y は Base UI、surface は Panda recipe
@@ -64,7 +65,7 @@ Base UI を採る理由:
 - **React 19 / form actions / suspense との整合**:Material UI チームによる新世代 primitive。Radix の後続として設計され、React 18+ の hooks / suspense / form 連携を前提
 - **API の grammar 一貫性**:Field / Form 系の constraint validation 連携が宣言的(`match` prop で ValidityState に bind 等)。otibo の「state expression」grammar と相性が良い
 - **SSR / RSC 互換**:Next.js App Router での server component 内利用が公式 support
-- **tree-shake 単位**:`@base-ui-components/react/field`、`@base-ui-components/react/checkbox` のように part 単位で import 可能。bundle size が予測しやすい
+- **tree-shake 単位**:`@base-ui/react/field`、`@base-ui/react/checkbox` のように part 単位で import 可能。bundle size が予測しやすい
 - **活発な maintenance**:Material UI チームが本体としてメンテ
 
 Radix UI を採らない理由:
@@ -131,24 +132,24 @@ Base UI を放棄して別 library / 自前実装に切り替える条件:
 
 ## Concrete Bindings Catalog
 
-`package.json` の `dependencies` に `@base-ui-components/react` を持つ。version は major で固定し、minor / patch は同 major 内で追従。
+`package.json` の `peerDependencies` と開発用 `devDependencies` に `@base-ui/react` を持つ。version は major で固定し、minor / patch は同 major 内で追従する。
 
 ```
-"@base-ui-components/react": "^1.0.0-beta.6"
+"@base-ui/react": "^1.6.0"
 ```
 
-(2026-06-12 現在の prototype 期は beta、stable release 後に `^1` 系へ移行)
+2026-07-10 にdeprecated packageからstable packageへ移行した。Base UIはReact 17 / 18 / 19を許可するが、`@otibo/ui` の公開peer contractはReact 18 / 19とする。旧package名を含む移行経緯はdependency baseline intentに記録する。
 
 各 component の import は part 単位:
 
 ```
-@base-ui-components/react/field
-@base-ui-components/react/checkbox
-@base-ui-components/react/radio
+@base-ui/react/field
+@base-ui/react/checkbox
+@base-ui/react/radio
 ...
 ```
 
-barrel import(`@base-ui-components/react` 直下から全部)は避ける(tree-shake のため)。
+barrel import(`@base-ui/react` 直下から全部)は避ける(tree-shake のため)。
 
 ## Verification
 

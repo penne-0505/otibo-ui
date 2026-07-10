@@ -7,7 +7,7 @@ otibo Design System ── Base UI(headless primitive)+ Panda CSS で組まれ�
 ```bash
 npm install @otibo/ui
 # peer dependencies(consumer 側に必要)
-npm install @base-ui-components/react @pandacss/dev react react-dom
+npm install @base-ui/react@^1.6.0 @pandacss/dev@^1.11.4 react react-dom
 ```
 
 ## Usage
@@ -80,22 +80,24 @@ export default defineConfig({
 })
 ```
 
-その後、consumer の build pipeline で `panda codegen` を実行(`prepare` script や `predev` で hook):
+その後、consumer の build pipeline で `panda` を実行し、runtime と CSS を生成します
+(`prepare` script や `predev` で hook):
 
 ```jsonc
 // consumer の package.json
 {
   "scripts": {
-    "prepare": "panda codegen"
+    "prepare": "panda"
   }
 }
 ```
 
 ## Requirements
 
-- **Panda CSS が必須**。Tailwind / CSS modules 等との併用は想定外。
-- **React 18+**(React 19 は未検証)。
-- **TypeScript 5+** 推奨。
+- **Node.js 22+**(開発 baseline は Node.js 24 LTS)。
+- **Panda CSS 1.11+ が必須**。Tailwind / CSS modules 等との併用は想定外。
+- **React 18 / 19**。
+- **TypeScript 5.9** 推奨。
 
 ## License
 

@@ -1,7 +1,6 @@
-import { Tabs as BaseTabs } from "@base-ui-components/react/tabs"
-import { forwardRef } from "react"
-
+import { Tabs as BaseTabs } from "@base-ui/react/tabs"
 import { tabs } from "@otibo/ui/styled-system/recipes"
+import { forwardRef } from "react"
 import { mergeClass } from "../../lib/utils"
 
 /**
@@ -57,4 +56,4 @@ export const Tabs = {
   Panel: TabsPanel,
 }
 
-export { TabsRoot, TabsList, TabsTab, TabsPanel }
+export { TabsList, TabsPanel, TabsRoot, TabsTab }

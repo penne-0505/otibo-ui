@@ -1,6 +1,5 @@
-import { type InputHTMLAttributes, forwardRef } from "react"
-
 import { input } from "@otibo/ui/styled-system/recipes"
+import { forwardRef, type InputHTMLAttributes } from "react"
 import { cx } from "../../lib/utils"
 
 type InputVariants = NonNullable<Parameters<typeof input>[0]>

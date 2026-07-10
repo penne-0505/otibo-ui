@@ -48,7 +48,7 @@ slot recipe(Panda)+ Base UI Switch 委譲。slot は `root`(track)/ `thumb`(2 sl
 
 ## a11y
 
-- **primitive** ── `@base-ui-components/react/switch`(Root / Thumb)。
+- **primitive** ── `@base-ui/react/switch`(Root / Thumb)。
 - **role** ── `switch`(WAI-ARIA Switch、`aria-checked` で状態)。
 - **keyboard** ── Space で toggle。
 - **focus ring** ── `outline: 2px solid accent` + `outlineOffset: 2px`。
@@ -111,6 +111,6 @@ reduced-motion:thumb / root の transition を `none`(travel を抜き、状態�
 - 兄弟(直接操作家系):Checkbox / Radio
 - 親 wrapper:Field(label / description / error)
 - 住み分け:`component-selection-map.md` §選択
-- 詳細:`src/core-ui/switch/switch.recipe.ts`(canonical コメント)、Base UI `@base-ui-components/react/switch`
+- 詳細:`src/core-ui/switch/switch.recipe.ts`(canonical コメント)、Base UI `@base-ui/react/switch`
 - motion 文法:`motion-grammar.md` §Staged Motion / §Exception(switch trick の正典)
 - memory:[[otibo-ds-progress]](Switch の決定全般)
