@@ -1,13 +1,20 @@
 ---
 title: Select
 status: active
-component: src/core-ui/select/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../token-semantic-usage-map.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/select/`
 
 ## Overview
 
@@ -18,20 +25,15 @@ references:
 slot recipe(Panda)+ Base UI Select 委譲。slot は `trigger` / `icon` / `popup` / `item` / `itemIndicator`。
 
 ```tsx
-<Select.Root defaultValue="jst">
-  <Select.Trigger>
-    <Select.Value placeholder="タイムゾーン" />
-    <Select.Icon><Icon name="chevron-down" /></Select.Icon>
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="jst">日本標準時(JST)</Select.Item>
-        <Select.Item value="utc">UTC</Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
+<SelectRoot defaultValue="jst">
+  <SelectTrigger>
+    <SelectValue placeholder="タイムゾーン" />
+  </SelectTrigger>
+  <SelectPopup>
+    <SelectItem value="jst">日本標準時(JST)</SelectItem>
+    <SelectItem value="utc">UTC</SelectItem>
+  </SelectPopup>
+</SelectRoot>
 ```
 
 Trigger wrapper で `alignItemWithTrigger=false` を既定として渡している(Base UI 既定の true は popup が trigger に重なる挙動なので、popup を trigger の**下**に置く otibo 既定に倒した)。

@@ -11,15 +11,15 @@ import { Icon } from "../icon/icon"
  *
  * 使い方:
  *   1) アプリ直下に Provider と Toaster を 1 つずつ置く
- *      <Toast.Provider>
+ *      <ToastProvider>
  *        <App />
- *        <Toast.Toaster />
- *      </Toast.Provider>
+ *        <ToastToaster />
+ *      </ToastProvider>
  *   2) 任意の場所で発火
- *      const toast = Toast.useToastManager()
+ *      const toast = useToastManager()
  *      toast.add({ title: "保存しました", description: "..." })
  */
-function ToastProvider(props: BaseToast.Provider.Props) {
+export function ToastProvider(props: BaseToast.Provider.Props) {
   // otibo 既定:5s で自動退場、最大 3 つ同時表示(超過は古いものから畳む)。
   return <BaseToast.Provider timeout={5000} limit={3} {...props} />
 }
@@ -42,7 +42,7 @@ function ToastList() {
 }
 
 // Toaster — Portal + Viewport + list。アプリに 1 つ置く。
-function Toaster(props: BaseToast.Viewport.Props) {
+export function ToastToaster(props: BaseToast.Viewport.Props) {
   const slot = toast()
   return (
     <BaseToast.Portal>
@@ -53,9 +53,5 @@ function Toaster(props: BaseToast.Viewport.Props) {
   )
 }
 
-export const Toast = {
-  Provider: ToastProvider,
-  Toaster,
-  useToastManager: BaseToast.useToastManager,
-  createToastManager: BaseToast.createToastManager,
-}
+export const useToastManager = BaseToast.useToastManager
+export const createToastManager = BaseToast.createToastManager

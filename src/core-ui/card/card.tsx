@@ -11,7 +11,7 @@ interface CardRootProps extends Omit<useRender.ComponentProps<"div">, "render">,
 }
 
 /**
- * Card.Root — polymorphic container.
+ * CardRoot — polymorphic container.
  *
  * Render-prop driven so the same recipe can land on <article>, <section>,
  * <button>, <a>, etc. without re-implementing the surface. Variants control
@@ -67,14 +67,5 @@ const CardFooter = makeCardSlot("footer", "div")
  * Public surface. The dot-notation is for readability at the call site;
  * importing `CardRoot` etc. directly also works.
  */
-export const Card = {
-  Root: CardRoot,
-  Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Body: CardBody,
-  Footer: CardFooter,
-}
-
 export type { CardRootProps }
 export { CardBody, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle }

@@ -29,7 +29,7 @@ This skill closes implementation work by verifying outcomes, updating documentat
 Use Deno validators, not old npm aliases:
 
 ```bash
-deno fmt --check scripts/*.mjs
+npx biome check scripts/*.mjs
 deno run --allow-read scripts/validate-frontmatter.mjs
 deno run --allow-read scripts/validate-todo.mjs
 deno run --allow-read scripts/validate-doc-links.mjs

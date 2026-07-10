@@ -2,7 +2,7 @@ import type { Story } from "@ladle/react"
 import { useEffect, useState } from "react"
 
 import { Button } from "../button"
-import { Progress } from "./progress"
+import { ProgressRoot, ProgressLabel, ProgressValue, ProgressTrack } from "./progress"
 
 export default {
   title: "core-ui / Progress",
@@ -28,13 +28,13 @@ export const Controls: Story = () => {
   const clamp = (n: number) => Math.max(0, Math.min(100, n))
   return (
     <div style={wrap}>
-      <Progress.Root value={value}>
+      <ProgressRoot value={value}>
         <div style={row}>
-          <Progress.Label>ダウンロード</Progress.Label>
-          <Progress.Value />
+          <ProgressLabel>ダウンロード</ProgressLabel>
+          <ProgressValue />
         </div>
-        <Progress.Track />
-      </Progress.Root>
+        <ProgressTrack />
+      </ProgressRoot>
       <div style={buttons}>
         <Button intent="ghost" size="sm" onClick={() => setValue((v) => clamp(v - 10))}>
           −10
@@ -64,13 +64,13 @@ export const Auto: Story = () => {
   }, [running])
   return (
     <div style={wrap}>
-      <Progress.Root value={value}>
+      <ProgressRoot value={value}>
         <div style={row}>
-          <Progress.Label>同期中</Progress.Label>
-          <Progress.Value />
+          <ProgressLabel>同期中</ProgressLabel>
+          <ProgressValue />
         </div>
-        <Progress.Track />
-      </Progress.Root>
+        <ProgressTrack />
+      </ProgressRoot>
       <div style={buttons}>
         <Button intent="ghost" size="sm" onClick={() => setRunning((r) => !r)}>
           {running ? "一時停止" : "再開"}

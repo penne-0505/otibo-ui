@@ -1,12 +1,19 @@
 ---
 title: Field
 status: active
-component: src/core-ui/field/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
   - "../token-semantic-usage-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/field/`
 
 ## Overview
 
@@ -17,15 +24,15 @@ form の **「一行」を束ねる Internal boundary**。Label / Control(Input�
 slot recipe(Panda)+ Base UI Field 委譲。slot は `root` / `label` / `description` / `error`。
 
 ```tsx
-<Field.Root>
-  <Field.Label>メールアドレス</Field.Label>
+<FieldRoot>
+  <FieldLabel>メールアドレス</FieldLabel>
   <Input type="email" />
-  <Field.Description>仕事用のアドレスをご利用ください</Field.Description>
-  <Field.Error>有効な形式で入力してください</Field.Error>
-</Field.Root>
+  <FieldDescription>仕事用のアドレスをご利用ください</FieldDescription>
+  <FieldError>有効な形式で入力してください</FieldError>
+</FieldRoot>
 ```
 
-`Field.Error` は **Base UI が validation state を持つ時だけ render される**(`aria-invalid` 設定や HTML constraint validation の trigger 時)。常時出したい error も Base UI の API で制御可能。
+`FieldError` は **Base UI が validation state を持つ時だけ render される**(`aria-invalid` 設定や HTML constraint validation の trigger 時)。常時出したい error も Base UI の API で制御可能。
 
 ## Variants
 
@@ -50,9 +57,9 @@ Field 自身は state を持たない(state は内側の control が持ち、Bas
 
 ## a11y
 
-- **primitive** ── `@base-ui/react/field`(`Field.Root` / `Field.Label` / `Field.Description` / `Field.Error` / `Field.Validity`)。
+- **primitive** ── `@base-ui/react/field`のroot / label / description / error / validity slot。
 - **自動配線** ── label↔control の `for` / `id`、help↔control の `aria-describedby`、error 表示時の `aria-invalid` を Field primitive が引き受ける。consumer が手で `htmlFor` / `id` を書く必要がない。
-- **constraint validation** ── ネイティブ HTML validation(`required` / `pattern` / `type=email` 等)と統合。`Field.Validity` で `validity.valueMissing` 等にアクセスできる。
+- **constraint validation** ── ネイティブ HTML validation(`required` / `pattern` / `type=email` 等)と統合。Base UIのvalidity slotで`validity.valueMissing`等にアクセスできる。
 - **error メッセージ** ── 表示と同時に SR に通知される(`role="alert"` 相当の挙動を Base UI が担保)。
 
 ## Motion
@@ -63,7 +70,7 @@ Field 自身は motion を持たない(layout だけ)。state 遷移の motion �
 
 - form control を**単独で置く時は必ず Field でラップする**(label と help と error が必ず付くため、また a11y 配線のため)。
 - 「label」「control」「help」「error」のうち**一つでも要る**ならまず Field を考える。
-- 同じ form 内で並ぶ複数行を、stack で揃えたい時(`Field.Root` を vertical stack の item として並べる)。
+- 同じ form 内で並ぶ複数行を、stack で揃えたい時(`FieldRoot` を vertical stack の item として並べる)。
 
 ## Use instead
 
@@ -77,7 +84,7 @@ Field 自身は motion を持たない(layout だけ)。state 遷移の motion �
 
 - control を直接ベタ置きする(label が漏れる / a11y が壊れる)── Field でラップする。
 - `<label>` を手で書いて `htmlFor` を control の id と紐付ける(Base UI Field が自動で配線するので不要)。
-- error をエラー時以外も常時 render する(Field.Error は条件付き render を前提)。
+- error をエラー時以外も常時 render する(FieldError は条件付き render を前提)。
 - error と description を**色だけ**で分ける(色覚特性で読み分けが壊れる)── weight を変える otibo 既定を保つ。
 - Field の slot に control 以外の重い content を入れる(レイアウトが破綻)── Field は form 行の単位、Card のような盛り上げは想定外。
 

@@ -8,10 +8,10 @@ import { defineSlotRecipe } from "@pandacss/dev"
  * Base UI が付与する `aria-selected="true"` で判定する。
  *
  * Slots:
- *   - root: Tabs.Root
- *   - list: Tabs.List(下端に hairline、tab はこの線に乗る)
- *   - tab: Tabs.Tab(text + 下線。inactive は透明下線で高さ予約)
- *   - panel: Tabs.Panel(中身)
+ *   - root: TabsRoot
+ *   - list: TabsList(下端に hairline、tab はこの線に乗る)
+ *   - tab: TabsTab(text + 下線。inactive は透明下線で高さ予約)
+ *   - panel: TabsPanel(中身)
  */
 export const tabsRecipe = defineSlotRecipe({
   className: "otibo-tabs",

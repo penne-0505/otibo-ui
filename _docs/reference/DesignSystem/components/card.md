@@ -1,13 +1,20 @@
 ---
 title: Card
 status: active
-component: src/core-ui/card/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../token-semantic-usage-map.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/card/`
 
 ## Overview
 
@@ -18,18 +25,18 @@ references:
 slot recipe(Panda)。slot は `root` / `header` / `title` / `description` / `body` / `footer`。
 
 ```tsx
-<Card.Root surface="paper" padding="md">
-  <Card.Header>
-    <Card.Title>2026 春の作品</Card.Title>
-    <Card.Description>釉薬と土の対話、6 点</Card.Description>
-  </Card.Header>
-  <Card.Body>
+<CardRoot surface="paper" padding="md">
+  <CardHeader>
+    <CardTitle>2026 春の作品</CardTitle>
+    <CardDescription>釉薬と土の対話、6 点</CardDescription>
+  </CardHeader>
+  <CardBody>
     <p>本文...</p>
-  </Card.Body>
-  <Card.Footer>
+  </CardBody>
+  <CardFooter>
     <Button>詳細を見る</Button>
-  </Card.Footer>
-</Card.Root>
+  </CardFooter>
+</CardRoot>
 ```
 
 slot は**全部 optional**(必要なものだけ並べる)。Header だけ / Body だけ の Card もアリ。
@@ -74,7 +81,7 @@ slot は**全部 optional**(必要なものだけ並べる)。Header だけ / Bo
 - **role** ── 既定はネイティブ `<div>`(role なし)。 **interactive=true** にしても **role は自動で付かない**(消費側で `role="button"` / `<a>` render / `<button>` render 等を判断)。
 - **clickable Card** ── `role="button"` + `tabindex="0"` + `onKeyDown`(Enter/Space)を手で付けるか、`render={<a href=...>}` で natural anchor にする(後者推奨、URL がある場合)。
 - **focus ring** ── `interactive=true` の `_focusVisible` で `boxShadow: focus`。マウス click では出ない。
-- **structure** ── `Card.Title` は heading element ではない(`<p>`)。Card が page の section heading を兼ねる場面では title slot を使わず `<h2>` を直接書く。
+- **structure** ── `CardTitle` は heading element ではない(`<p>`)。Card が page の section heading を兼ねる場面では title slot を使わず `<h2>` を直接書く。
 
 ## Motion
 

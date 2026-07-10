@@ -5,22 +5,26 @@ import { mergeClass } from "../../lib/utils"
 
 /**
  * Dialog — 最上位の modal。scrim で背景を落とし、中央に paper を浮かせる。
- * a11y / focus-trap / scroll-lock / outside-dismiss は Base UI Dialog.Root
+ * a11y / focus-trap / scroll-lock / outside-dismiss は Base UI DialogRoot
  * (modal 既定)に委譲、見た目は otibo recipe。
  *
  * 使い方:
- *   <Dialog.Root>
- *     <Dialog.Trigger render={<Button>開く</Button>} />
- *     <Dialog.Popup>
- *       <Dialog.Title>...</Dialog.Title>
- *       <Dialog.Description>...</Dialog.Description>
- *       <Dialog.Close render={<Button>閉じる</Button>} />
- *     </Dialog.Popup>
- *   </Dialog.Root>
+ *   <DialogRoot>
+ *     <DialogTrigger render={<Button>開く</Button>} />
+ *     <DialogPopup>
+ *       <DialogTitle>...</DialogTitle>
+ *       <DialogDescription>...</DialogDescription>
+ *       <DialogClose render={<Button>閉じる</Button>} />
+ *     </DialogPopup>
+ *   </DialogRoot>
  *
  * Popup は内部で Portal + Backdrop を含むので、呼び出し側は中身だけ置けばよい。
  */
-const DialogPopup = forwardRef<HTMLDivElement, BaseDialog.Popup.Props>(function DialogPopup(
+export const DialogRoot = BaseDialog.Root
+export const DialogTrigger = BaseDialog.Trigger
+export const DialogClose = BaseDialog.Close
+
+export const DialogPopup = forwardRef<HTMLDivElement, BaseDialog.Popup.Props>(function DialogPopup(
   { className, children, ...props },
   ref,
 ) {
@@ -35,15 +39,14 @@ const DialogPopup = forwardRef<HTMLDivElement, BaseDialog.Popup.Props>(function 
   )
 })
 
-const DialogTitle = forwardRef<HTMLHeadingElement, BaseDialog.Title.Props>(function DialogTitle(
-  { className, ...props },
-  ref,
-) {
-  const slot = dialog()
-  return <BaseDialog.Title ref={ref} className={mergeClass(slot.title, className)} {...props} />
-})
+export const DialogTitle = forwardRef<HTMLHeadingElement, BaseDialog.Title.Props>(
+  function DialogTitle({ className, ...props }, ref) {
+    const slot = dialog()
+    return <BaseDialog.Title ref={ref} className={mergeClass(slot.title, className)} {...props} />
+  },
+)
 
-const DialogDescription = forwardRef<HTMLParagraphElement, BaseDialog.Description.Props>(
+export const DialogDescription = forwardRef<HTMLParagraphElement, BaseDialog.Description.Props>(
   function DialogDescription({ className, ...props }, ref) {
     const slot = dialog()
     return (
@@ -55,12 +58,3 @@ const DialogDescription = forwardRef<HTMLParagraphElement, BaseDialog.Descriptio
     )
   },
 )
-
-export const Dialog = {
-  Root: BaseDialog.Root,
-  Trigger: BaseDialog.Trigger,
-  Popup: DialogPopup,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  Close: BaseDialog.Close,
-}

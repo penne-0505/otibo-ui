@@ -1,12 +1,19 @@
 ---
 title: Toast
 status: active
-component: src/core-ui/toast/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/toast/`
 
 ## Overview
 
@@ -18,7 +25,7 @@ slot recipe(Panda)+ Base UI Toast 委譲。slot は `viewport` / `root` / `conte
 
 ```tsx
 {/* ルートに Toaster を一回置く */}
-<Toast.Viewport />
+<ToastToaster />
 
 {/* 任意の場所からコードで toast() を呼ぶ */}
 toast.add({
@@ -28,7 +35,7 @@ toast.add({
 })
 ```
 
-`<Toast.Root>` は Base UI が manager から runtime 描画するため、**Panda の usage 検出が効かない**(consumer の source code に現れない)── 後述の Decisions 参照(**`staticCss` での常時 emit が必須**、`[[panda-dynamic-component-staticcss]]`)。
+toast root は `ToastToaster` が manager から runtime 描画するため、**Panda の usage 検出が効かない**(consumer の source code に現れない)── 後述の Decisions 参照(**`staticCss` での常時 emit が必須**、`[[panda-dynamic-component-staticcss]]`)。
 
 ## Variants
 
@@ -85,7 +92,7 @@ reduced-motion:`transitionProperty: opacity` だけ残す(translateY 含む全 t
 ## Use instead
 
 - **取り消し不可性が高い確認** → **Dialog**(scrim + heavy、消えない modal)。
-- **永続的な notice**(メール未確認) → **Field.Description** に inline、または **Card** で囲む(toast は消える)。
+- **永続的な notice**(メール未確認) → **FieldDescription** に inline、または **Card** で囲む(toast は消える)。
 - **trigger 隣接の補足** → **Popover** / **Tooltip**。
 - **常設の警告 banner** → 現状未着手(Alert は不在、Card か Dialog に倒す)。
 
@@ -94,7 +101,7 @@ reduced-motion:`transitionProperty: opacity` だけ残す(translateY 含む全 t
 ## Avoid
 
 - **「取り消し不可」確認を toast に**(消えてしまう、ユーザーが見逃す) → Dialog。
-- **永続情報を toast に**(消えるべきでない情報を transient overlay に置かない) → Card / Field.Description。
+- **永続情報を toast に**(消えるべきでない情報を transient overlay に置かない) → Card / FieldDescription。
 - **scale animation を root に足す**(text snap が出る) → translateY 一本。
 - **stack を scale で組む**(同上、text snap) → translateY + opacity で奥行き。
 - **viewport zIndex を 50 以下に**(dialog より下に潜って見えなくなる) → 60(dialog 50 + 10)。

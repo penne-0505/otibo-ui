@@ -5,7 +5,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
  *
  * grammar 上の位置:最上位の overlay。世界を一段暗く落とし(scrim)、その上に
  * paper を一枚浮かせて注意を集中させる modal。focus-trap / scroll-lock /
- * outside-dismiss は Base UI Dialog.Root(modal 既定)に委譲。
+ * outside-dismiss は Base UI DialogRoot(modal 既定)に委譲。
  * Popover との違いは「背景を奪う」こと ── trigger に紐づかず画面中央に固定。
  *
  * Slots:

@@ -7,13 +7,13 @@ import { mergeClass } from "../../lib/utils"
  * ScrollArea — カスタムスクロール領域(otibo の細い hairline scrollbar)。a11y は Base UI。
  *
  * 使い方:
- *   <ScrollArea.Root style={{ height: "20rem" }}>
- *     <ScrollArea.Viewport>
+ *   <ScrollAreaRoot style={{ height: "20rem" }}>
+ *     <ScrollAreaViewport>
  *       …長い content…
- *     </ScrollArea.Viewport>
- *   </ScrollArea.Root>
+ *     </ScrollAreaViewport>
+ *   </ScrollAreaRoot>
  *
- * 既定で縦スクロールバーを表示。横も要れば <ScrollArea.Scrollbar orientation="horizontal" /> を追加。
+ * 既定で縦スクロールバーを表示。横も要れば <ScrollAreaScrollbar orientation="horizontal" /> を追加。
  */
 
 const Root = forwardRef<HTMLDivElement, BaseScrollArea.Root.Props>(function Root(
@@ -62,8 +62,4 @@ const Scrollbar = forwardRef<HTMLDivElement, BaseScrollArea.Scrollbar.Props>(fun
   )
 })
 
-export const ScrollArea = {
-  Root,
-  Viewport,
-  Scrollbar,
-}
+export { Root as ScrollAreaRoot, Scrollbar as ScrollAreaScrollbar, Viewport as ScrollAreaViewport }

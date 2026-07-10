@@ -1,12 +1,19 @@
 ---
 title: PreviewCard
 status: active
-component: src/core-ui/preview-card/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/preview-card/`
 
 ## Overview
 
@@ -17,21 +24,17 @@ references:
 slot recipe(Panda)+ Base UI PreviewCard 委譲。slot は `trigger` / `popup` / `media` / `body` / `title` / `description` / `footer`(7 slot)。
 
 ```tsx
-<PreviewCard.Root>
-  <PreviewCard.Trigger render={<a href="/works/2026-spring">2026 春の作品</a>} />
-  <PreviewCard.Portal>
-    <PreviewCard.Positioner>
-      <PreviewCard.Popup>
-        <PreviewCard.Media src="..." alt="..." />
-        <PreviewCard.Body>
-          <PreviewCard.Title>2026 春の作品</PreviewCard.Title>
-          <PreviewCard.Description>釉薬と土の対話、6 点</PreviewCard.Description>
-        </PreviewCard.Body>
-        <PreviewCard.Footer>2026.03 · 個展</PreviewCard.Footer>
-      </PreviewCard.Popup>
-    </PreviewCard.Positioner>
-  </PreviewCard.Portal>
-</PreviewCard.Root>
+<PreviewCardRoot>
+  <PreviewCardTrigger render={<a href="/works/2026-spring">2026 春の作品</a>} />
+  <PreviewCardPopup>
+    <PreviewCardMedia src="..." alt="..." />
+    <PreviewCardBody>
+      <PreviewCardTitle>2026 春の作品</PreviewCardTitle>
+      <PreviewCardDescription>釉薬と土の対話、6 点</PreviewCardDescription>
+    </PreviewCardBody>
+    <PreviewCardFooter>2026.03 · 個展</PreviewCardFooter>
+  </PreviewCardPopup>
+</PreviewCardRoot>
 ```
 
 Trigger wrapper は `cloneElement` で **className を auto-merge** ── consumer の `<a>` に hover response を自動付与し、消費側は treatment を書かなくて済む。
@@ -110,7 +113,7 @@ reduced-motion:opacity snap だけなので travel を抜く必要なし。
 - **trigger を button にする**(URL 遷移リンクの preview なのに button にすると aria/href が壊れる) → `<a>` を `render`。
 - **scale を popup に足す**(焦点ブロックで scale-on-text snap が知覚される) → opacity-only。
 - **delay を Base UI 既定(600/300)のまま使う**(open 遅すぎ / close 遅すぎで手触りが otibo に合わない) → wrapper の 350/100 を維持。
-- **重要情報を preview に隠す**(touch / SR で届かない) → 本文 / Field.Description。
+- **重要情報を preview に隠す**(touch / SR で届かない) → 本文 / FieldDescription。
 
 ## Decisions(本セッションの確定事項)
 

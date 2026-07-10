@@ -1,7 +1,7 @@
 import type { Story } from "@ladle/react"
 import { useState } from "react"
 
-import { Card } from "../card/card"
+import { CardRoot, CardHeader, CardTitle, CardDescription, CardBody } from "../card/card"
 import { InlineEdit } from "./inline-edit"
 
 export default {
@@ -33,27 +33,27 @@ export const Empty: Story = () => {
   )
 }
 
-// 3. InHeading — typography 継承の検証。Card.Title 内で大きい font に従う。
+// 3. InHeading — typography 継承の検証。CardTitle 内で大きい font に従う。
 // InlineEdit 自身は font-size を持たないので、文脈の typography を全継承する。
 export const InHeading: Story = () => {
   const [title, setTitle] = useState("無題のドキュメント")
   return (
     <div style={{ maxWidth: 560 }}>
-      <Card.Root surface="flat" padding="md">
-        <Card.Header>
-          <Card.Title>
+      <CardRoot surface="flat" padding="md">
+        <CardHeader>
+          <CardTitle>
             <InlineEdit
               value={title}
               onCommit={setTitle}
               aria-label="ドキュメントタイトルを編集"
               allowEmpty={false}
             />
-          </Card.Title>
-          <Card.Description>
+          </CardTitle>
+          <CardDescription>
             タイトルをクリックすると編集できます。空のままでは確定されません。
-          </Card.Description>
-        </Card.Header>
-      </Card.Root>
+          </CardDescription>
+        </CardHeader>
+      </CardRoot>
     </div>
   )
 }
@@ -68,12 +68,12 @@ export const InSettings: Story = () => {
 
   return (
     <div style={{ maxWidth: 560 }}>
-      <Card.Root surface="flat" padding="md">
-        <Card.Header>
-          <Card.Title>アカウント</Card.Title>
-          <Card.Description>クリックで編集できます。</Card.Description>
-        </Card.Header>
-        <Card.Body>
+      <CardRoot surface="flat" padding="md">
+        <CardHeader>
+          <CardTitle>アカウント</CardTitle>
+          <CardDescription>クリックで編集できます。</CardDescription>
+        </CardHeader>
+        <CardBody>
           <SettingRow label="表示名">
             <InlineEdit
               value={displayName}
@@ -98,8 +98,8 @@ export const InSettings: Story = () => {
               aria-label="自己紹介を編集"
             />
           </SettingRow>
-        </Card.Body>
-      </Card.Root>
+        </CardBody>
+      </CardRoot>
     </div>
   )
 }

@@ -1,12 +1,19 @@
 ---
 title: Progress
 status: active
-component: src/core-ui/progress/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/progress/`
 
 ## Overview
 
@@ -17,15 +24,13 @@ references:
 slot recipe(Panda)+ Base UI Progress 委譲。slot は `root` / `label` / `value` / `track` / `indicator`(5 slot)。
 
 ```tsx
-<Progress.Root value={42}>
+<ProgressRoot value={42}>
   <div className={progressLayout()}>
-    <Progress.Label>同期中...</Progress.Label>
-    <Progress.Value>42 / 100</Progress.Value>
+    <ProgressLabel>同期中...</ProgressLabel>
+    <ProgressValue>42 / 100</ProgressValue>
   </div>
-  <Progress.Track>
-    <Progress.Indicator />
-  </Progress.Track>
-</Progress.Root>
+  <ProgressTrack />
+</ProgressRoot>
 ```
 
 `value` を渡せば determinate(値%で fill)。indeterminate モードは現状未実装(必要になれば別途)。
@@ -53,7 +58,7 @@ slot recipe(Panda)+ Base UI Progress 委譲。slot は `root` / `label` / `value
 - **primitive** ── `@base-ui/react/progress`(Root / Label / Value / Track / Indicator)。
 - **role** ── `progressbar`(`aria-valuenow` / `aria-valuemin` / `aria-valuemax` / `aria-valuetext` 自動配線)。
 - **SR 読み上げ** ── 「読み込み中、42%」など progressbar の標準読み上げ。
-- **Label と Value の関連付け** ── Progress.Root の `aria-labelledby` 自動配線。
+- **Label と Value の関連付け** ── ProgressRoot の `aria-labelledby` 自動配線。
 
 ## Motion
 

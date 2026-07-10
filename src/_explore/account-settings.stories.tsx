@@ -1,37 +1,7 @@
 import type { Story } from "@ladle/react"
 import { useState } from "react"
 
-import {
-  Accordion,
-  Avatar,
-  Badge,
-  Breadcrumb,
-  Button,
-  Card,
-  Checkbox,
-  Combobox,
-  Dialog,
-  Field,
-  Icon,
-  InlineEdit,
-  Link,
-  Menu,
-  Meter,
-  NumberField,
-  Pagination,
-  Popover,
-  Radio,
-  RadioGroup,
-  SegmentedControl,
-  Select,
-  Slider,
-  Spinner,
-  Switch,
-  Table,
-  Tabs,
-  Toast,
-  Tooltip,
-} from "../index"
+import { Badge, Button, Checkbox, Icon, InlineEdit, Link, Radio, RadioGroup, Slider, Spinner, Switch, AccordionRoot, AccordionItem, AccordionTrigger, AccordionPanel, AvatarRoot, AvatarImage, AvatarFallback, BreadcrumbRoot, BreadcrumbItem, BreadcrumbLink, BreadcrumbCurrent, CardRoot, CardHeader, CardTitle, CardDescription, CardBody, CardFooter, ComboboxRoot, ComboboxInput, ComboboxPopup, ComboboxList, ComboboxItem, ComboboxEmpty, DialogRoot, DialogTrigger, DialogPopup, DialogTitle, DialogDescription, DialogClose, FieldRoot, FieldLabel, FieldInput, FieldDescription, MenuRoot, MenuTrigger, MenuPopup, MenuItem, MenuSeparator, MeterRoot, MeterLabel, MeterValue, MeterTrack, NumberFieldRoot, NumberFieldField, PaginationRoot, PaginationItem, PaginationPrev, PaginationNext, PaginationEllipsis, PopoverRoot, PopoverTrigger, PopoverPopup, PopoverTitle, PopoverDescription, SegmentedControlRoot, SegmentedControlItem, SelectRoot, SelectTrigger, SelectValue, SelectPopup, SelectItem, SelectItemText, TableRoot, TableHeader, TableBody, TableRow, TableHead, TableCell, TabsRoot, TabsList, TabsTab, TabsPanel, ToastProvider, ToastToaster, useToastManager, TooltipProvider, TooltipRoot, TooltipTrigger, TooltipPopup } from "../index"
 
 export default {
   title: "explore / アプリ例",
@@ -97,8 +67,8 @@ function pageWindow(page: number, total: number): Array<number | "ellipsis"> {
 // help アイコン(Tooltip のトリガに使う、低 affordance の丸ボタン)
 function HelpDot({ children }: { children: React.ReactNode }) {
   return (
-    <Tooltip.Root>
-      <Tooltip.Trigger
+    <TooltipRoot>
+      <TooltipTrigger
         render={
           <button
             type="button"
@@ -120,8 +90,8 @@ function HelpDot({ children }: { children: React.ReactNode }) {
           </button>
         }
       />
-      <Tooltip.Popup>{children}</Tooltip.Popup>
-    </Tooltip.Root>
+      <TooltipPopup>{children}</TooltipPopup>
+    </TooltipRoot>
   )
 }
 
@@ -164,10 +134,10 @@ const radioSub: React.CSSProperties = {
 }
 
 export const AccountSettings: Story = () => (
-  <Toast.Provider>
+  <ToastProvider>
     <AccountSettingsBody />
-    <Toast.Toaster />
-  </Toast.Provider>
+    <ToastToaster />
+  </ToastProvider>
 )
 
 function AccountSettingsBody() {
@@ -176,10 +146,10 @@ function AccountSettingsBody() {
   const [theme, setTheme] = useState("system")
   const [saving, setSaving] = useState(false)
   const [sessionPage, setSessionPage] = useState(1)
-  const toast = Toast.useToastManager()
+  const toast = useToastManager()
 
   return (
-    <Tooltip.Provider>
+    <TooltipProvider>
       <div style={{ background: "var(--colors-bg)", minHeight: "100vh", padding: "2.5rem 1.5rem" }}>
         <div
           style={{
@@ -191,26 +161,26 @@ function AccountSettingsBody() {
           }}
         >
           {/* breadcrumb は本体の上に置く nav ストリップ。一律 gap でなく、下に追加の余白で分節する。 */}
-          <Breadcrumb.Root style={{ marginBottom: "1.5rem" }}>
-            <Breadcrumb.Item>
-              <Breadcrumb.Link href="#">ホーム</Breadcrumb.Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Breadcrumb.Link href="#">設定</Breadcrumb.Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Breadcrumb.Current>アカウント</Breadcrumb.Current>
-            </Breadcrumb.Item>
-          </Breadcrumb.Root>
+          <BreadcrumbRoot style={{ marginBottom: "1.5rem" }}>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">ホーム</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">設定</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbCurrent>アカウント</BreadcrumbCurrent>
+            </BreadcrumbItem>
+          </BreadcrumbRoot>
 
           {/* App header */}
           <header style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <Avatar.Root size="lg">
-              <Avatar.Image src="https://i.pravatar.cc/96?img=12" alt="penne" />
-              <Avatar.Fallback>
+            <AvatarRoot size="lg">
+              <AvatarImage src="https://i.pravatar.cc/96?img=12" alt="penne" />
+              <AvatarFallback>
                 <Icon name="user" size="24px" />
-              </Avatar.Fallback>
-            </Avatar.Root>
+              </AvatarFallback>
+            </AvatarRoot>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
                 <div
@@ -260,123 +230,123 @@ function AccountSettingsBody() {
                   "保存"
                 )}
               </Button>
-              <Menu.Root>
-                <Menu.Trigger
+              <MenuRoot>
+                <MenuTrigger
                   render={
                     <Button intent="ghost" size="sm" aria-label="その他の操作">
                       <Icon name="more" size="1.25rem" />
                     </Button>
                   }
                 />
-                <Menu.Popup>
-                  <Menu.Item onClick={() => toast.add({ title: "プロフィールを表示しました" })}>
+                <MenuPopup>
+                  <MenuItem onClick={() => toast.add({ title: "プロフィールを表示しました" })}>
                     プロフィールを表示
-                  </Menu.Item>
-                  <Menu.Item onClick={() => toast.add({ title: "リンクをコピーしました" })}>
+                  </MenuItem>
+                  <MenuItem onClick={() => toast.add({ title: "リンクをコピーしました" })}>
                     公開リンクをコピー
-                  </Menu.Item>
-                  <Menu.Separator />
-                  <Menu.Item onClick={() => toast.add({ title: "ログアウトしました" })}>
+                  </MenuItem>
+                  <MenuSeparator />
+                  <MenuItem onClick={() => toast.add({ title: "ログアウトしました" })}>
                     ログアウト
-                  </Menu.Item>
-                </Menu.Popup>
-              </Menu.Root>
+                  </MenuItem>
+                </MenuPopup>
+              </MenuRoot>
             </div>
           </header>
 
           {/* プロフィール */}
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>プロフィール</Card.Title>
-              <Card.Description>他のユーザーに表示される情報です。</Card.Description>
-            </Card.Header>
-            <Card.Body>
-              <Field.Root>
-                <Field.Label>メールアドレス</Field.Label>
-                <Field.Input type="email" defaultValue="claude@otibo.dev" />
-                <Field.Description>
+          <CardRoot>
+            <CardHeader>
+              <CardTitle>プロフィール</CardTitle>
+              <CardDescription>他のユーザーに表示される情報です。</CardDescription>
+            </CardHeader>
+            <CardBody>
+              <FieldRoot>
+                <FieldLabel>メールアドレス</FieldLabel>
+                <FieldInput type="email" defaultValue="claude@otibo.dev" />
+                <FieldDescription>
                   確認メールを<Link href="#">再送</Link>できます。
-                </Field.Description>
-              </Field.Root>
-              <Field.Root>
-                <Field.Label>タイムゾーン</Field.Label>
-                <Select.Root items={timezones} defaultValue="jst">
-                  <Select.Trigger>
-                    <Select.Value />
-                  </Select.Trigger>
-                  <Select.Popup>
+                </FieldDescription>
+              </FieldRoot>
+              <FieldRoot>
+                <FieldLabel>タイムゾーン</FieldLabel>
+                <SelectRoot items={timezones} defaultValue="jst">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectPopup>
                     {timezones.map((t) => (
-                      <Select.Item key={t.value} value={t.value}>
-                        <Select.ItemText>{t.label}</Select.ItemText>
-                      </Select.Item>
+                      <SelectItem key={t.value} value={t.value}>
+                        <SelectItemText>{t.label}</SelectItemText>
+                      </SelectItem>
                     ))}
-                  </Select.Popup>
-                </Select.Root>
-              </Field.Root>
-              <Field.Root>
-                <Field.Label>国 / 地域</Field.Label>
-                <Combobox.Root items={countries} defaultValue="日本">
-                  <Combobox.Input placeholder="国を検索…" />
-                  <Combobox.Popup>
-                    <Combobox.Empty>該当する国がありません</Combobox.Empty>
-                    <Combobox.List>
+                  </SelectPopup>
+                </SelectRoot>
+              </FieldRoot>
+              <FieldRoot>
+                <FieldLabel>国 / 地域</FieldLabel>
+                <ComboboxRoot items={countries} defaultValue="日本">
+                  <ComboboxInput placeholder="国を検索…" />
+                  <ComboboxPopup>
+                    <ComboboxEmpty>該当する国がありません</ComboboxEmpty>
+                    <ComboboxList>
                       {(country: string) => (
-                        <Combobox.Item key={country} value={country}>
+                        <ComboboxItem key={country} value={country}>
                           {country}
-                        </Combobox.Item>
+                        </ComboboxItem>
                       )}
-                    </Combobox.List>
-                  </Combobox.Popup>
-                </Combobox.Root>
-              </Field.Root>
-              <Field.Root>
-                <Field.Label>外観</Field.Label>
-                <SegmentedControl.Root value={theme} onValueChange={(v) => setTheme(v as string)}>
-                  <SegmentedControl.Item value="light">ライト</SegmentedControl.Item>
-                  <SegmentedControl.Item value="dark">ダーク</SegmentedControl.Item>
-                  <SegmentedControl.Item value="system">システム</SegmentedControl.Item>
-                </SegmentedControl.Root>
-              </Field.Root>
+                    </ComboboxList>
+                  </ComboboxPopup>
+                </ComboboxRoot>
+              </FieldRoot>
+              <FieldRoot>
+                <FieldLabel>外観</FieldLabel>
+                <SegmentedControlRoot value={theme} onValueChange={(v) => setTheme(v as string)}>
+                  <SegmentedControlItem value="light">ライト</SegmentedControlItem>
+                  <SegmentedControlItem value="dark">ダーク</SegmentedControlItem>
+                  <SegmentedControlItem value="system">システム</SegmentedControlItem>
+                </SegmentedControlRoot>
+              </FieldRoot>
               <div style={switchRow}>
                 <span style={labelRow}>
                   公開プロフィール
                   <HelpDot>あなたのページが検索結果に表示されます。</HelpDot>
                 </span>
-                <Popover.Root>
-                  <Popover.Trigger
+                <PopoverRoot>
+                  <PopoverTrigger
                     render={
                       <Button intent="ghost" size="sm">
                         リンクを確認
                       </Button>
                     }
                   />
-                  <Popover.Popup>
-                    <Popover.Title>公開URL</Popover.Title>
-                    <Popover.Description>
+                  <PopoverPopup>
+                    <PopoverTitle>公開URL</PopoverTitle>
+                    <PopoverDescription>
                       otibo.dev/@penne で公開されます。変更は次のセッションから反映されます。
-                    </Popover.Description>
-                  </Popover.Popup>
-                </Popover.Root>
+                    </PopoverDescription>
+                  </PopoverPopup>
+                </PopoverRoot>
               </div>
-            </Card.Body>
-          </Card.Root>
+            </CardBody>
+          </CardRoot>
 
           {/* 通知 */}
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>通知</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Tabs.Root defaultValue="all">
-                <Tabs.List>
-                  <Tabs.Tab value="all">すべて</Tabs.Tab>
-                  <Tabs.Tab value="important">重要のみ</Tabs.Tab>
-                  <Tabs.Tab value="off">オフ</Tabs.Tab>
-                </Tabs.List>
-                <Tabs.Panel value="all">すべての通知を受け取ります。</Tabs.Panel>
-                <Tabs.Panel value="important">メンションと返信のみ受け取ります。</Tabs.Panel>
-                <Tabs.Panel value="off">通知は届きません。</Tabs.Panel>
-              </Tabs.Root>
+          <CardRoot>
+            <CardHeader>
+              <CardTitle>通知</CardTitle>
+            </CardHeader>
+            <CardBody>
+              <TabsRoot defaultValue="all">
+                <TabsList>
+                  <TabsTab value="all">すべて</TabsTab>
+                  <TabsTab value="important">重要のみ</TabsTab>
+                  <TabsTab value="off">オフ</TabsTab>
+                </TabsList>
+                <TabsPanel value="all">すべての通知を受け取ります。</TabsPanel>
+                <TabsPanel value="important">メンションと返信のみ受け取ります。</TabsPanel>
+                <TabsPanel value="off">通知は届きません。</TabsPanel>
+              </TabsRoot>
               <div
                 style={{
                   display: "flex",
@@ -437,24 +407,24 @@ function AccountSettingsBody() {
               >
                 <span style={{ color: "var(--colors-fg)" }}>通知の保持日数</span>
                 <div style={{ width: "9rem" }}>
-                  <NumberField.Root defaultValue={30} min={1} max={90} allowWheelScrub>
-                    <NumberField.Field />
-                  </NumberField.Root>
+                  <NumberFieldRoot defaultValue={30} min={1} max={90} allowWheelScrub>
+                    <NumberFieldField />
+                  </NumberFieldRoot>
                 </div>
               </div>
-            </Card.Body>
-          </Card.Root>
+            </CardBody>
+          </CardRoot>
 
           {/* プラン */}
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>プラン</Card.Title>
-              <Card.Description>いつでも変更・解約できます。</Card.Description>
-            </Card.Header>
-            <Card.Body>
+          <CardRoot>
+            <CardHeader>
+              <CardTitle>プラン</CardTitle>
+              <CardDescription>いつでも変更・解約できます。</CardDescription>
+            </CardHeader>
+            <CardBody>
               {/* ストレージ使用量は「進捗」でなく「現在の度合い」なので Meter が semantic に正しい。
                   Progress とは視覚言語を共有(凹んだ track + accent fill)、意味だけ別。 */}
-              <Meter.Root value={42}>
+              <MeterRoot value={42}>
                 <div
                   style={{
                     display: "flex",
@@ -462,11 +432,11 @@ function AccountSettingsBody() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <Meter.Label>ストレージ使用量</Meter.Label>
-                  <Meter.Value />
+                  <MeterLabel>ストレージ使用量</MeterLabel>
+                  <MeterValue />
                 </div>
-                <Meter.Track />
-              </Meter.Root>
+                <MeterTrack />
+              </MeterRoot>
               <RadioGroup defaultValue="yearly">
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                   <label style={radioItem}>
@@ -488,15 +458,15 @@ function AccountSettingsBody() {
                   </label>
                 </div>
               </RadioGroup>
-            </Card.Body>
-            <Card.Footer>
-              <Dialog.Root>
-                <Dialog.Trigger render={<Button intent="ghost">アカウントを停止</Button>} />
-                <Dialog.Popup>
-                  <Dialog.Title>アカウントを停止しますか</Dialog.Title>
-                  <Dialog.Description>
+            </CardBody>
+            <CardFooter>
+              <DialogRoot>
+                <DialogTrigger render={<Button intent="ghost">アカウントを停止</Button>} />
+                <DialogPopup>
+                  <DialogTitle>アカウントを停止しますか</DialogTitle>
+                  <DialogDescription>
                     停止中は公開ページが非表示になります。再開はいつでもできます。
-                  </Dialog.Description>
+                  </DialogDescription>
                   <div
                     style={{
                       display: "flex",
@@ -505,100 +475,100 @@ function AccountSettingsBody() {
                       marginTop: "1.5rem",
                     }}
                   >
-                    <Dialog.Close render={<Button intent="ghost">やめておく</Button>} />
-                    <Dialog.Close render={<Button intent="primary">停止する</Button>} />
+                    <DialogClose render={<Button intent="ghost">やめておく</Button>} />
+                    <DialogClose render={<Button intent="primary">停止する</Button>} />
                   </div>
-                </Dialog.Popup>
-              </Dialog.Root>
+                </DialogPopup>
+              </DialogRoot>
               <Button intent="primary">プランを変更</Button>
-            </Card.Footer>
-          </Card.Root>
+            </CardFooter>
+          </CardRoot>
 
           {/* ログインアクティビティ */}
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>ログインアクティビティ</Card.Title>
-              <Card.Description>最近アクセスしたデバイスです。</Card.Description>
-            </Card.Header>
-            <Card.Body>
-              <Table.Root>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.Head>デバイス</Table.Head>
-                    <Table.Head>場所</Table.Head>
-                    <Table.Head>最終アクセス</Table.Head>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
+          <CardRoot>
+            <CardHeader>
+              <CardTitle>ログインアクティビティ</CardTitle>
+              <CardDescription>最近アクセスしたデバイスです。</CardDescription>
+            </CardHeader>
+            <CardBody>
+              <TableRoot>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>デバイス</TableHead>
+                    <TableHead>場所</TableHead>
+                    <TableHead>最終アクセス</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {sessions
                     .slice((sessionPage - 1) * SESSIONS_PER_PAGE, sessionPage * SESSIONS_PER_PAGE)
                     .map((s, i) => (
-                      <Table.Row key={(sessionPage - 1) * SESSIONS_PER_PAGE + i}>
-                        <Table.Cell>{s.device}</Table.Cell>
-                        <Table.Cell>{s.place}</Table.Cell>
-                        <Table.Cell>{s.last}</Table.Cell>
-                      </Table.Row>
+                      <TableRow key={(sessionPage - 1) * SESSIONS_PER_PAGE + i}>
+                        <TableCell>{s.device}</TableCell>
+                        <TableCell>{s.place}</TableCell>
+                        <TableCell>{s.last}</TableCell>
+                      </TableRow>
                     ))}
-                </Table.Body>
-              </Table.Root>
+                </TableBody>
+              </TableRoot>
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "0.75rem" }}>
-                <Pagination.Root>
-                  <Pagination.Prev
+                <PaginationRoot>
+                  <PaginationPrev
                     disabled={sessionPage === 1}
                     onClick={() => setSessionPage((p) => Math.max(1, p - 1))}
                   />
                   {pageWindow(sessionPage, sessionPageCount).map((p, i) =>
                     p === "ellipsis" ? (
-                      <Pagination.Ellipsis key={`e${i}`} />
+                      <PaginationEllipsis key={`e${i}`} />
                     ) : (
-                      <Pagination.Item
+                      <PaginationItem
                         key={p}
                         active={sessionPage === p}
                         onClick={() => setSessionPage(p)}
                       >
                         {p}
-                      </Pagination.Item>
+                      </PaginationItem>
                     ),
                   )}
-                  <Pagination.Next
+                  <PaginationNext
                     disabled={sessionPage === sessionPageCount}
                     onClick={() => setSessionPage((p) => Math.min(sessionPageCount, p + 1))}
                   />
-                </Pagination.Root>
+                </PaginationRoot>
               </div>
-            </Card.Body>
-          </Card.Root>
+            </CardBody>
+          </CardRoot>
 
           {/* 詳細設定 */}
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>詳細設定</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Accordion.Root>
-                <Accordion.Item>
-                  <Accordion.Trigger>データのエクスポート</Accordion.Trigger>
-                  <Accordion.Panel>
+          <CardRoot>
+            <CardHeader>
+              <CardTitle>詳細設定</CardTitle>
+            </CardHeader>
+            <CardBody>
+              <AccordionRoot>
+                <AccordionItem>
+                  <AccordionTrigger>データのエクスポート</AccordionTrigger>
+                  <AccordionPanel>
                     アカウントのデータを JSON
                     でダウンロードできます。生成には数分かかることがあります。
-                  </Accordion.Panel>
-                </Accordion.Item>
-                <Accordion.Item>
-                  <Accordion.Trigger>セキュリティ</Accordion.Trigger>
-                  <Accordion.Panel>
+                  </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem>
+                  <AccordionTrigger>セキュリティ</AccordionTrigger>
+                  <AccordionPanel>
                     <label style={{ ...switchRow, marginTop: "0.25rem" }}>
                       <span style={{ color: "var(--colors-fg)" }}>二段階認証</span>
                       <Switch />
                     </label>
-                  </Accordion.Panel>
-                </Accordion.Item>
-                <Accordion.Item>
-                  <Accordion.Trigger>接続済みのアプリ</Accordion.Trigger>
-                  <Accordion.Panel>現在、連携している外部アプリはありません。</Accordion.Panel>
-                </Accordion.Item>
-              </Accordion.Root>
-            </Card.Body>
-          </Card.Root>
+                  </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem>
+                  <AccordionTrigger>接続済みのアプリ</AccordionTrigger>
+                  <AccordionPanel>現在、連携している外部アプリはありません。</AccordionPanel>
+                </AccordionItem>
+              </AccordionRoot>
+            </CardBody>
+          </CardRoot>
 
           <footer
             style={{
@@ -615,6 +585,6 @@ function AccountSettingsBody() {
           </footer>
         </div>
       </div>
-    </Tooltip.Provider>
+    </TooltipProvider>
   )
 }

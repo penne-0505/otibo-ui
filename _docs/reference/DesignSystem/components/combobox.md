@@ -1,13 +1,20 @@
 ---
 title: Combobox
 status: active
-component: src/core-ui/combobox/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../token-semantic-usage-map.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/combobox/`
 
 ## Overview
 
@@ -18,25 +25,17 @@ references:
 slot recipe(Panda)+ Base UI Combobox 委譲。slot は `control` / `searchIcon` / `input` / `icon` / `popup` / `list` / `item` / `itemIndicator` / `empty`(9 slot)。
 
 ```tsx
-<Combobox.Root items={countries}>
-  <Combobox.Control>
-    <Combobox.SearchIcon><Icon name="search" /></Combobox.SearchIcon>
-    <Combobox.Input placeholder="国を検索" />
-    <Combobox.Icon><Icon name="chevron-down" /></Combobox.Icon>
-  </Combobox.Control>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {items.map(item => (
-            <Combobox.Item key={item.value} value={item}>{item.label}</Combobox.Item>
-          ))}
-          <Combobox.Empty>該当する項目がありません</Combobox.Empty>
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>
+<ComboboxRoot items={countries}>
+  <ComboboxInput placeholder="国を検索" />
+  <ComboboxPopup>
+    <ComboboxList>
+      {items.map(item => (
+        <ComboboxItem key={item.value} value={item}>{item.label}</ComboboxItem>
+      ))}
+      <ComboboxEmpty>該当する項目がありません</ComboboxEmpty>
+    </ComboboxList>
+  </ComboboxPopup>
+</ComboboxRoot>
 ```
 
 **control は `position: relative` の wrapper**。中の input が全幅、searchIcon と chevron は absolute で重ねる。これで Base UI が anchor にする input = control 全体になり、popup の **横幅と出現位置が Select と完全に揃う**。
@@ -67,7 +66,7 @@ active / selected の二段運用は Select と完全に同じ。**searchIcon �
 - **role** ── control が `combobox` role、popup が `listbox`、item が `option`(WAI-ARIA Combobox Authoring Practices)。
 - **keyboard** ── ネイティブ(↑↓ で highlight 移動、Enter で select、Esc で close、type to filter、Backspace で削除)── すべて Base UI が担保。
 - **searchIcon `pointer-events: none`** ── icon が input の click をブロックしない(ユーザーは icon の上を click しても input が focus される)。
-- **空状態** ── `Combobox.Empty` で「該当する項目がありません」等を表示、focus 不可だが視覚 / SR で「無い」が伝わる。
+- **空状態** ── `ComboboxEmpty` で「該当する項目がありません」等を表示、focus 不可だが視覚 / SR で「無い」が伝わる。
 
 ## Motion
 
@@ -88,7 +87,7 @@ icon の chevron 反転は別 transition(`transform`、`quick` / `standard`)─�
 
 - 値を一つ選ぶ、**数十項目以上 or 検索で絞り込みたい**選択肢(例:国、タイムゾーン、tag)。
 - 「打って探せる」を **触る前に予見** させたい場面(searchIcon が常時 affordance)。
-- 自由入力を許容する場面(`<Combobox.Input>` は通常の input なので freeform value も渡せる、ただし Base UI 側の prop で制御)。
+- 自由入力を許容する場面(`<ComboboxInput>` は通常の input なので freeform value も渡せる、ただし Base UI 側の prop で制御)。
 
 ## Use instead
 

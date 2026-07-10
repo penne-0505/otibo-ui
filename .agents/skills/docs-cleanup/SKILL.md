@@ -81,7 +81,7 @@ Use `mv` or `git mv` only after the checklist passes. Do not use `rm` or `git rm
 Run:
 
 ```bash
-deno fmt --check scripts/*.mjs
+npx biome check scripts/*.mjs
 deno run --allow-read scripts/validate-frontmatter.mjs
 deno run --allow-read scripts/validate-todo.mjs
 deno run --allow-read scripts/validate-doc-links.mjs

@@ -1,12 +1,19 @@
 ---
 title: Tabs
 status: active
-component: src/core-ui/tabs/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/tabs/`
 
 ## Overview
 
@@ -17,16 +24,16 @@ references:
 slot recipe(Panda)+ Base UI Tabs 委譲。slot は `root` / `list` / `tab` / `panel`。
 
 ```tsx
-<Tabs.Root defaultValue="inbox">
-  <Tabs.List>
-    <Tabs.Tab value="inbox">受信箱</Tabs.Tab>
-    <Tabs.Tab value="sent">送信済み</Tabs.Tab>
-    <Tabs.Tab value="archive">アーカイブ</Tabs.Tab>
-  </Tabs.List>
-  <Tabs.Panel value="inbox">...</Tabs.Panel>
-  <Tabs.Panel value="sent">...</Tabs.Panel>
-  <Tabs.Panel value="archive">...</Tabs.Panel>
-</Tabs.Root>
+<TabsRoot defaultValue="inbox">
+  <TabsList>
+    <TabsTab value="inbox">受信箱</TabsTab>
+    <TabsTab value="sent">送信済み</TabsTab>
+    <TabsTab value="archive">アーカイブ</TabsTab>
+  </TabsList>
+  <TabsPanel value="inbox">...</TabsPanel>
+  <TabsPanel value="sent">...</TabsPanel>
+  <TabsPanel value="archive">...</TabsPanel>
+</TabsRoot>
 ```
 
 list 下端に `border.subtle` の hairline が引かれ、tab の 2px 下線がその上に乗る。
@@ -51,7 +58,7 @@ list 下端に `border.subtle` の hairline が引かれ、tab の 2px 下線が
 
 ## a11y
 
-- **primitive** ── `@base-ui/react/tabs`(Tabs.Root / Tabs.List / Tabs.Tab / Tabs.Panel)。
+- **primitive** ── `@base-ui/react/tabs`(TabsRoot / TabsList / TabsTab / TabsPanel)。
 - **role** ── `tablist` / `tab` / `tabpanel`(WAI-ARIA Authoring Practices)。
 - **keyboard** ── ←→ で tab 移動、Home / End で先頭 / 末尾、Enter / Space で activate(Base UI 既定)。`activationMode='manual'` で focus と activate を分離可能。
 - **focus ring** ── `outline: 2px solid accent`(box-shadow ではない、tab 行が overflow したときの fragment 化を避ける)。

@@ -1,1 +1,9 @@
-export { Menu } from "./menu"
+export {
+  MenuGroup,
+  MenuGroupLabel,
+  MenuItem,
+  MenuPopup,
+  MenuRoot,
+  MenuSeparator,
+  MenuTrigger,
+} from "./menu"

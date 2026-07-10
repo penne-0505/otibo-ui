@@ -5,6 +5,7 @@ draft_status: n/a
 created_at: 2026-06-21
 updated_at: 2026-06-21
 references:
+  - "_docs/reference/DesignSystem/principles.md"
   - "token-semantic-usage-map.md"
   - "motion-grammar.md"
   - "headless-primitive-policy.md"
@@ -89,7 +90,7 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 
 ### 決定木
 
-```
+```text
 排他か非排他か(一つ / 複数)?
 ├ 一つ(排他)
 │ ├ フォームの一択肢(プラン:月額/年額) → Radio
@@ -146,7 +147,7 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 
 ### 決定木 — どの control を使うか
 
-```
+```text
 入力するものは?
 ├ 短い文字列 / メール / URL → Input
 │  └ 編集が**同じ場所で発生**するなら → InlineEdit(header 等の name 編集)
@@ -193,7 +194,7 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 
 ### 決定木 — どの overlay を使うか
 
-```
+```text
 出現契機は?
 ├ hover で**そっと**(非操作)
 │ ├ 単一行 hint → Tooltip
@@ -242,7 +243,7 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 
 ### 決定木
 
-```
+```text
 何を切替える?
 ├ ページ遷移
 │ ├ 文中 / footer → Link
@@ -287,7 +288,7 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 
 ### 決定木
 
-```
+```text
 何を伝える?
 ├ 操作の結果(保存しました等) → Toast
 ├ 作業中の status
@@ -317,7 +318,7 @@ otibo に Alert は無い(2026-06-19 削除済)。理由:
 - 大きい面を solid 色にする = 渋滞、有色面に有色文字 = color-on-color の濁り。何度詰めても収束しなかった。
 - 代替案:
   - 「保存しました」等の操作後通知 → **Toast**
-  - 「メール未確認です」等の常設 notice → **Field.Description** に Link を入れて行内で済ます / **Card** で囲んでタイトル + Link
+  - 「メール未確認です」等の常設 notice → **FieldDescription** に Link を入れて行内で済ます / **Card** で囲んでタイトル + Link
   - 「最後の警告」が要る場面 → **Dialog**(画面を奪う重み)
 
 再挑戦する場合は **「白 on 色」または「neutral 面の単一アクセント」** から再設計。
@@ -346,7 +347,7 @@ otibo に Alert は無い(2026-06-19 削除済)。理由:
 
 ### 決定木
 
-```
+```text
 何を並べる?
 ├ 行列(列で比較したい) → Table
 ├ 一つずつのまとまり(album / 作品 / 通知 card)

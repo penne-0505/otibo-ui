@@ -1,7 +1,7 @@
 import type { Story } from "@ladle/react"
 import { useState } from "react"
 
-import { Pagination } from "./pagination"
+import { PaginationRoot, PaginationItem, PaginationPrev, PaginationNext, PaginationEllipsis } from "./pagination"
 
 export default {
   title: "core-ui / Pagination",
@@ -23,22 +23,22 @@ export const Windowed: Story = () => {
 
   return (
     <div style={{ padding: "3rem 2rem" }}>
-      <Pagination.Root>
-        <Pagination.Prev disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))} />
+      <PaginationRoot>
+        <PaginationPrev disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))} />
         {pages.map((p, i) =>
           p === "ellipsis" ? (
-            <Pagination.Ellipsis key={`e${i}`} />
+            <PaginationEllipsis key={`e${i}`} />
           ) : (
-            <Pagination.Item key={p} active={page === p} onClick={() => setPage(p)}>
+            <PaginationItem key={p} active={page === p} onClick={() => setPage(p)}>
               {p}
-            </Pagination.Item>
+            </PaginationItem>
           ),
         )}
-        <Pagination.Next
+        <PaginationNext
           disabled={page === total}
           onClick={() => setPage((p) => Math.min(total, p + 1))}
         />
-      </Pagination.Root>
+      </PaginationRoot>
     </div>
   )
 }

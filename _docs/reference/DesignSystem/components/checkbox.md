@@ -1,12 +1,19 @@
 ---
 title: Checkbox
 status: active
-component: src/core-ui/checkbox/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/checkbox/`
 
 ## Overview
 
@@ -17,14 +24,14 @@ references:
 slot recipe(Panda)+ Base UI Checkbox 委譲。slot は `root` / `indicator`(2 slot)。Base UI が `data-checked` / `data-indeterminate` / `data-disabled` を供給。
 
 ```tsx
-<Field.Root>
-  <Field.Label>製品アップデートを受け取る</Field.Label>
+<FieldRoot>
+  <FieldLabel>製品アップデートを受け取る</FieldLabel>
   <Checkbox.Root>
     <Checkbox.Indicator>
       <svg viewBox="0 0 16 16"><path d="M3 8.5 L7 12 L13 5" /></svg>
     </Checkbox.Indicator>
   </Checkbox.Root>
-</Field.Root>
+</FieldRoot>
 ```
 
 native checkbox は `border-radius` が GNOME/GTK で効かない等の環境依存があるため、**見た目は 100% custom 描画**(Base UI Checkbox.Root を素の box として使う)。

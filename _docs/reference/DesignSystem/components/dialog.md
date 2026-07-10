@@ -1,34 +1,38 @@
 ---
 title: Dialog
 status: active
-component: src/core-ui/dialog/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../token-semantic-usage-map.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/dialog/`
 
 ## Overview
 
-**最上位の overlay(modal)**。世界を一段暗く落とし(scrim)、その上に paper を一枚浮かせて注意を集中させる。trigger に紐づかず**画面中央に固定**、focus-trap / scroll-lock / outside-dismiss は Base UI Dialog.Root(modal 既定)に委譲。Popover との違いは**背景を奪う**こと ── 「取り消し不可性が高い確認」「集中して書く form」など、画面を奪うことに正当性があるときだけ使う。
+**最上位の overlay(modal)**。世界を一段暗く落とし(scrim)、その上に paper を一枚浮かせて注意を集中させる。trigger に紐づかず**画面中央に固定**、focus-trap / scroll-lock / outside-dismiss は Base UI DialogRoot(modal 既定)に委譲。Popover との違いは**背景を奪う**こと ── 「取り消し不可性が高い確認」「集中して書く form」など、画面を奪うことに正当性があるときだけ使う。
 
 ## API
 
 slot recipe(Panda)+ Base UI Dialog 委譲。slot は `backdrop` / `popup` / `title` / `description`。
 
 ```tsx
-<Dialog.Root>
-  <Dialog.Trigger render={<Button>削除</Button>} />
-  <Dialog.Portal>
-    <Dialog.Backdrop />
-    <Dialog.Popup>
-      <Dialog.Title>本当に削除しますか?</Dialog.Title>
-      <Dialog.Description>この操作は取り消せません。</Dialog.Description>
-      <div>{/* form / action ボタン */}</div>
-    </Dialog.Popup>
-  </Dialog.Portal>
-</Dialog.Root>
+<DialogRoot>
+  <DialogTrigger render={<Button>削除</Button>} />
+  <DialogPopup>
+    <DialogTitle>本当に削除しますか?</DialogTitle>
+    <DialogDescription>この操作は取り消せません。</DialogDescription>
+    <div>{/* form / action ボタン */}</div>
+  </DialogPopup>
+</DialogRoot>
 ```
 
 `modal=true`(Base UI 既定)で focus が popup 内に閉じ込められ、Esc / backdrop click で close する。
@@ -87,7 +91,7 @@ reduced-motion:**8px せり上げ + scale を抜き、センタリングは維�
 - **操作結果の通知**(保存しました、コピーしました) → **Toast**(自発、消える)。
 - **補足情報 / 軽い操作**(1〜2 行 form) → **Popover**(trigger 隣接、scrim 無し)。
 - **action のリスト**(プロフィール / ログアウト) → **Menu**。
-- **常設 notice / inline 警告**(メール未確認) → **Field.Description** に Link、または **Card** で囲む。
+- **常設 notice / inline 警告**(メール未確認) → **FieldDescription** に Link、または **Card** で囲む。
 
 詳細は `component-selection-map.md` §overlay。Alert は **不在**(grain 衝突で skip、§feedback "Alert の不在" 参照)── 「常設の警告 banner」を作りたくなったら Card か Dialog に倒す。
 

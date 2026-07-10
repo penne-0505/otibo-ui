@@ -1,12 +1,19 @@
 ---
 title: Meter
 status: active
-component: src/core-ui/meter/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/meter/`
 
 ## Overview
 
@@ -17,15 +24,13 @@ references:
 slot recipe(Panda)+ Base UI Meter 委譲。slot は `root` / `label` / `value` / `track` / `indicator`(5 slot、Progress と完全同構造)。
 
 ```tsx
-<Meter.Root value={42} min={0} max={100}>
+<MeterRoot value={42} min={0} max={100}>
   <div className={meterLayout()}>
-    <Meter.Label>ストレージ使用量</Meter.Label>
-    <Meter.Value>42 GB / 100 GB</Meter.Value>
+    <MeterLabel>ストレージ使用量</MeterLabel>
+    <MeterValue>42 GB / 100 GB</MeterValue>
   </div>
-  <Meter.Track>
-    <Meter.Indicator />
-  </Meter.Track>
-</Meter.Root>
+  <MeterTrack />
+</MeterRoot>
 ```
 
 ## Variants

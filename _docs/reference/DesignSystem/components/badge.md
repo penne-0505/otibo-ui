@@ -1,11 +1,18 @@
 ---
 title: Badge
 status: active
-component: src/core-ui/badge/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/badge/`
 
 ## Overview
 
@@ -77,7 +84,7 @@ slot は無し(単一 element に直接 text content)。
 - **押せる Badge にする**(Chip との grain 衝突) → Chip。
 - **tone を増やす**(success の緑、warning の琥珀など) → 原則 3 emphasis ladder を破る、新 hue 作らない方針(success は neutral + check icon、warning は accent / danger に振る)。
 - **size を増やす**(grain として固定、識別マーカーは小さい一形) → fontSize xs 一定。
-- **danger Badge を form 表示の error 代替に**(form の error は Field.Error、Badge は identity) → Field.Error。
+- **danger Badge を form 表示の error 代替に**(form の error は FieldError、Badge は identity) → FieldError。
 
 ## Decisions(本セッションの確定事項)
 

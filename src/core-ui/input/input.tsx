@@ -9,7 +9,7 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">
 /**
  * Input — standalone text input.
  *
- * Field.Root の中で使う場合は Base UI Field.Control 経由で a11y を任せる
+ * FieldRoot の中で使う場合は Base UI field control 経由で a11y を任せる
  * 形に書き換える(field.tsx 側で対応)。standalone のときは plain <input>
  * に recipe className を当てるだけで足りる。
  */

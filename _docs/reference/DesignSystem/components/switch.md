@@ -1,12 +1,19 @@
 ---
 title: Switch
 status: active
-component: src/core-ui/switch/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/switch/`
 
 ## Overview
 
@@ -17,12 +24,12 @@ references:
 slot recipe(Panda)+ Base UI Switch 委譲。slot は `root`(track)/ `thumb`(2 slot)。
 
 ```tsx
-<Field.Root>
-  <Field.Label>通知を受け取る</Field.Label>
+<FieldRoot>
+  <FieldLabel>通知を受け取る</FieldLabel>
   <Switch>
     <Switch.Thumb />
   </Switch>
-</Field.Root>
+</FieldRoot>
 ```
 
 **注意**:slotRecipes の key を `switch`(JS 予約語)にできないため、Panda の usage 検出が効かない ── `jsx: ["Switch"]` を明示して `<Switch>` 使用で CSS が emit される(これが無いと CSS が生成されない)。

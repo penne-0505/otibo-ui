@@ -1,16 +1,7 @@
 import type { Story } from "@ladle/react"
 import { useState } from "react"
 
-import {
-  Badge,
-  Chip,
-  ChipGroup,
-  Icon,
-  NavigationMenu,
-  PreviewCard,
-  Toggle,
-  ToggleGroup,
-} from "../index"
+import { Badge, Chip, ChipGroup, Icon, Toggle, ToggleGroup, NavigationMenuRoot, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuGrid, NavigationMenuLink, NavigationMenuViewport, PreviewCardRoot, PreviewCardTrigger, PreviewCardPopup, PreviewCardMedia, PreviewCardBody, PreviewCardTitle, PreviewCardDescription } from "../index"
 
 export default {
   title: "explore / ギャラリー",
@@ -51,19 +42,19 @@ const titleStyle: React.CSSProperties = {
 // 自動で乗せるので、消費側は href と中身だけ渡す。
 function TitleWithPreview({ work }: { work: Work }) {
   return (
-    <PreviewCard.Root>
-      <PreviewCard.Trigger render={<a href="#">{work.title}</a>} />
-      <PreviewCard.Popup>
-        <PreviewCard.Media
+    <PreviewCardRoot>
+      <PreviewCardTrigger render={<a href="#">{work.title}</a>} />
+      <PreviewCardPopup>
+        <PreviewCardMedia
           src={`https://picsum.photos/seed/${work.seed}/640/400`}
           alt={work.title}
         />
-        <PreviewCard.Body>
-          <PreviewCard.Title>{work.title}</PreviewCard.Title>
-          <PreviewCard.Description>2026 / {work.tag}</PreviewCard.Description>
-        </PreviewCard.Body>
-      </PreviewCard.Popup>
-    </PreviewCard.Root>
+        <PreviewCardBody>
+          <PreviewCardTitle>{work.title}</PreviewCardTitle>
+          <PreviewCardDescription>2026 / {work.tag}</PreviewCardDescription>
+        </PreviewCardBody>
+      </PreviewCardPopup>
+    </PreviewCardRoot>
   )
 }
 
@@ -165,7 +156,7 @@ export const Gallery: Story = () => {
     <div style={{ background: "var(--colors-bg)", minHeight: "100vh", padding: "2.5rem 1.5rem" }}>
       <div style={{ maxWidth: "880px", margin: "0 auto" }}>
         {/* portfolio 風 top nav。作品/ブログに dropdown、About は直リンク。Viewport は共有 box。 */}
-        <NavigationMenu.Root style={{ marginBottom: "2.5rem" }}>
+        <NavigationMenuRoot style={{ marginBottom: "2.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span
               style={{
@@ -176,40 +167,40 @@ export const Gallery: Story = () => {
             >
               otibo
             </span>
-            <NavigationMenu.List>
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger>作品</NavigationMenu.Trigger>
-                <NavigationMenu.Content>
-                  <NavigationMenu.Grid>
-                    <NavigationMenu.Link href="#">2026 すべて</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">写真</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">3D</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">グラフィック</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">タイポ</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">アーカイブ</NavigationMenu.Link>
-                  </NavigationMenu.Grid>
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger>ブログ</NavigationMenu.Trigger>
-                <NavigationMenu.Content>
-                  <NavigationMenu.Grid>
-                    <NavigationMenu.Link href="#">最新の記事</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">デザイン</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">技術ノート</NavigationMenu.Link>
-                    <NavigationMenu.Link href="#">読みもの</NavigationMenu.Link>
-                  </NavigationMenu.Grid>
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-              <NavigationMenu.Item>
-                <NavigationMenu.Link href="#" plain>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>作品</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuGrid>
+                    <NavigationMenuLink href="#">2026 すべて</NavigationMenuLink>
+                    <NavigationMenuLink href="#">写真</NavigationMenuLink>
+                    <NavigationMenuLink href="#">3D</NavigationMenuLink>
+                    <NavigationMenuLink href="#">グラフィック</NavigationMenuLink>
+                    <NavigationMenuLink href="#">タイポ</NavigationMenuLink>
+                    <NavigationMenuLink href="#">アーカイブ</NavigationMenuLink>
+                  </NavigationMenuGrid>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>ブログ</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuGrid>
+                    <NavigationMenuLink href="#">最新の記事</NavigationMenuLink>
+                    <NavigationMenuLink href="#">デザイン</NavigationMenuLink>
+                    <NavigationMenuLink href="#">技術ノート</NavigationMenuLink>
+                    <NavigationMenuLink href="#">読みもの</NavigationMenuLink>
+                  </NavigationMenuGrid>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#" plain>
                   About
-                </NavigationMenu.Link>
-              </NavigationMenu.Item>
-            </NavigationMenu.List>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
           </div>
-          <NavigationMenu.Viewport />
-        </NavigationMenu.Root>
+          <NavigationMenuViewport />
+        </NavigationMenuRoot>
 
         <div
           style={{

@@ -49,11 +49,11 @@ import { Field as BaseField } from "@base-ui/react/field"
 import { field } from "@/styled-system/recipes"
 
 // a11y は Base UI、surface は Panda recipe
-<BaseField.Root className={field().root}>
-  <BaseField.Label className={field().label}>
+<BaseFieldRoot className={field().root}>
+  <BaseFieldLabel className={field().label}>
   <BaseField.Control className={input()}>
-  <BaseField.Description className={field().description}>
-  <BaseField.Error className={field().error} match={...}>
+  <BaseFieldDescription className={field().description}>
+  <BaseFieldError className={field().error} match={...}>
 ```
 
 ## Why Base UI
@@ -89,7 +89,7 @@ Radix UI を採らない理由:
 | ARIA attributes 自動配線 | **Base UI** | `aria-labelledby` / `aria-describedby` の伝播 |
 | Focus management | **Base UI** | Dialog の focus trap、RadioGroup の roving tabindex |
 | Keyboard operation | **Base UI** | Select の type-ahead、Tabs の arrow navigation |
-| Constraint validation 連動 | **Base UI** | `Field.Error` の `match` prop |
+| Constraint validation 連動 | **Base UI** | `FieldError` の `match` prop |
 | State machine(open / closed、active 等)| **Base UI** | Popover / Dialog / Tooltip の controlled API |
 
 ## Components That Need Base UI Backing
@@ -134,7 +134,7 @@ Base UI を放棄して別 library / 自前実装に切り替える条件:
 
 `package.json` の `peerDependencies` と開発用 `devDependencies` に `@base-ui/react` を持つ。version は major で固定し、minor / patch は同 major 内で追従する。
 
-```
+```json
 "@base-ui/react": "^1.6.0"
 ```
 
@@ -142,7 +142,7 @@ Base UI を放棄して別 library / 自前実装に切り替える条件:
 
 各 component の import は part 単位:
 
-```
+```text
 @base-ui/react/field
 @base-ui/react/checkbox
 @base-ui/react/radio

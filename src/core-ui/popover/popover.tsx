@@ -8,13 +8,13 @@ import { mergeClass } from "../../lib/utils"
  * Base UI に委譲、見た目は otibo recipe(明るい raised panel)。
  *
  * 使い方:
- *   <Popover.Root>
- *     <Popover.Trigger render={<Button>開く</Button>} />
- *     <Popover.Popup>
- *       <Popover.Title>...</Popover.Title>
- *       <Popover.Description>...</Popover.Description>
- *     </Popover.Popup>
- *   </Popover.Root>
+ *   <PopoverRoot>
+ *     <PopoverTrigger render={<Button>開く</Button>} />
+ *     <PopoverPopup>
+ *       <PopoverTitle>...</PopoverTitle>
+ *       <PopoverDescription>...</PopoverDescription>
+ *     </PopoverPopup>
+ *   </PopoverRoot>
  */
 interface PopoverPopupProps extends BasePopover.Popup.Props {
   side?: BasePopover.Positioner.Props["side"]
@@ -22,7 +22,11 @@ interface PopoverPopupProps extends BasePopover.Popup.Props {
   sideOffset?: BasePopover.Positioner.Props["sideOffset"]
 }
 
-const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(function PopoverPopup(
+export const PopoverRoot = BasePopover.Root
+export const PopoverTrigger = BasePopover.Trigger
+export const PopoverClose = BasePopover.Close
+
+export const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(function PopoverPopup(
   { className, side = "bottom", align = "center", sideOffset = 8, children, ...props },
   ref,
 ) {
@@ -38,15 +42,14 @@ const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(function Popo
   )
 })
 
-const PopoverTitle = forwardRef<HTMLHeadingElement, BasePopover.Title.Props>(function PopoverTitle(
-  { className, ...props },
-  ref,
-) {
-  const slot = popover()
-  return <BasePopover.Title ref={ref} className={mergeClass(slot.title, className)} {...props} />
-})
+export const PopoverTitle = forwardRef<HTMLHeadingElement, BasePopover.Title.Props>(
+  function PopoverTitle({ className, ...props }, ref) {
+    const slot = popover()
+    return <BasePopover.Title ref={ref} className={mergeClass(slot.title, className)} {...props} />
+  },
+)
 
-const PopoverDescription = forwardRef<HTMLParagraphElement, BasePopover.Description.Props>(
+export const PopoverDescription = forwardRef<HTMLParagraphElement, BasePopover.Description.Props>(
   function PopoverDescription({ className, ...props }, ref) {
     const slot = popover()
     return (
@@ -58,12 +61,3 @@ const PopoverDescription = forwardRef<HTMLParagraphElement, BasePopover.Descript
     )
   },
 )
-
-export const Popover = {
-  Root: BasePopover.Root,
-  Trigger: BasePopover.Trigger,
-  Popup: PopoverPopup,
-  Title: PopoverTitle,
-  Description: PopoverDescription,
-  Close: BasePopover.Close,
-}

@@ -1,11 +1,18 @@
 ---
 title: ScrollArea
 status: active
-component: src/core-ui/scroll-area/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/scroll-area/`
 
 ## Overview
 
@@ -16,14 +23,12 @@ references:
 slot recipe(Panda)+ Base UI ScrollArea 委譲。slot は `root` / `viewport` / `scrollbar` / `thumb`(4 slot)。
 
 ```tsx
-<ScrollArea.Root style={{ height: "20rem" }}>
-  <ScrollArea.Viewport>
+<ScrollAreaRoot style={{ height: "20rem" }}>
+  <ScrollAreaViewport>
     {/* 長い content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>
+  </ScrollAreaViewport>
+  <ScrollAreaScrollbar orientation="vertical" />
+</ScrollAreaRoot>
 ```
 
 固定高さの領域(`Root` 側で `style` / `className` で size を与える)に長い content を内蔵するとき使う。

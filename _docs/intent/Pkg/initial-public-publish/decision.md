@@ -7,6 +7,7 @@ updated_at: 2026-07-10
 references:
   - "_docs/plan/Pkg/initial-public-publish/plan.md"
   - "_docs/qa/Pkg/initial-public-publish/test-plan.md"
+  - "_docs/intent/Pkg/drop-in-styles/decision.md"
   - "_docs/intent/Pkg/dependency-baseline-upgrade/decision.md"
 related_issues: []
 related_prs: []
@@ -128,6 +129,8 @@ otibo-ui は **two-track 構造**(memory `otibo-two-track-structure`)の一翼�
 
 ## E. CSS / preset 配布方式 = preset 経由 consumer codegen 一本
 
+> **0.3.0以降はsuperseded:** `_docs/intent/Pkg/drop-in-styles/decision.md` がcompiled CSS配布をcanonical contractとして置き換える。本節は0.1.x〜0.2.xの判断記録として保持する。
+
 ### 決定理由
 
 memory `panda-dynamic-component-staticcss` に記載の通り、otibo-ui の component の一部は **consumer 側の `panda.config` にも `staticCss` を書かないと CSS が emit されない**(toast、pagination の active、combobox、navigation-menu、number-field):
@@ -192,6 +195,8 @@ memory `panda-dynamic-component-staticcss` に記載の通り、otibo-ui の com
 ---
 
 ## I. Panda library publish approach = Approach 4(Ship Build Info File)(2026-06-21 追記)
+
+> **0.3.0以降はsuperseded:** build infoはpublic package contractから外れ、Pandaはlibrary内部のstatic CSS生成だけに用いる。後継判断は`_docs/intent/Pkg/drop-in-styles/decision.md`を参照する。
 
 ### 背景
 

@@ -129,18 +129,18 @@ foreground 用の dark token と shadow 用の dark token は同じではない�
 
 ### Field Affordance Is The Signature, Not The HTML Element (NEW: otibo-dev Phase A 発見)
 
-Field.Input が grammar 上担うのは **「form field 受け皿(inset shadow signature + surface fill)」** という affordance であって、HTML element の種類ではない。受け皿の signature が同じであれば、内側の element は `<input>` / `<textarea>` / `<select>` 等いずれでも構わない。
+FieldInput が grammar 上担うのは **「form field 受け皿(inset shadow signature + surface fill)」** という affordance であって、HTML element の種類ではない。受け皿の signature が同じであれば、内側の element は `<input>` / `<textarea>` / `<select>` 等いずれでも構わない。
 
 これは grammar の本質と HTML implementation を分離する。データ shape(短文 / 長文 / 選択肢)は内側の implementation choice、affordance signature は外側の grammar。
 
-**実装パターン**(Base UI Field.Control の `render` prop):
+**実装パターン**(Base UI field controlの`render` prop):
 
 ```tsx
 // 単行文字
-<Field.Input type="email" />
+<FieldInput type="email" />
 
 // 複数行文字(textarea に差し替え、recipe の inset shadow signature は継承)
-<Field.Input
+<FieldInput
   render={<textarea rows={3} />}
   className={css({ lineHeight: "snug", paddingBlock: "3", minHeight: "24", resize: "vertical" })}
 />
@@ -150,8 +150,8 @@ Field.Input が grammar 上担うのは **「form field 受け皿(inset shadow s
 
 **含意**:
 
-- 「Field.Textarea / Field.Select 等を component として分けるべきか」という疑問への答え:**長期的には分ける、短期的には render prop で diverge**。同じ pattern が 2 箇所以上で再現したら component として昇格
-- Field.Input という命名は厳密には misnomer(Base UI の Field.Control が正確)。token re-derivation phase で再考
+- 「FieldTextarea / FieldSelect等をcomponentとして分けるべきか」という疑問への答え:**長期的には分ける、短期的には render prop で diverge**。同じ pattern が 2 箇所以上で再現したら component として昇格
+- FieldInput という命名は厳密には misnomer(Base UI のfield controlが正確)。token re-derivation phase で再考
 - recipe 上 `lineHeight: tight (1.25)` は複数行の和文には詰まりすぎる。textarea として render する場合は callsite で `snug` に上書きが必要 ── これは textarea 化が再発したら recipe variant 化する候補
 
 **Avoid**:
@@ -193,9 +193,9 @@ disabled な affordance の説明は **「常時可視」ではなく「試し�
 
 - **試行は探索**:ユーザーは「なぜ押せないか」を頭で考える前に「とりあえず押してみる」ことが多い。常時可視の hint はこの自然な探索を冗長にする
 - **試行前の hint は noise**:ユーザーが既に何を入力すべきか把握している場合、常時表示の条件説明は単なる視覚的ノイズ
-- **post-attempt は Field.Error と同じ grammar**:Field.Error は「入力 → validation 失敗 → 説明」。disabled hint も「click → 拒否 → 説明 + 原因 highlight」で同型
+- **post-attempt は FieldError と同じ grammar**:FieldError は「入力 → validation 失敗 → 説明」。disabled hint も「click → 拒否 → 説明 + 原因 highlight」で同型
 
-**Pattern: try → highlight → guide**
+### Pattern: try → highlight → guide
 
 ```tsx
 // 1. visually disabled だが click は受ける
@@ -304,12 +304,12 @@ prototype 期は **box callout** を default とする(native form element の�
 
 **Icon の grammar 上の位置**:
 
-error message の前に **alert circle 等の icon** を置くのは、role C(message)の **「説明の anchor」** として region(box callout)と message を視覚的に束ねる役。Field.Error grammar の段で「typography で disambiguate、icon は使わない」と書いたが、これは **Field.Error(field 内)の対義語に対するもの**。box callout pattern の error message では icon は box 全体の identity を補強する役割があり、grammar 上正当。
+error message の前に **alert circle 等の icon** を置くのは、role C(message)の **「説明の anchor」** として region(box callout)と message を視覚的に束ねる役。FieldError grammar の段で「typography で disambiguate、icon は使わない」と書いたが、これは **FieldError(field 内)の対義語に対するもの**。box callout pattern の error message では icon は box 全体の identity を補強する役割があり、grammar 上正当。
 
-- Field.Error(field の内側): typography(medium weight + danger color)で完結、icon 不要
+- FieldError(field の内側): typography(medium weight + danger color)で完結、icon 不要
 - Box callout error(region scope の error): icon + message が region と束ねられ、box の役割を補強する
 
-両者を混同しないために、**Field.Error は icon を持たず、box callout は icon を持つ** を grammar に固定する。
+両者を混同しないために、**FieldError は icon を持たず、box callout は icon を持つ** を grammar に固定する。
 
 ### Form Validation: Suppress Native UI, Use Callout Pattern (NEW)
 
@@ -320,9 +320,9 @@ native browser の constraint validation tooltip(`<input required>` で submit �
 ```tsx
 <form noValidate onSubmit={handleSubmit}>
   <CalloutBox active={!!emailError}>
-    <Field.Root>
-      <Field.Label>メールアドレス</Field.Label>
-      <Field.Input
+    <FieldRoot>
+      <FieldLabel>メールアドレス</FieldLabel>
+      <FieldInput
         type="email"
         value={email}
         onChange={(e) => { setEmail(e.target.value); if (emailError) setEmailError(null) }}
@@ -330,7 +330,7 @@ native browser の constraint validation tooltip(`<input required>` で submit �
         aria-describedby={emailError ? "email-error" : undefined}
       />
       {emailError && <ErrorMessage id="email-error">{emailError}</ErrorMessage>}
-    </Field.Root>
+    </FieldRoot>
   </CalloutBox>
 
   <CalloutBox active={showAckHint}>
@@ -354,7 +354,7 @@ function handleSubmit(event) {
 - field-level error(email validation 失敗)と form-level precondition(checkbox 未確認)が **同じ callout pattern で統一** されるため、ユーザーは「box が出たら確認するところ」という一貫した認知を持てる
 - error は **change で消す**(`if (emailError) setEmailError(null)` on change)── 修正を始めた瞬間に error が引っ込み、「直されつつある」を表現
 - `required` 属性は **a11y のためにそのまま付ける**(`noValidate` は UI 抑制のみで、validity state API は使える)── が、`required` は **form の constraint** であり、`noValidate` 下では submit を block しない。我々の handleSubmit が block する
-- Field.Error component(Base UI)は `match` で reactively render する仕組みだが、box callout pattern と併用すると structure が混乱するため、**この pattern では使わない**。手動 state で ErrorMessage を出す
+- FieldError component(Base UI)は `match` で reactively render する仕組みだが、box callout pattern と併用すると structure が混乱するため、**この pattern では使わない**。手動 state で ErrorMessage を出す
 - `validateEmail` 等の validator は callsite で書ける ── grammar 上は「form 側が persistence boundary を持つ」設計、design system 側は表現手段(CalloutBox / ErrorMessage)のみを提供
 
 **Avoid**:
@@ -369,13 +369,13 @@ function handleSubmit(event) {
 - A と C を両方とも text 表現にする(差別化されない)
 - boundary marker を強すぎる装飾(背景全面 danger 塗り、大きな ring 等)にする(form 全体が「壊れて見える」)
 
-**Field.Error と同じ grammar、異なる scope**:
+**FieldError と同じ grammar、異なる scope**:
 
-| 観点 | Field.Error | Disabled-reveal hint |
+| 観点 | FieldError | Disabled-reveal hint |
 | --- | --- | --- |
 | 出現 trigger | 個別 field の validation 失敗 | form submit / button click の precondition 失敗 |
 | scope | 単一 field | form 横断の precondition(checkbox 等) |
-| 表現 | Field.Error slot に danger text | 原因 element の color highlight + 隣接 danger text |
+| 表現 | FieldError slot に danger text | 原因 element の color highlight + 隣接 danger text |
 | 色 | danger | danger |
 | weight | medium | medium |
 | 消えるタイミング | validation 通過時 | precondition 満たした時 |
@@ -503,19 +503,19 @@ tone の強弱は単一の梯子で表現する:**neutral(quiet)→ accent(情�
 
 | Token | 明度(warm-N) | 役割 | 該当する用法 |
 | --- | --- | --- | --- |
-| `fg.strong` | 900 | **unit identifier** ── そのまとまり(Card / Field / Button 等)を何であるか同定する content | `Card.title`、`Field.Label`、Button secondary label(action identifier)、Button ghost _hover、InlineEdit underline color |
+| `fg.strong` | 900 | **unit identifier** ── そのまとまり(Card / Field / Button 等)を何であるか同定する content | `Card.title`、`FieldLabel`、Button secondary label(action identifier)、Button ghost _hover、InlineEdit underline color |
 | `fg` | 800 | **body subject default** ── 読まれる / 入力される / 操作される主役 content の default 色 | Input value text、global body default、Button primary _hover bg(invert 系) |
 | `fg.secondary` | 700 | **quiet subject** ── subject だが文脈的に押し出さない(continuous reading の prose、低 affordance control)| `Card.body`(prose 本文)、Button ghost label(quiet control label) |
-| `fg.muted` | 500 | **support** ── content そのものではなく、他の content を説明・補助するテキスト | `Card.description`、`Field.Description` |
+| `fg.muted` | 500 | **support** ── content そのものではなく、他の content を説明・補助するテキスト | `Card.description`、`FieldDescription` |
 | `fg.subtle` | 400 | **absent / placeholder** ── 値が無い / 入力前 / metadata 等の「不在」を弱く提示する | Input placeholder、InlineEdit 空値時の placeholder、InlineEdit edit placeholder |
 
 注:`fg.disabled` は廃止(grammar §Disabled As Quiet Surface 参照)。disabled 状態は `opacity.disabled` token による全体 quiet 化で表現するため、disabled 専用の foreground 色は持たない。
 
 ### 重要な区別
 
-- `fg.muted`(support)と `fg.subtle`(absent / placeholder)は混同しやすい。**「他の content を説明している」なら muted、「content そのものが不在」なら subtle**。`Field.Description` は support、`InlineEdit` 空値時の「未設定」表示は absent / placeholder。
+- `fg.muted`(support)と `fg.subtle`(absent / placeholder)は混同しやすい。**「他の content を説明している」なら muted、「content そのものが不在」なら subtle**。`FieldDescription` は support、`InlineEdit` 空値時の「未設定」表示は absent / placeholder。
 - `fg.secondary`(quiet subject)と `fg.muted`(support)も混同しやすい。**「読まれる / 操作される主役」なら secondary、「主役を説明する脇役」なら muted**。`Card.body`(本文 prose)は secondary、`Card.description`(title の補助)は muted。
-- `fg.strong` を「label / 識別子」として使うことは grammar 上正当。fg.strong は「最も濃い色」ではなく「unit identifier」という役割。Card.title も Field.Label も Button secondary label も、それぞれの unit を同定する役割を持つ。
+- `fg.strong` を「label / 識別子」として使うことは grammar 上正当。fg.strong は「最も濃い色」ではなく「unit identifier」という役割。Card.title も FieldLabel も Button secondary label も、それぞれの unit を同定する役割を持つ。
 
 ### Component spec での選び方
 
@@ -700,7 +700,7 @@ prototype の借金として明示しておく。token 再導出フェーズで�
 7. **Accent family の確定** ── *2026-06-16 採用 / 2026-06-19 再校正*。単一 accent = `oklch(0.40 0.11 265)`(紫を一滴含む低彩度の藍)。warm 系は danger tint と衝突するため不採用。薄いバリエーション(selected / band)は α 派生(subtle 0.12 / muted 0.05)で賄い、新しい hue を増やさない。hover は同 hue を一段沈めた `oklch(0.35 0.11 265)`。当初値 `0.46` は HDR 表示下で決めており、HDR OFF=素の sRGB に基準を置き直すと「藍の深みが足りない」と判明。明度のみ `0.46→0.40` と沈めて深みを補った(彩度 `0.11` は据え置き=低彩度の節度は維持、深みは暗さで出した)。
 8. **Letter spacing** ── 現状 `wide: 0.005em` が未使用。残すかの判断。
 9. **InlineEdit underline の太さの token 化** ── 現状 `2px` を hardcode。size variant 導入時に相対値化するか、token として独立させるか。
-10. **`fontWeights.medium` (500) の恒久採用判断** ── prototype 期に Button / Field.Label で使用。grammar audit で「prototype 後再判断」項目。
+10. **`fontWeights.medium` (500) の恒久採用判断** ── prototype 期に Button / FieldLabel で使用。grammar audit で「prototype 後再判断」項目。
 11. **No Operable Shift(error reveal 時の layout 安定)** ── error 表示で operable region(input / button)が動かないようにする原則。`Approach A`(CalloutBox padding 常時 + ErrorSlot で行高 reserve)を試行(2026-06-12)が、validatable field と optional field(reason)の余白統一に課題が残り保留。別アプローチ(全 field を CalloutBox で wrap して余白統一 / overlay / 別の reserve 戦略)を otibo-dev TODO.md Inbox に残す。
 
 ## Verification

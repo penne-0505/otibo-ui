@@ -1,6 +1,6 @@
 import type { Story } from "@ladle/react"
 
-import { Card } from "../card/card"
+import { CardRoot, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "../card/card"
 import { Button } from "./button"
 
 export default {
@@ -61,18 +61,18 @@ export const Disabled: Story = () => (
 // 4. Card + Button — Card 内 footer に CTA を置く。settings-like context。
 export const InCard: Story = () => (
   <div style={{ maxWidth: 560 }}>
-    <Card.Root surface="paper" padding="md">
-      <Card.Header>
-        <Card.Title>通知</Card.Title>
-        <Card.Description>静かな受け取りを基本に、必要なものだけ。</Card.Description>
-      </Card.Header>
-      <Card.Body>
+    <CardRoot surface="paper" padding="md">
+      <CardHeader>
+        <CardTitle>通知</CardTitle>
+        <CardDescription>静かな受け取りを基本に、必要なものだけ。</CardDescription>
+      </CardHeader>
+      <CardBody>
         <p>設定変更は次のセッションから反映されます。すでに開いている画面には影響しません。</p>
-      </Card.Body>
-      <Card.Footer>
+      </CardBody>
+      <CardFooter>
         <Button intent="ghost">変更を取り消す</Button>
         <Button intent="primary">変更を保存</Button>
-      </Card.Footer>
-    </Card.Root>
+      </CardFooter>
+    </CardRoot>
   </div>
 )

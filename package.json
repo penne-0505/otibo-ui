@@ -1,8 +1,8 @@
 {
   "name": "@otibo/ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
-  "description": "otibo Design System UI library (Base UI + Panda CSS)",
+  "description": "Drop-in React components for the otibo Design System",
   "license": "MIT",
   "author": "penne / ぺんね",
   "repository": {
@@ -26,20 +26,27 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
-    "./preset": {
-      "types": "./dist/preset.d.ts",
-      "import": "./dist/preset.js",
-      "require": "./dist/preset.cjs"
+    "./styles.css": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/styles.css"
     }
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE.txt"
   ],
   "publishConfig": {
@@ -59,29 +66,41 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "build": "tsup && panda ship --outfile dist/panda.buildinfo.json",
-    "check": "npm run typecheck && npm run lint && npm run build && npm run ladle:build",
-    "audit": "npm audit --audit-level=high",
-    "prepublishOnly": "npm run check"
+    "build": "tsup && node scripts/build-package-styles.mjs",
+    "test:package": "node scripts/verify-package.mjs",
+    "docs:check": "./scripts/check-docs.sh",
+    "lint:package": "node scripts/lint-package.mjs",
+    "check": "npm run typecheck && npm run lint && npm run build && npm run test:package && npm run ladle:build",
+    "audit": "npm audit --audit-level=low",
+    "release:check": "npm run check && npm run audit && npm run docs:check && npm run lint:package",
+    "prepublishOnly": "npm run release:check"
   },
   "peerDependencies": {
-    "@base-ui/react": "^1.6.0",
-    "@pandacss/dev": "^1.11.4",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
+  "dependencies": {
+    "@base-ui/react": "^1.6.0"
+  },
   "devDependencies": {
-    "@base-ui/react": "^1.6.0",
+    "@arethetypeswrong/cli": "0.18.5",
     "@biomejs/biome": "^2.5.3",
     "@ladle/react": "^5.0.3",
     "@pandacss/dev": "^1.11.4",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "gen-interface-jp": "^0.6.2",
+    "markdownlint-cli2": "0.23.0",
+    "publint": "0.3.21",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vite": "^6.4.3"
+  },
+  "overrides": {
+    "tsup": {
+      "esbuild": "0.28.1"
+    }
   }
 }

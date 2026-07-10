@@ -7,7 +7,7 @@ type FieldVariants = NonNullable<Parameters<typeof field>[0]>
 type InputSize = NonNullable<Parameters<typeof input>[0]>["size"]
 
 /**
- * Field.Root — Internal boundary that ties Label / Input / Description / Error
+ * FieldRoot — Internal boundary that ties Label / Input / Description / Error
  * to the same a11y context (aria-labelledby / describedby / invalid).
  *
  * Powered by Base UI Field primitive. otibo recipe only paints the surface;
@@ -61,14 +61,6 @@ const FieldError = forwardRef<HTMLDivElement, BaseField.Error.Props>(function Fi
   const slot = field()
   return <BaseField.Error ref={ref} className={mergeClass(slot.error, className)} {...props} />
 })
-
-export const Field = {
-  Root: FieldRoot,
-  Label: FieldLabel,
-  Input: FieldInput,
-  Description: FieldDescription,
-  Error: FieldError,
-}
 
 export type { FieldInputProps }
 export { FieldDescription, FieldError, FieldInput, FieldLabel, FieldRoot }

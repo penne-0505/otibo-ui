@@ -1,1 +1,1 @@
-export { Tabs, TabsList, TabsPanel, TabsRoot, TabsTab } from "./tabs"
+export { TabsList, TabsPanel, TabsRoot, TabsTab } from "./tabs"

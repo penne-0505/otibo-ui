@@ -1,11 +1,18 @@
 ---
 title: Pagination
 status: active
-component: src/core-ui/pagination/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/pagination/`
 
 ## Overview
 
@@ -16,17 +23,17 @@ references:
 slot recipe(Panda)+ 純 otibo(Base UI 不要、`<button>` を並べる)。slot は `root` / `item` / `ellipsis`。`active` variant が item に乗る。
 
 ```tsx
-<Pagination.Root>
-  <Pagination.Item disabled>‹</Pagination.Item>
-  <Pagination.Item>1</Pagination.Item>
-  <Pagination.Ellipsis />
-  <Pagination.Item>5</Pagination.Item>
-  <Pagination.Item active>6</Pagination.Item>
-  <Pagination.Item>7</Pagination.Item>
-  <Pagination.Ellipsis />
-  <Pagination.Item>20</Pagination.Item>
-  <Pagination.Item>›</Pagination.Item>
-</Pagination.Root>
+<PaginationRoot>
+  <PaginationItem disabled>‹</PaginationItem>
+  <PaginationItem>1</PaginationItem>
+  <PaginationEllipsis />
+  <PaginationItem>5</PaginationItem>
+  <PaginationItem active>6</PaginationItem>
+  <PaginationItem>7</PaginationItem>
+  <PaginationEllipsis />
+  <PaginationItem>20</PaginationItem>
+  <PaginationItem>›</PaginationItem>
+</PaginationRoot>
 ```
 
 **windowing(`1 ... 現在±1 ... last`)は消費側で組む** ── component 内蔵にしない方針(柔軟性のため)。Item / Ellipsis を並べる primitive 単位の出し方を採用。

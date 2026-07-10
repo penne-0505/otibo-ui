@@ -5,9 +5,9 @@ import { otiboPreset } from "./preset"
 /**
  * otibo-ui Panda CSS configuration(internal repo 用).
  *
- * design system の値(token / recipe / globalCss)は `preset.ts` に切り出して
- * 外部 consumer(otibo-dev 等)と共有する。この config は internal repo の
- * bundler 設定(include / outdir / layers 等)を担当するだけのシェルとなる。
+ * design system の値(token / recipe / globalCss)は `preset.ts` に集約する。
+ * 0.3.0 以降、Panda は repository 内の authoring / static CSS generation 専用であり、
+ * consumer は生成済み `@otibo/ui/styles.css` を import する。
  */
 export default defineConfig({
   preflight: true,
@@ -18,20 +18,46 @@ export default defineConfig({
   include: ["./src/**/*.{ts,tsx}", "./.ladle/**/*.{ts,tsx}"],
   exclude: [],
 
-  // Toast は manager 経由で runtime に動的描画されるため、静的 usage 解析では
-  // recipe 使用が検出されない。styling は toast を使う限り必ず要るので常時 emit する。
+  // Compiled CSS は source usage に依存せず public component の全 variant を保証する。
+  // recipe を追加した場合はここにも必ず追加し、package verification で対応を検査する。
   staticCss: {
     recipes: {
-      toast: ["*"],
-      // active(現在ページ)は runtime boolean なので静的検出されない。全 variant を常時 emit。
-      pagination: ["*"],
-      // recipe を wrapper component 内でのみ呼ぶ型(JSX タグから直接 recipe を辿れない)で
-      // usage 検出漏れ → 常時 emit。
-      numberField: ["*"],
-      toggle: ["*"],
+      accordion: ["*"],
+      avatar: ["*"],
+      badge: ["*"],
+      breadcrumb: ["*"],
+      button: ["*"],
+      card: ["*"],
+      checkbox: ["*"],
       chip: ["*"],
-      // wrapper 内呼び出し + Viewport の Portal で usage 検出が不安定なので常時 emit。
+      combobox: ["*"],
+      dialog: ["*"],
+      field: ["*"],
+      inlineEdit: ["*"],
+      input: ["*"],
+      link: ["*"],
+      menu: ["*"],
+      meter: ["*"],
       navigationMenu: ["*"],
+      numberField: ["*"],
+      pagination: ["*"],
+      popover: ["*"],
+      previewCard: ["*"],
+      progress: ["*"],
+      radio: ["*"],
+      scrollArea: ["*"],
+      segmentedControl: ["*"],
+      select: ["*"],
+      separator: ["*"],
+      skeleton: ["*"],
+      slider: ["*"],
+      spinner: ["*"],
+      switchRecipe: ["*"],
+      table: ["*"],
+      tabs: ["*"],
+      toast: ["*"],
+      toggle: ["*"],
+      tooltip: ["*"],
     },
   },
 

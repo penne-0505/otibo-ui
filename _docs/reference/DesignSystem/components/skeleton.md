@@ -1,12 +1,19 @@
 ---
 title: Skeleton
 status: active
-component: src/core-ui/skeleton/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/skeleton/`
 
 ## Overview
 
@@ -21,11 +28,11 @@ references:
 <Skeleton circle style={{ width: "2.5rem", height: "2.5rem" }} />
 
 {/* card のローディング状態 */}
-<Card.Root>
+<CardRoot>
   <Skeleton style={{ width: "60%", height: "1.5rem", marginBottom: "0.5rem" }} />
   <Skeleton style={{ width: "100%", height: "1rem" }} />
   <Skeleton style={{ width: "85%", height: "1rem" }} />
-</Card.Root>
+</CardRoot>
 ```
 
 形(width / height)は **消費側で与える**(text 行 / paragraph / image 枠 / avatar 円、etc)── content の形を skeleton で模倣する設計。

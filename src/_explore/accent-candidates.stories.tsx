@@ -1,8 +1,8 @@
 import type { Story } from "@ladle/react"
 
 import { Button } from "../core-ui/button/button"
-import { Card as UICard } from "../core-ui/card/card"
-import { Field } from "../core-ui/field/field"
+import { CardRoot as UICardRoot, CardHeader as UICardHeader, CardTitle as UICardTitle, CardDescription as UICardDescription, CardBody as UICardBody, CardFooter as UICardFooter } from "../core-ui/card/card"
+import { FieldRoot, FieldLabel, FieldInput, FieldDescription } from "../core-ui/field/field"
 import { Input } from "../core-ui/input/input"
 
 /**
@@ -963,11 +963,11 @@ export const AppliedRealUI: Story = () => (
       <h3 style={{ margin: 0, fontSize: "0.875rem", fontWeight: 600, color: T.fgMuted }}>
         focus ring ── accent 化(下の入力は autofocus)
       </h3>
-      <Field.Root>
-        <Field.Label>メールアドレス</Field.Label>
-        <Field.Input autoFocus type="email" placeholder="hello@otibo.dev" />
-        <Field.Description>確認メールをお送りします。</Field.Description>
-      </Field.Root>
+      <FieldRoot>
+        <FieldLabel>メールアドレス</FieldLabel>
+        <FieldInput autoFocus type="email" placeholder="hello@otibo.dev" />
+        <FieldDescription>確認メールをお送りします。</FieldDescription>
+      </FieldRoot>
       <div>
         <span
           style={{
@@ -988,19 +988,19 @@ export const AppliedRealUI: Story = () => (
       <h3 style={{ margin: 0, fontSize: "0.875rem", fontWeight: 600, color: T.fgMuted }}>
         Card ── footer の CTA に accent
       </h3>
-      <UICard.Root surface="paper" padding="md">
-        <UICard.Header>
-          <UICard.Title>通知設定</UICard.Title>
-          <UICard.Description>静かな受け取りを基本に、必要なものだけ。</UICard.Description>
-        </UICard.Header>
-        <UICard.Body>
+      <UICardRoot surface="paper" padding="md">
+        <UICardHeader>
+          <UICardTitle>通知設定</UICardTitle>
+          <UICardDescription>静かな受け取りを基本に、必要なものだけ。</UICardDescription>
+        </UICardHeader>
+        <UICardBody>
           <p>変更は次のセッションから反映されます。すでに開いている画面には影響しません。</p>
-        </UICard.Body>
-        <UICard.Footer>
+        </UICardBody>
+        <UICardFooter>
           <Button intent="ghost">取り消す</Button>
           <Button intent="primary">変更を保存</Button>
-        </UICard.Footer>
-      </UICard.Root>
+        </UICardFooter>
+      </UICardRoot>
     </section>
 
     <section style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>

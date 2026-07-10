@@ -7,8 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 /**
  * tsup build configuration for @otibo/ui.
  *
- * 2 build configs (array form):
- *   1. component bundle  — `src/index.ts` → `dist/index.{js,cjs,d.ts}`
+ * component bundle — `src/index.ts` → `dist/index.{js,cjs,d.ts}`
  *      `banner: { js: '"use client"' }` を付ける。React component の多くは Base UI の
  *      hook(useRender / useState 等)を使うため、Next.js App Router 等の RSC bundler が
  *      Server Component から safe に import できるよう、dist 全体に directive を機械的に
@@ -16,26 +15,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
  *      Server / Client 境界の判断は library 側で担保し、consumer に "use client" の
  *      wrapping を強いない。
  *
- *   2. preset bundle     — `preset.ts` → `dist/preset.{js,cjs,d.ts}`
- *      `banner` は付けない。preset は Panda の build-time config(`definePreset()` で
- *      theme / recipe を返す純粋 module)であり、React renderer は触らない。"use client"
- *      を付けると意味的におかしいので明確に分ける。
- *
- * external dependencies は consumer が持つ前提で bundle に含めない:
+ * external dependencies は bundle に含めない:
  *   - react / react-dom         (peer、hook 共有のため同 instance 必須)
- *   - @base-ui/react (peer、hook 共有のため同 instance 必須)
- *   - @pandacss/dev             (peer、preset が runtime で definePreset を呼ぶ)
+ *   - @base-ui/react            (通常 dependency、package manager が consumer へ導入)
  *
  * alias:
  *   - "@otibo/ui/styled-system" → ./styled-system
- *     library code 内の named import(`from "@otibo/ui/styled-system/recipes"` 等、
- *     Panda library publish の Approach 4 の前提 ── decision.md §I)を、tsup の build 時に
- *     library 内の Panda codegen 出力に解決する。consumer 側では consumer の panda.config
- *     の importMap 経由で別途解決される(Panda の magic)。
- *
- *   preset.ts は内部で `./src/core-ui/<name>/<name>.recipe` を relative import
- *   しているため、build しないと consumer 側で依存が解決できない
- *   (`_docs/intent/Pkg/initial-public-publish/decision.md` §E 参照)。
+ *     library code 内の named import(`from "@otibo/ui/styled-system/recipes"` 等)を、
+ *     tsup build 時に repository 内の Panda codegen 出力へ解決する。Panda と preset は
+ *     0.3.0 から consumer contract ではなく internal authoring concern。
  */
 
 const shared: Options = {
@@ -43,7 +31,7 @@ const shared: Options = {
   dts: true,
   sourcemap: true,
   target: "es2020",
-  external: ["react", "react-dom", "@base-ui/react", "@pandacss/dev"],
+  external: ["react", "react-dom", "@base-ui/react"],
   esbuildOptions(options) {
     options.alias = {
       ...(options.alias ?? {}),
@@ -55,19 +43,12 @@ const shared: Options = {
   },
 }
 
-export default defineConfig([
-  {
-    ...shared,
-    entry: { index: "src/index.ts" },
-    // intent: Pkg-Bug-6 — RSC bundler 向けの client directive を全 component dist の先頭に
-    // 機械的に prepend する。Server Component から直接 import 可能にするための library-side
-    // 担保。preset には付けない(別 config)。
-    banner: { js: '"use client"' },
-    clean: true,
-  },
-  {
-    ...shared,
-    entry: { preset: "preset.ts" },
-    // clean は 1 つ目で済んでいる。ここで clean: true を入れると index の dist が消える。
-  },
-])
+export default defineConfig({
+  ...shared,
+  entry: { index: "src/index.ts" },
+  // intent: Pkg-Bug-6 — RSC bundler 向けの client directive を全 component dist の先頭に
+  // 機械的に prepend する。Server Component から直接 import 可能にするための library-side
+  // 担保。
+  banner: { js: '"use client"' },
+  clean: true,
+})

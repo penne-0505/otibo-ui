@@ -7,13 +7,13 @@ import { mergeClass } from "../../lib/utils"
  * Tooltip — transient な補足。a11y / delay / positioning は Base UI に委譲、
  * 見た目は otibo recipe(warm dark chip)。
  *
- * 使い方(app 直下に 1 つ Tooltip.Provider を置く):
- *   <Tooltip.Provider>
- *     <Tooltip.Root>
- *       <Tooltip.Trigger render={<Button>?</Button>} />
- *       <Tooltip.Popup>補足テキスト</Tooltip.Popup>
- *     </Tooltip.Root>
- *   </Tooltip.Provider>
+ * 使い方(app 直下に 1 つ TooltipProvider を置く):
+ *   <TooltipProvider>
+ *     <TooltipRoot>
+ *       <TooltipTrigger render={<Button>?</Button>} />
+ *       <TooltipPopup>補足テキスト</TooltipPopup>
+ *     </TooltipRoot>
+ *   </TooltipProvider>
  */
 interface TooltipPopupProps extends BaseTooltip.Popup.Props {
   side?: BaseTooltip.Positioner.Props["side"]
@@ -29,11 +29,14 @@ interface TooltipPopupProps extends BaseTooltip.Popup.Props {
  *   再 hover でも即時に出てしまうのを防ぐ)。
  * いずれも props で上書き可。toolbar で warm-up が欲しければ timeout を渡す。
  */
-function TooltipProvider(props: BaseTooltip.Provider.Props) {
+export function TooltipProvider(props: BaseTooltip.Provider.Props) {
   return <BaseTooltip.Provider delay={250} timeout={0} {...props} />
 }
 
-const TooltipPopup = forwardRef<HTMLDivElement, TooltipPopupProps>(function TooltipPopup(
+export const TooltipRoot = BaseTooltip.Root
+export const TooltipTrigger = BaseTooltip.Trigger
+
+export const TooltipPopup = forwardRef<HTMLDivElement, TooltipPopupProps>(function TooltipPopup(
   { className, side = "top", align = "center", sideOffset = 6, children, ...props },
   ref,
 ) {
@@ -48,10 +51,3 @@ const TooltipPopup = forwardRef<HTMLDivElement, TooltipPopupProps>(function Tool
     </BaseTooltip.Portal>
   )
 })
-
-export const Tooltip = {
-  Provider: TooltipProvider,
-  Root: BaseTooltip.Root,
-  Trigger: BaseTooltip.Trigger,
-  Popup: TooltipPopup,
-}

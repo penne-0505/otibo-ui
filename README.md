@@ -1,38 +1,29 @@
 # @otibo/ui
 
-otibo Design System ── Base UI(headless primitive)+ Panda CSS で組まれた、React 用 UI library。
+otibo Design Systemの既定の見た目を、複数のReact app / pageへそのまま配るUI libraryです。
+
+component、reset、design tokens、Gen Interface JPをpackage内に収録しています。Panda CSSの導入や設定は必要ありません。
 
 ## Install
 
 ```bash
 npm install @otibo/ui
-# peer dependencies(consumer 側に必要)
-npm install @base-ui/react@^1.6.0 @pandacss/dev@^1.11.4 react react-dom
+# appに未導入の場合のみ
+npm install react react-dom
 ```
 
 ## Usage
 
-### Component
+appのroot entryまたはlayoutで、CSSを一度だけ読み込みます。
 
 ```tsx
-import { Button, Field, Link } from "@otibo/ui"
-
-export function Example() {
-  return (
-    <Field>
-      <Field.Label>メールアドレス</Field.Label>
-      <Field.Input type="email" />
-      <Field.Description>仕事用のアドレスをご利用ください</Field.Description>
-    </Field>
-  )
-}
+import "@otibo/ui/styles.css"
 ```
 
-**Next.js App Router(Server Components)で使う場合は flat export を推奨します。**
-RSC bundler は namespace property(`Field.Label` 等)を Client Manifest で正しく resolve できず build が失敗するためです。
+その後は必要なcomponentをimportします。
 
 ```tsx
-import { FieldRoot, FieldLabel, FieldInput, FieldDescription } from "@otibo/ui"
+import { FieldDescription, FieldInput, FieldLabel, FieldRoot } from "@otibo/ui"
 
 export function Example() {
   return (
@@ -45,60 +36,52 @@ export function Example() {
 }
 ```
 
+compound componentを含め、公開APIはflat named exportに統一されています。React、Vite、Next.js App Routerで同じimport形式を使います。
+
 提供 component の一覧は `dist/index.d.ts` の export を参照(button / link / input / field / card / select / combobox / toggle / chip / segmented-control / tabs / breadcrumb / pagination / navigation-menu / dialog / popover / menu / tooltip / preview-card / table / toast / checkbox / switch / radio / number-field / badge / avatar / icon / accordion / inline-edit / spinner / skeleton / progress / meter / slider / scroll-area / separator)。
 
-### Panda preset
+## Global styles
 
-consumer の `panda.config.ts` で otibo preset を extend し、Panda の codegen を実行します。
+`@otibo/ui/styles.css`はcomponent stylesだけでなく、otibo app baselineとして次をdocument全体へ適用します。
 
-```ts
-import { defineConfig } from "@pandacss/dev"
-import { otiboPreset } from "@otibo/ui/preset"
+- browser reset / preflight
+- page background、text color、typography
+- design tokensと全component variant
+- Gen Interface JP 400 / 500 / 600
 
-export default defineConfig({
-  presets: [otiboPreset],
-  include: [
-    "./src/**/*.{ts,tsx}",
-    "./node_modules/@otibo/ui/dist/panda.buildinfo.json",
-  ],
-  importMap: "@otibo/ui/styled-system",
-  // 重要: runtime / manager 描画される component は static usage 検出されないため、
-  // staticCss で常時 emit する必要がある(toast / pagination / combobox 等)。
-  staticCss: {
-    recipes: {
-      toast: ["*"],
-      pagination: ["*"],
-      combobox: ["*"],
-      navigationMenu: ["*"],
-      numberField: ["*"],
-      toggle: ["*"],
-      chip: ["*"],
-    },
-  },
-  outdir: "styled-system",
-  jsxFramework: "react",
-})
+既存siteへ部分的に追加する場合は、既存のglobal CSSとcascadeが競合しないか確認してください。resetなしのentrypointは提供していません。
+
+fontはUnicode rangeごとのsubsetに分かれており、browserは表示する文字に必要なfileだけを取得します。3ウェイトを自己完結して配布するため、0.3.0のnpm tarballは約10.45 MBです。
+
+## Migrating from 0.2.x
+
+0.3.0ではconsumer-side Panda codegenを廃止しました。
+
+1. consumerの`panda.config.ts`から`@otibo/ui/preset`と`panda.buildinfo.json`の設定を外します。
+2. `@pandacss/dev`をotibo-uiのためだけに導入していた場合は削除できます。
+3. app rootで`@otibo/ui/styles.css`を一度importします。
+4. namespace形式をflat named exportへ移行します。0.3.0では旧namespace exportを直接削除しているため、両形式の併用期間はありません。
+
+```tsx
+// 0.2.x
+import { Field } from "@otibo/ui"
+<Field.Root><Field.Label>名前</Field.Label></Field.Root>
+
+// 0.3.x
+import { FieldLabel, FieldRoot } from "@otibo/ui"
+<FieldRoot><FieldLabel>名前</FieldLabel></FieldRoot>
 ```
 
-その後、consumer の build pipeline で `panda` を実行し、runtime と CSS を生成します
-(`prepare` script や `predev` で hook):
-
-```jsonc
-// consumer の package.json
-{
-  "scripts": {
-    "prepare": "panda"
-  }
-}
-```
+token / recipe / themeの深いカスタマイズは0.3.0の公開互換性保証に含まれません。
 
 ## Requirements
 
 - **Node.js 22+**(開発 baseline は Node.js 24 LTS)。
-- **Panda CSS 1.11+ が必須**。Tailwind / CSS modules 等との併用は想定外。
 - **React 18 / 19**。
 - **TypeScript 5.9** 推奨。
 
 ## License
 
 [MIT](LICENSE.txt) © penne / ぺんね
+
+同梱するGen Interface JPはSIL Open Font License 1.1です。font licenseはpackage内の`dist/fonts/OFL.txt`に収録しています。

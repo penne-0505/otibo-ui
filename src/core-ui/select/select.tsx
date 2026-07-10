@@ -9,20 +9,27 @@ import { Icon } from "../icon/icon"
  * 見た目は otibo recipe(trigger=input 同形、popup=raised panel)。
  *
  * 使い方:
- *   <Select.Root items={items}>
- *     <Select.Trigger>
- *       <Select.Value placeholder="選択してください" />
- *     </Select.Trigger>
- *     <Select.Popup>
- *       <Select.Item value="a">
- *         <Select.ItemText>A</Select.ItemText>
- *       </Select.Item>
- *     </Select.Popup>
- *   </Select.Root>
+ *   <SelectRoot items={items}>
+ *     <SelectTrigger>
+ *       <SelectValue placeholder="選択してください" />
+ *     </SelectTrigger>
+ *     <SelectPopup>
+ *       <SelectItem value="a">
+ *         <SelectItemText>A</SelectItemText>
+ *       </SelectItem>
+ *     </SelectPopup>
+ *   </SelectRoot>
  */
 
 // Trigger ── Value を内包し、右端に chevron(Icon slot)を自前で付ける。
-const SelectTrigger = forwardRef<HTMLButtonElement, BaseSelect.Trigger.Props>(
+export const SelectRoot = BaseSelect.Root
+export const SelectValue = BaseSelect.Value
+export const SelectItemText = BaseSelect.ItemText
+export const SelectGroup = BaseSelect.Group
+export const SelectGroupLabel = BaseSelect.GroupLabel
+export const SelectSeparator = BaseSelect.Separator
+
+export const SelectTrigger = forwardRef<HTMLButtonElement, BaseSelect.Trigger.Props>(
   function SelectTrigger({ className, children, ...props }, ref) {
     const slot = select()
     return (
@@ -43,7 +50,7 @@ interface SelectPopupProps extends BaseSelect.Popup.Props {
   sideOffset?: BaseSelect.Positioner.Props["sideOffset"]
 }
 
-const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(function SelectPopup(
+export const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(function SelectPopup(
   { className, side = "bottom", align = "start", sideOffset = 6, children, ...props },
   ref,
 ) {
@@ -67,7 +74,7 @@ const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(function Select
 })
 
 // Item ── ItemText(呼び出し側)+ 右端 ItemIndicator(check)を内包。
-const SelectItem = forwardRef<HTMLDivElement, BaseSelect.Item.Props>(function SelectItem(
+export const SelectItem = forwardRef<HTMLDivElement, BaseSelect.Item.Props>(function SelectItem(
   { className, children, ...props },
   ref,
 ) {
@@ -81,15 +88,3 @@ const SelectItem = forwardRef<HTMLDivElement, BaseSelect.Item.Props>(function Se
     </BaseSelect.Item>
   )
 })
-
-export const Select = {
-  Root: BaseSelect.Root,
-  Trigger: SelectTrigger,
-  Value: BaseSelect.Value,
-  Popup: SelectPopup,
-  Item: SelectItem,
-  ItemText: BaseSelect.ItemText,
-  Group: BaseSelect.Group,
-  GroupLabel: BaseSelect.GroupLabel,
-  Separator: BaseSelect.Separator,
-}

@@ -1,1 +1,1 @@
-export { ScrollArea } from "./scroll-area"
+export { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaViewport } from "./scroll-area"

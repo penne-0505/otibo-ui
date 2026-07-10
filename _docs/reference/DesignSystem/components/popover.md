@@ -1,12 +1,19 @@
 ---
 title: Popover
 status: active
-component: src/core-ui/popover/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/popover/`
 
 ## Overview
 
@@ -17,17 +24,13 @@ references:
 slot recipe(Panda)+ Base UI Popover 委譲。slot は `popup` / `title` / `description`。
 
 ```tsx
-<Popover.Root>
-  <Popover.Trigger render={<Button intent="ghost">情報</Button>} />
-  <Popover.Portal>
-    <Popover.Positioner>
-      <Popover.Popup>
-        <Popover.Title>タイムゾーンについて</Popover.Title>
-        <Popover.Description>表示は端末の設定を使用します。</Popover.Description>
-      </Popover.Popup>
-    </Popover.Positioner>
-  </Popover.Portal>
-</Popover.Root>
+<PopoverRoot>
+  <PopoverTrigger render={<Button intent="ghost">情報</Button>} />
+  <PopoverPopup>
+    <PopoverTitle>タイムゾーンについて</PopoverTitle>
+    <PopoverDescription>表示は端末の設定を使用します。</PopoverDescription>
+  </PopoverPopup>
+</PopoverRoot>
 ```
 
 trigger 隣接で表示位置(top / bottom / left / right)は Base UI が自動 flip。

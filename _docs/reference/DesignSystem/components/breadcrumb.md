@@ -1,11 +1,18 @@
 ---
 title: Breadcrumb
 status: active
-component: src/core-ui/breadcrumb/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/breadcrumb/`
 
 ## Overview
 
@@ -16,17 +23,17 @@ references:
 slot recipe(Panda)+ 純 otibo(Base UI 不要、semantic HTML `<nav>` + `<ol>` で組む)。slot は `root` / `item` / `link` / `current`。
 
 ```tsx
-<Breadcrumb.Root>
-  <Breadcrumb.Item>
-    <Breadcrumb.Link href="/">ホーム</Breadcrumb.Link>
-  </Breadcrumb.Item>
-  <Breadcrumb.Item>
-    <Breadcrumb.Link href="/works">作品</Breadcrumb.Link>
-  </Breadcrumb.Item>
-  <Breadcrumb.Item>
-    <Breadcrumb.Current>2026 春</Breadcrumb.Current>
-  </Breadcrumb.Item>
-</Breadcrumb.Root>
+<BreadcrumbRoot>
+  <BreadcrumbItem>
+    <BreadcrumbLink href="/">ホーム</BreadcrumbLink>
+  </BreadcrumbItem>
+  <BreadcrumbItem>
+    <BreadcrumbLink href="/works">作品</BreadcrumbLink>
+  </BreadcrumbItem>
+  <BreadcrumbItem>
+    <BreadcrumbCurrent>2026 春</BreadcrumbCurrent>
+  </BreadcrumbItem>
+</BreadcrumbRoot>
 ```
 
 `root` は `<ol>`(`list-style: none`)、`item` は `<li>`、最終 item は `current` を持ち link を持たない(遷移できない)。
@@ -51,7 +58,7 @@ slot recipe(Panda)+ 純 otibo(Base UI 不要、semantic HTML `<nav>` + `<ol>` �
 ## a11y
 
 - **structure** ── `<nav aria-label="Breadcrumb">` ラッパ(消費側で付ける)+ `<ol>`(順序ありリスト)が WAI-ARIA Breadcrumb pattern の定型。
-- **current の伝達** ── 最終要素に `aria-current="page"` を付ける(`Breadcrumb.Current` が自動付与)。
+- **current の伝達** ── 最終要素に `aria-current="page"` を付ける(`BreadcrumbCurrent` が自動付与)。
 - **separator は SR から hide** ── `::before` の `"/"` は **content として SR が読む可能性**がある(ブラウザ実装による)。気になる場合は `aria-hidden="true"` 相当を contents に出さないよう、消費側で separator を別要素で組む選択肢もある(現状は `::before` を許容、grain を取った)。
 - **keyboard** ── 各 link が tab-stop、Enter で遷移(ネイティブ `<a>`)。current は tab-stop ではない。
 
@@ -88,7 +95,7 @@ quiet 領域。Link / NavigationMenu Trigger / PreviewCard Trigger と同じ tre
 
 ## Decisions(本セッションの確定事項)
 
-- **separator は CSS `::before` で自動挿入** ── 専用 `Breadcrumb.Separator` 部品を増やさない方針(structure を recipe が握り切る)。消費側で「separator を入れる入れない」を気にしなくて済む。
+- **separator は CSS `::before` で自動挿入** ── 専用separator部品を増やさない方針(structure を recipe が握り切る)。消費側で「separator を入れる入れない」を気にしなくて済む。
 - **crumb link は下線なし**(prose Link との分離) ── breadcrumb は行全体が nav で、全項目下線は noisy。形と treatment B で affordance を示す。
 - **最終要素 = current(`aria-current="page"` + fg.strong + medium)、link ではない** ── 自ページへの再 navigation を avoid + SR に「現在地」を伝達。
 - **separator は `"/"` 固定**(`>` `›` `→` を散らさない) ── grain の一本化。

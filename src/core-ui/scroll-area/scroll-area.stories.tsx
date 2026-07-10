@@ -1,6 +1,6 @@
 import type { Story } from "@ladle/react"
 
-import { ScrollArea } from "./scroll-area"
+import { ScrollAreaRoot, ScrollAreaViewport } from "./scroll-area"
 
 export default {
   title: "core-ui / ScrollArea",
@@ -9,7 +9,7 @@ export default {
 // 1. List — 縦長リストの内 scroll。otibo の細い hairline scrollbar。
 export const List: Story = () => (
   <div style={{ padding: "3rem 2rem", display: "flex", justifyContent: "center" }}>
-    <ScrollArea.Root
+    <ScrollAreaRoot
       style={{
         height: "16rem",
         width: "20rem",
@@ -18,7 +18,7 @@ export const List: Story = () => (
         boxShadow: "var(--shadows-paper-sm)",
       }}
     >
-      <ScrollArea.Viewport>
+      <ScrollAreaViewport>
         <div style={{ padding: "1rem" }}>
           {Array.from({ length: 40 }, (_, i) => (
             <div
@@ -34,15 +34,15 @@ export const List: Story = () => (
             </div>
           ))}
         </div>
-      </ScrollArea.Viewport>
-    </ScrollArea.Root>
+      </ScrollAreaViewport>
+    </ScrollAreaRoot>
   </div>
 )
 
 // 2. Paragraph — 長文の内 scroll(規約や release note の典型)。
 export const Paragraph: Story = () => (
   <div style={{ padding: "3rem 2rem", display: "flex", justifyContent: "center" }}>
-    <ScrollArea.Root
+    <ScrollAreaRoot
       style={{
         height: "12rem",
         width: "24rem",
@@ -51,7 +51,7 @@ export const Paragraph: Story = () => (
         boxShadow: "var(--shadows-paper-sm)",
       }}
     >
-      <ScrollArea.Viewport>
+      <ScrollAreaViewport>
         <div
           style={{
             padding: "1rem",
@@ -68,7 +68,7 @@ export const Paragraph: Story = () => (
             </p>
           ))}
         </div>
-      </ScrollArea.Viewport>
-    </ScrollArea.Root>
+      </ScrollAreaViewport>
+    </ScrollAreaRoot>
   </div>
 )

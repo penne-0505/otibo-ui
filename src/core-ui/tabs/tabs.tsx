@@ -8,14 +8,14 @@ import { mergeClass } from "../../lib/utils"
  * 見た目は otibo recipe(active = accent 下線)。
  *
  * 使い方:
- *   <Tabs.Root defaultValue="a">
- *     <Tabs.List>
- *       <Tabs.Tab value="a">概要</Tabs.Tab>
- *       <Tabs.Tab value="b">実装</Tabs.Tab>
- *     </Tabs.List>
- *     <Tabs.Panel value="a">...</Tabs.Panel>
- *     <Tabs.Panel value="b">...</Tabs.Panel>
- *   </Tabs.Root>
+ *   <TabsRoot defaultValue="a">
+ *     <TabsList>
+ *       <TabsTab value="a">概要</TabsTab>
+ *       <TabsTab value="b">実装</TabsTab>
+ *     </TabsList>
+ *     <TabsPanel value="a">...</TabsPanel>
+ *     <TabsPanel value="b">...</TabsPanel>
+ *   </TabsRoot>
  */
 const TabsRoot = forwardRef<HTMLDivElement, BaseTabs.Root.Props>(function TabsRoot(
   { className, ...props },
@@ -48,12 +48,5 @@ const TabsPanel = forwardRef<HTMLDivElement, BaseTabs.Panel.Props>(function Tabs
   const slot = tabs()
   return <BaseTabs.Panel ref={ref} className={mergeClass(slot.panel, className)} {...props} />
 })
-
-export const Tabs = {
-  Root: TabsRoot,
-  List: TabsList,
-  Tab: TabsTab,
-  Panel: TabsPanel,
-}
 
 export { TabsList, TabsPanel, TabsRoot, TabsTab }

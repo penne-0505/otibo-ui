@@ -1,1 +1,8 @@
-export { Popover } from "./popover"
+export {
+  PopoverClose,
+  PopoverDescription,
+  PopoverPopup,
+  PopoverRoot,
+  PopoverTitle,
+  PopoverTrigger,
+} from "./popover"

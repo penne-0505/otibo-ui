@@ -7,23 +7,23 @@ import { cx } from "../../lib/utils"
  * 余白で構造を語り、body 行 hover にだけ quiet な明度差を敷く。
  *
  * 使い方:
- *   <Table.Root>
- *     <Table.Header>
- *       <Table.Row>
- *         <Table.Head>デバイス</Table.Head>
- *         <Table.Head>最終アクセス</Table.Head>
- *       </Table.Row>
- *     </Table.Header>
- *     <Table.Body>
- *       <Table.Row>
- *         <Table.Cell>MacBook Pro</Table.Cell>
- *         <Table.Cell>たった今</Table.Cell>
- *       </Table.Row>
- *     </Table.Body>
- *   </Table.Root>
+ *   <TableRoot>
+ *     <TableHeader>
+ *       <TableRow>
+ *         <TableHead>デバイス</TableHead>
+ *         <TableHead>最終アクセス</TableHead>
+ *       </TableRow>
+ *     </TableHeader>
+ *     <TableBody>
+ *       <TableRow>
+ *         <TableCell>MacBook Pro</TableCell>
+ *         <TableCell>たった今</TableCell>
+ *       </TableRow>
+ *     </TableBody>
+ *   </TableRoot>
  */
 
-const TableRoot = forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
+export const TableRoot = forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
   function TableRoot({ className, ...props }, ref) {
     const slot = table()
     return <table ref={ref} className={cx(slot.root, className)} {...props} />
@@ -31,46 +31,39 @@ const TableRoot = forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTab
 )
 
 // thead / tbody は素の要素(row の hover/最終行 scope に tbody タグを使う)。
-const TableHeader = forwardRef<
+export const TableHeader = forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(function TableHeader({ className, ...props }, ref) {
   return <thead ref={ref} className={className} {...props} />
 })
 
-const TableBody = forwardRef<
+export const TableBody = forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(function TableBody({ className, ...props }, ref) {
   return <tbody ref={ref} className={className} {...props} />
 })
 
-const TableRow = forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
+export const TableRow = forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
   function TableRow({ className, ...props }, ref) {
     const slot = table()
     return <tr ref={ref} className={cx(slot.row, className)} {...props} />
   },
 )
 
-const TableHead = forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(
-  function TableHead({ className, scope = "col", ...props }, ref) {
-    const slot = table()
-    return <th ref={ref} scope={scope} className={cx(slot.head, className)} {...props} />
-  },
-)
+export const TableHead = forwardRef<
+  HTMLTableCellElement,
+  React.ThHTMLAttributes<HTMLTableCellElement>
+>(function TableHead({ className, scope = "col", ...props }, ref) {
+  const slot = table()
+  return <th ref={ref} scope={scope} className={cx(slot.head, className)} {...props} />
+})
 
-const TableCell = forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(
-  function TableCell({ className, ...props }, ref) {
-    const slot = table()
-    return <td ref={ref} className={cx(slot.cell, className)} {...props} />
-  },
-)
-
-export const Table = {
-  Root: TableRoot,
-  Header: TableHeader,
-  Body: TableBody,
-  Row: TableRow,
-  Head: TableHead,
-  Cell: TableCell,
-}
+export const TableCell = forwardRef<
+  HTMLTableCellElement,
+  React.TdHTMLAttributes<HTMLTableCellElement>
+>(function TableCell({ className, ...props }, ref) {
+  const slot = table()
+  return <td ref={ref} className={cx(slot.cell, className)} {...props} />
+})

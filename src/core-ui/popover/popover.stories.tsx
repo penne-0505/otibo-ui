@@ -1,7 +1,7 @@
 import type { Story } from "@ladle/react"
 
 import { Button } from "../button/button"
-import { Popover } from "./popover"
+import { PopoverRoot, PopoverTrigger, PopoverPopup, PopoverTitle, PopoverDescription, PopoverClose } from "./popover"
 
 export default {
   title: "core-ui / Popover",
@@ -10,13 +10,13 @@ export default {
 // 1. Default — click で明るい raised panel。Title / Description / Close。
 export const Default: Story = () => (
   <div style={{ padding: "4rem 2rem" }}>
-    <Popover.Root>
-      <Popover.Trigger render={<Button intent="primary">詳細を開く</Button>} />
-      <Popover.Popup>
-        <Popover.Title>通知設定</Popover.Title>
-        <Popover.Description>
+    <PopoverRoot>
+      <PopoverTrigger render={<Button intent="primary">詳細を開く</Button>} />
+      <PopoverPopup>
+        <PopoverTitle>通知設定</PopoverTitle>
+        <PopoverDescription>
           静かな受け取りを基本に、必要なものだけ。変更は次のセッションから反映されます。
-        </Popover.Description>
+        </PopoverDescription>
         <div
           style={{
             display: "flex",
@@ -25,7 +25,7 @@ export const Default: Story = () => (
             marginTop: "1.25rem",
           }}
         >
-          <Popover.Close
+          <PopoverClose
             render={
               <Button intent="ghost" size="sm">
                 閉じる
@@ -33,7 +33,7 @@ export const Default: Story = () => (
             }
           />
         </div>
-      </Popover.Popup>
-    </Popover.Root>
+      </PopoverPopup>
+    </PopoverRoot>
   </div>
 )

@@ -8,17 +8,17 @@ import { mergeClass } from "../../lib/utils"
  * load 判定・swap は Base UI Avatar。
  *
  * 使い方:
- *   <Avatar.Root size="lg">
- *     <Avatar.Image src={url} alt="penne" />
- *     <Avatar.Fallback>PE</Avatar.Fallback>
- *   </Avatar.Root>
+ *   <AvatarRoot size="lg">
+ *     <AvatarImage src={url} alt="penne" />
+ *     <AvatarFallback>PE</AvatarFallback>
+ *   </AvatarRoot>
  */
 
 interface AvatarRootProps extends BaseAvatar.Root.Props {
   size?: "sm" | "md" | "lg"
 }
 
-const AvatarRoot = forwardRef<HTMLSpanElement, AvatarRootProps>(function AvatarRoot(
+export const AvatarRoot = forwardRef<HTMLSpanElement, AvatarRootProps>(function AvatarRoot(
   { className, size, ...props },
   ref,
 ) {
@@ -26,15 +26,14 @@ const AvatarRoot = forwardRef<HTMLSpanElement, AvatarRootProps>(function AvatarR
   return <BaseAvatar.Root ref={ref} className={mergeClass(slot.root, className)} {...props} />
 })
 
-const AvatarImage = forwardRef<HTMLImageElement, BaseAvatar.Image.Props>(function AvatarImage(
-  { className, ...props },
-  ref,
-) {
-  const slot = avatar()
-  return <BaseAvatar.Image ref={ref} className={mergeClass(slot.image, className)} {...props} />
-})
+export const AvatarImage = forwardRef<HTMLImageElement, BaseAvatar.Image.Props>(
+  function AvatarImage({ className, ...props }, ref) {
+    const slot = avatar()
+    return <BaseAvatar.Image ref={ref} className={mergeClass(slot.image, className)} {...props} />
+  },
+)
 
-const AvatarFallback = forwardRef<HTMLSpanElement, BaseAvatar.Fallback.Props>(
+export const AvatarFallback = forwardRef<HTMLSpanElement, BaseAvatar.Fallback.Props>(
   function AvatarFallback({ className, ...props }, ref) {
     const slot = avatar()
     return (
@@ -42,9 +41,3 @@ const AvatarFallback = forwardRef<HTMLSpanElement, BaseAvatar.Fallback.Props>(
     )
   },
 )
-
-export const Avatar = {
-  Root: AvatarRoot,
-  Image: AvatarImage,
-  Fallback: AvatarFallback,
-}

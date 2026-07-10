@@ -1,1 +1,10 @@
-export { PreviewCard } from "./preview-card"
+export {
+  PreviewCardBody,
+  PreviewCardDescription,
+  PreviewCardFooter,
+  PreviewCardMedia,
+  PreviewCardPopup,
+  PreviewCardRoot,
+  PreviewCardTitle,
+  PreviewCardTrigger,
+} from "./preview-card"

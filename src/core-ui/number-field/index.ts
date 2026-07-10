@@ -1,1 +1,1 @@
-export { NumberField } from "./number-field"
+export { NumberFieldField, NumberFieldRoot } from "./number-field"

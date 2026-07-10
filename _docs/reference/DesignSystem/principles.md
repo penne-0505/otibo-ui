@@ -3,8 +3,9 @@ title: otibo Design System — Principles
 status: active
 draft_status: n/a
 created_at: 2026-06-21
-updated_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/reference/DesignSystem/component-selection-map.md"
   - "token-semantic-usage-map.md"
   - "motion-grammar.md"
   - "component-selection-map.md"
@@ -48,7 +49,7 @@ related_prs: []
 
 **Why.** Calm/Honest の帰結。線で区切ると「線」という装飾が情報に上乗せされる。色の段差(`bg → surface → surface.raised`)と余白(`gap`、`margin`)だけで区切ると、区切りが透明になり content が前に出る。実際、card 間も section 間も hairline を引かず gap で分節している。Card の paper も「ring + 1px hairline + soft far shadow」で**最小限の線**しか持たない。
 
-**How to apply.** 
+**How to apply.**
 - **構造を分けたい場面ではまず余白を当てる**(`gap`、card 間 margin、heading の周囲 padding)。
 - 余白で分節できない密集領域や inline 文字列の区切りでだけ **Separator** を使う(narrow な救援)。
 - 領域ごとに `surface.muted` / `surface.raised` の地を切り替えるのも有効(輪郭でなく地の差で示す)。
@@ -79,7 +80,7 @@ related_prs: []
 
 **Why.** 「成功は緑」「警告は琥珀」と hue を増やしていくと、accent と danger の二色の規律が崩れ、画面がドキュメンタリーになる。otibo は hue を増やさない (`otibo-accent-direction` で確定)── **強さは色相でなく、明度・彩度・面積で表現する**。
 
-**How to apply.** 
+**How to apply.**
 - **tone の選択は三つから**:neutral / accent / danger。success / warning は新 hue を作らない(success の含意は neutral + check icon で、warning は ladder 上で accent / danger に振る)。
 - 一画面に **primary(accent)は一つ**(accent を撒かない、原則 6 の派生)。
 - **subtle / solid の混在は ladder 上の段差として一貫**:neutral=subtle(淡い tint or 透明)、accent/danger=solid + 白 content、を組み合わせる。
@@ -94,7 +95,7 @@ related_prs: []
 
 **Why.** 原則 2 と 3 の運用形。accent の L=0.40 と white の組み合わせは WCAG AA を満たし、color-on-color の濁りも避けられる。色を**precious な「強さの signal」**として効かせる唯一の安全運用。
 
-**How to apply.** 
+**How to apply.**
 - Button primary、Toggle on、Chip on、Pagination 現在ページ、checkbox checked、Spinner on accent、Toast の error tone(将来作るなら)── すべて accent / danger 地 + 白 content。
 - danger は token L=0.58 のままだと白文字が AA を割るので、tint で 80% black 混合等して沈めて使う(Alert skip のときに検証済)。
 - spinner / icon の白は `currentColor` で文脈追従(色を内蔵しない)。
@@ -109,7 +110,7 @@ related_prs: []
 
 **Why.** 色を撒くと一点の重みが消える。accent は CTA(primary button)/ selected(subtle tint)/ band(muted)/ focus ring / 押し込み済みトグル、と複数の意味を担うが、いずれも「**今ここで起きていること**」を指し示す働き。背景や見出し色には使わない。
 
-**How to apply.** 
+**How to apply.**
 - **平常時の文字は fg / fg.muted**、interaction で初めて accent に立ち上がる(Link / Breadcrumb crumb / NavigationMenu Trigger は全部この treatment)。
 - **primary button は一つの surface に一つ**(原則 3 の派生)。二つ目以降は secondary / ghost に降ろす。
 - accent.subtle(α0.12)は selected / chip fill / active 行に、accent.muted(α0.05)は band に、というように **α で派生して新 hue を増やさない**。
@@ -125,7 +126,7 @@ related_prs: []
 
 **Why.** 多段 penumbra ramp は「滑らかに落とす」ために諧調を作るが、それ自体が認知ノイズになる(Calm に反する)。当初観測された popover の諧調バンドは HDR(ディスプレイのトーンマッピング)由来と判明した(2026-06-19)── HDR は色と影を歪めるので、色・影の判定はすべて HDR OFF で行う。
 
-**How to apply.** 
+**How to apply.**
 - overlay 系(popover / tooltip / select / menu / preview-card / dialog / navigation-menu)は **`shadows.lift` を共通**で使う。
 - 「ほぼ平らだけど少し浮かせたい」場面(Chip、card 内の独立ピル等)は **`0 1px 1px / fg.strong 6% / srgb`** のような極小影で **物理感だけ** を伝える(装飾の浮きではない、warm.50 と white の小さな明度差 0.97→1.00 を補う用)。
 - **諧調バンドが見えたとき**:まず HDR を OFF にして再現確認。再現しなければ HDR 由来として CSS は触らない。再現したら短 blur + 高 alpha + srgb 補間で勾配を急にする(`shadow-banding-fix` memory)。
@@ -141,7 +142,7 @@ related_prs: []
 
 **Why.** Honest の motion 軸版。瞬間遷移は嘘、ジャンプ overshoot も嘘、装飾の脈動は語っていない動き。一方止まりすぎも不自然 ── 軸は「動きの多寡」でなく「物理的にあり得るか」。
 
-**How to apply.** 
+**How to apply.**
 - tier:**snap(90)/ quick(120)/ medium(240)/ heavy(320)** で「中断の重さ」に比例。
 - register:**quiet**(form/hover の state 遷移、無口に保つ)/ **expressive**(直接操作 control の段階的 motion、overlay の出現 settle)。
 - 段階的 motion(expressive のみ):**応答は瞬時、feedback は tier 尺**(checkbox の色は瞬時、stroke の描画は 320ms)。
@@ -157,7 +158,7 @@ related_prs: []
 
 **Why.** 自走の生命感は no-trendy / Calm に反する(画面が玩具になる)。loading だけが「動きそのものが情報」── 止めれば意味が消える。例外を明確に限定することで、原則が守られる。
 
-**How to apply.** 
+**How to apply.**
 - Spinner = linear 等速回転、currentColor、reduced-motion でも止めず速度だけ落とす(travel が message なので travel を抜けない)。
 - Skeleton = opacity の穏やかな呼吸、trendy な shimmer sweep は採らない(no-trendy)。reduced-motion で脈動を止めてよい(静止 gray でも placeholder と読める)。
 - 非 loading 要素の decorative pulse / bouncy overshoot / 自走 は依然 smell。
@@ -201,7 +202,7 @@ related_prs: []
 
 **Why.** 「触ったら何か起こる」を触ってから知る UI は不親切。link が下線で affordance を示すのと同じ。preview / tooltip / hover menu のように **hover が情報を出す trigger** は、その trigger 自身が同じ hover で予告する。
 
-**How to apply.** 
+**How to apply.**
 - PreviewCard の Trigger は recipe で auto-merge し、`render` した `<a>` などに「平常 fg・下線なし → hover/focus で accent + 下線出現」を自動付与(Link の treatment B と同じ文法)。
 - 同じ思想は Link / Breadcrumb crumb / NavigationMenu Trigger にも貫かれる(平常は静か、hover で accent が立ち上がる)。
 - 逆に **click で開く** overlay の trigger(button)は、それ自体が押せる箱なので affordance がすでに乗っている(別 treatment 不要)。
@@ -216,7 +217,7 @@ related_prs: []
 
 **Why.** 出るが速すぎる = pointer が通過しただけで誤発火(ノイズ)。消えが遅すぎる = hover 抜けた後も画面に居座る(うっとうしい)。Mac の Dock や iPhone の中継表示など、好かれる hover UI はすべてこの非対称になっている。
 
-**How to apply.** 
+**How to apply.**
 - PreviewCard:`delay=350` / `closeDelay=100`(wrapper で otibo 既定として上書き)。
 - Tooltip:現状は別個に調整(otibo 既定 250ms / provider timeout=0)、原則的には同じ思想で組まれている。
 - 新しい hover overlay を作るときは、この非対称を最初から組む。
@@ -231,7 +232,7 @@ related_prs: []
 
 **Why.** rem は html の font-size に追従するため、root が `fontSize: md`(=1.125rem=18px)の otibo では `sizes-10`(2.5rem)が 45px になる。これは control の理想(38-42px)を超えて間延びさせる。**floor を持つと sizes 定義の瞬間に背が伸びる**ので、自然高さを正本とする方針に倒した(2026-06-20)。
 
-**How to apply.** 
+**How to apply.**
 - 数値 size トークン(`width: "10"` 等)は使ってよい(sizes スケール定義済)── ただし control の高さ強制には使わない。
 - 「最低タップ高さの floor が欲しい」となった場合は、18px root に合う**専用値**(2.25rem 等)で別途決める。「token を当てれば良い」と思考停止しない。
 - Avatar(8/10/12)/ Toast close(6)/ Combobox(`width: full`)等は sizes トークンで OK。
@@ -246,7 +247,7 @@ related_prs: []
 
 **Why.** a11y を毎回自前で組み直さないため。primitive 選定の理由 / 採用基準 / 例外プロセスは `headless-primitive-policy.md` 参照。
 
-**How to apply.** 
+**How to apply.**
 - 新 component を作るときはまず Base UI に該当 primitive があるか確認(`node_modules/@base-ui/react/<name>/`)。
 - Base UI に無いもの(Table / Breadcrumb / Pagination / Chip / Spinner / Skeleton 等)は **純 otibo** として組む(`<table>` / `<nav>` / `<button>` の semantic HTML + recipe)。
 - 別の primitive library を入れたくなったら、まず `headless-primitive-policy.md` の例外プロセス。
@@ -263,7 +264,7 @@ related_prs: []
 2. **principles.md**(この文書、原則の一望)→
 3. **component-selection-map.md**(本丸組み立て時の即決)→
 4. **token-semantic-usage-map.md** / **motion-grammar.md**(token / motion の運用詳細)→
-5. **components/<name>.md**(個別 API、Phase 3)
+5. **`components/<name>.md`**(個別 API、Phase 3)
 
 迷ったときの戻り先は常に **principles.md**。
 

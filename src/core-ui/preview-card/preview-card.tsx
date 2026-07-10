@@ -7,16 +7,16 @@ import { cx, mergeClass } from "../../lib/utils"
  * PreviewCard — hover で開く軽量プレビュー(リンク先の cover + タイトル + 補足)。
  *
  * 使い方:
- *   <PreviewCard.Root>
- *     <PreviewCard.Trigger render={<Link href="/works/mountain-pass">Mountain Pass</Link>} />
- *     <PreviewCard.Popup>
- *       <PreviewCard.Media src={src} alt="…" />
- *       <PreviewCard.Body>
- *         <PreviewCard.Title>Mountain Pass</PreviewCard.Title>
- *         <PreviewCard.Description>2026 / 写真</PreviewCard.Description>
- *       </PreviewCard.Body>
- *     </PreviewCard.Popup>
- *   </PreviewCard.Root>
+ *   <PreviewCardRoot>
+ *     <PreviewCardTrigger render={<Link href="/works/mountain-pass">Mountain Pass</Link>} />
+ *     <PreviewCardPopup>
+ *       <PreviewCardMedia src={src} alt="…" />
+ *       <PreviewCardBody>
+ *         <PreviewCardTitle>Mountain Pass</PreviewCardTitle>
+ *         <PreviewCardDescription>2026 / 写真</PreviewCardDescription>
+ *       </PreviewCardBody>
+ *     </PreviewCardPopup>
+ *   </PreviewCardRoot>
  */
 
 // Trigger ── 非対称の delay:出るのは「ためてから(意図的に lingering した時だけ)」=350ms、消えは
@@ -104,13 +104,13 @@ const Footer = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   },
 )
 
-export const PreviewCard = {
-  Root: BasePreviewCard.Root,
-  Trigger,
-  Popup,
-  Media,
-  Body,
-  Title,
-  Description,
-  Footer,
+export const PreviewCardRoot = BasePreviewCard.Root
+export {
+  Body as PreviewCardBody,
+  Description as PreviewCardDescription,
+  Footer as PreviewCardFooter,
+  Media as PreviewCardMedia,
+  Popup as PreviewCardPopup,
+  Title as PreviewCardTitle,
+  Trigger as PreviewCardTrigger,
 }

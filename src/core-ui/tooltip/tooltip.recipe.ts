@@ -8,7 +8,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
  * 浮きは lift shadow。矢印は持たない(配置 noise を避ける)。
  *
  * Slots:
- *   - popup: 浮く本体(Base UI Tooltip.Popup、Positioner 内)
+ *   - popup: 浮く本体(Base UI TooltipPopup、Positioner 内)
  */
 export const tooltipRecipe = defineSlotRecipe({
   className: "otibo-tooltip",

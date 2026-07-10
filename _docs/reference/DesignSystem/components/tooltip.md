@@ -1,12 +1,19 @@
 ---
 title: Tooltip
 status: active
-component: src/core-ui/tooltip/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/tooltip/`
 
 ## Overview
 
@@ -17,14 +24,10 @@ references:
 slot recipe(Panda)+ Base UI Tooltip 委譲。slot は `popup`(1 slot のみ)。
 
 ```tsx
-<Tooltip.Root>
-  <Tooltip.Trigger render={<Button intent="ghost"><Icon name="info" /></Button>} />
-  <Tooltip.Portal>
-    <Tooltip.Positioner>
-      <Tooltip.Popup>表示は端末の設定を使用します</Tooltip.Popup>
-    </Tooltip.Positioner>
-  </Tooltip.Portal>
-</Tooltip.Root>
+<TooltipRoot>
+  <TooltipTrigger render={<Button intent="ghost"><Icon name="info" /></Button>} />
+  <TooltipPopup>表示は端末の設定を使用します</TooltipPopup>
+</TooltipRoot>
 ```
 
 `TooltipProvider` を上位に置いて `delay` / `closeDelay` を otibo 既定に上書きする(provider timeout=0 で「次の trigger に hover した時に即出す」grain)。
@@ -49,7 +52,7 @@ slot recipe(Panda)+ Base UI Tooltip 委譲。slot は `popup`(1 slot のみ)。
 - **role** ── `tooltip`(WAI-ARIA Tooltip Authoring Practices)。
 - **trigger との関連付け** ── trigger 要素の `aria-describedby` が popup の id に自動接続。
 - **keyboard** ── Tab で trigger に focus した瞬間に open、Esc で close。focus を popup 内に移さない(transient なので)。
-- **touch / モバイル** ── hover が無い環境では tooltip は出にくい(タッチで long-press や別 affordance を考える) ── Tooltip に頼らず必要な情報は本文 / Field.Description に出す方が grain。
+- **touch / モバイル** ── hover が無い環境では tooltip は出にくい(タッチで long-press や別 affordance を考える) ── Tooltip に頼らず必要な情報は本文 / FieldDescription に出す方が grain。
 
 ## Motion
 
@@ -82,8 +85,8 @@ reduced-motion:opacity quick だけなので travel を抜く必要なし(自然
 
 - **複数行 or 軽い操作** → **Popover**(click で開く、明示的 dismiss)。
 - **リンク先のプレビュー** → **PreviewCard**(media + meta、treatment B trigger)。
-- **本文に書いて済むもの** → **本文 / Field.Description**(touch / モバイルで読めない問題を avoid)。
-- **永続的な notice** → **Card** か **Field.Description**(消えるべきでない情報を tooltip に隠さない)。
+- **本文に書いて済むもの** → **本文 / FieldDescription**(touch / モバイルで読めない問題を avoid)。
+- **永続的な notice** → **Card** か **FieldDescription**(消えるべきでない情報を tooltip に隠さない)。
 
 詳細は `component-selection-map.md` §overlay(Tooltip vs Popover vs PreviewCard)。
 
@@ -91,7 +94,7 @@ reduced-motion:opacity quick だけなので travel を抜く必要なし(自然
 
 - **scale を popup に足す**(焦点的 hint で scale-on-text snap が必ず焦点に乗る) → opacity-only。
 - **複数行 / 重い content を tooltip に詰める**(read time が長い content は明示的開閉が要る) → Popover。
-- **必須情報を tooltip に隠す**(touch / SR で届かない場面が出る) → 本文 / Field.Description。
+- **必須情報を tooltip に隠す**(touch / SR で届かない場面が出る) → 本文 / FieldDescription。
 - **矢印を足す**(配置 noise、shadow + 位置で十分) → 矢印なし。
 - **light bg(`surface.raised`)に文字を載せる**(popover との grain 衝突、tooltip の chip 性が消える) → fg.strong 地 + 白文字。
 

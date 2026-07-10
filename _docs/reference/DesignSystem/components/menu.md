@@ -1,12 +1,19 @@
 ---
 title: Menu
 status: active
-component: src/core-ui/menu/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/menu/`
 
 ## Overview
 
@@ -17,20 +24,16 @@ references:
 slot recipe(Panda)+ Base UI Menu 委譲。slot は `popup` / `item` / `separator` / `groupLabel`。
 
 ```tsx
-<Menu.Root>
-  <Menu.Trigger render={<Button intent="ghost"><Icon name="more" /></Button>} />
-  <Menu.Portal>
-    <Menu.Positioner>
-      <Menu.Popup>
-        <Menu.GroupLabel>アカウント</Menu.GroupLabel>
-        <Menu.Item onClick={...}>プロフィール</Menu.Item>
-        <Menu.Item onClick={...}>設定</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item onClick={...}>ログアウト</Menu.Item>
-      </Menu.Popup>
-    </Menu.Positioner>
-  </Menu.Portal>
-</Menu.Root>
+<MenuRoot>
+  <MenuTrigger render={<Button intent="ghost"><Icon name="more" /></Button>} />
+  <MenuPopup>
+    <MenuGroupLabel>アカウント</MenuGroupLabel>
+    <MenuItem onClick={...}>プロフィール</MenuItem>
+    <MenuItem onClick={...}>設定</MenuItem>
+    <MenuSeparator />
+    <MenuItem onClick={...}>ログアウト</MenuItem>
+  </MenuPopup>
+</MenuRoot>
 ```
 
 ## Variants

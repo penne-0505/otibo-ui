@@ -50,10 +50,18 @@ jobs:
       - name: Build package
         run: npm run build
 
+      - name: Verify packed React consumers
+        if: matrix.node-version == 24 && matrix.react-version == '19.2.7'
+        run: npm run test:package
+
+      - name: Validate package metadata
+        if: matrix.node-version == 24 && matrix.react-version == '19.2.7'
+        run: npm run lint:package
+
       - name: Build and verify Ladle stories
         run: npm run ladle:build
 
-      - name: Audit high severity vulnerabilities
+      - name: Audit dependencies
         run: npm run audit
 
       - name: Inspect publish artifact

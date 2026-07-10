@@ -7,16 +7,16 @@ import { mergeClass } from "../../lib/utils"
  * Meter — 現在値の度合いを示すバー(容量・強度・評価)。Progress と視覚共有、semantic で分ける。
  *
  * 使い方:
- *   <Meter.Root value={62}>
+ *   <MeterRoot value={62}>
  *     <div style={{ display: "flex", justifyContent: "space-between" }}>
- *       <Meter.Label>ストレージ</Meter.Label>
- *       <Meter.Value />
+ *       <MeterLabel>ストレージ</MeterLabel>
+ *       <MeterValue />
  *     </div>
- *     <Meter.Track />
- *   </Meter.Root>
+ *     <MeterTrack />
+ *   </MeterRoot>
  */
 
-const MeterRoot = forwardRef<HTMLDivElement, BaseMeter.Root.Props>(function MeterRoot(
+export const MeterRoot = forwardRef<HTMLDivElement, BaseMeter.Root.Props>(function MeterRoot(
   { className, ...props },
   ref,
 ) {
@@ -24,7 +24,7 @@ const MeterRoot = forwardRef<HTMLDivElement, BaseMeter.Root.Props>(function Mete
   return <BaseMeter.Root ref={ref} className={mergeClass(slot.root, className)} {...props} />
 })
 
-const MeterLabel = forwardRef<HTMLSpanElement, BaseMeter.Label.Props>(function MeterLabel(
+export const MeterLabel = forwardRef<HTMLSpanElement, BaseMeter.Label.Props>(function MeterLabel(
   { className, ...props },
   ref,
 ) {
@@ -32,7 +32,7 @@ const MeterLabel = forwardRef<HTMLSpanElement, BaseMeter.Label.Props>(function M
   return <BaseMeter.Label ref={ref} className={mergeClass(slot.label, className)} {...props} />
 })
 
-const MeterValue = forwardRef<HTMLSpanElement, BaseMeter.Value.Props>(function MeterValue(
+export const MeterValue = forwardRef<HTMLSpanElement, BaseMeter.Value.Props>(function MeterValue(
   { className, ...props },
   ref,
 ) {
@@ -41,7 +41,7 @@ const MeterValue = forwardRef<HTMLSpanElement, BaseMeter.Value.Props>(function M
 })
 
 // Track ── rail と fill を一体で描く(indicator は常に track の中)。
-const MeterTrack = forwardRef<HTMLDivElement, BaseMeter.Track.Props>(function MeterTrack(
+export const MeterTrack = forwardRef<HTMLDivElement, BaseMeter.Track.Props>(function MeterTrack(
   { className, ...props },
   ref,
 ) {
@@ -52,10 +52,3 @@ const MeterTrack = forwardRef<HTMLDivElement, BaseMeter.Track.Props>(function Me
     </BaseMeter.Track>
   )
 })
-
-export const Meter = {
-  Root: MeterRoot,
-  Label: MeterLabel,
-  Value: MeterValue,
-  Track: MeterTrack,
-}

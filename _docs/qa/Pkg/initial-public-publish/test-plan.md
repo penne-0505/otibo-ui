@@ -13,7 +13,29 @@ related_issues: []
 related_prs: []
 ---
 
-## Risk classification
+# QA Test Plan: `Initial public publish of @otibo/ui`
+
+## Source of Intent
+
+- TODO: `Pkg-Feat-5`(完了済み)
+- Plan: `_docs/plan/Pkg/initial-public-publish/plan.md`
+- Intent: `_docs/intent/Pkg/initial-public-publish/decision.md`
+
+## Quality Goal
+
+初回公開時の配布物、依存関係、認証境界、consumer契約を検証し、secretや開発専用fileをnpmへ公開しない。
+
+## Acceptance Criteria
+
+- AC-001: publish用package metadataとallowlistが正しい。
+- AC-002: ESM / CJS / typesのbuild出力が解決する。
+- AC-003: React runtimeがpeer dependencyとして共有される。
+- AC-004: 当時のPanda preset契約がconsumerから解決する。
+- AC-005: secretと不要fileがtarballに含まれない。
+- AC-006: npm publishとregistry確認が成功する。
+- AC-007: consumer統合は外部taskへ明示的に委譲される。
+
+## Risk Assessment
 
 **Risk: High**(`_docs/standards/quality_assurance.md` の Risk 定義に基づく):
 
@@ -35,17 +57,24 @@ Intent の決定から導出した不変条件(verification で確認するも�
 - **INV-007 — publish 成功**:`npm publish --access public` が成功し、`npm view @otibo/ui@0.1.0` で公開状態が確認できる。Intent §C。
 - **INV-008 — consumer 統合**(外部 task に委譲):consumer 側(otibo-dev)で `npm install @otibo/ui` + Panda preset 設定だけで主要 component(Button / Field / Link 等)が描画できる。本 task の scope **外**、`otibo-dev/App-Feat-11` で verify。
 
+## Test Strategy
+
+- Static: package metadata、secret pattern、tarball file listを検査する。
+- Integration: build artifactのESM / CJS / preset解決を検査する。
+- External: npm registry上の公開versionを確認する。
+- Manual QA: tarball allowlistと公開metadataを目視確認する。
+
 ## Test Matrix
 
-| AC | INV | Method | Plan Step |
-| --- | --- | --- | --- |
-| AC-001 | INV-002, 005, 006 | `cat package.json` 目視 + `npm pack --dry-run` で publish 範囲確認 | Step 4, 7 |
-| AC-002 | INV-002 | `ls dist/` で `.d.ts` 存在確認 + `node -e "require('./dist/index.cjs')"` で require 動作 + `node -e "import('./dist/index.js')"` で import 動作 | Step 3, 7 |
-| AC-003 | INV-003 | `package.json` の `peerDependencies` 目視 + `dependencies` から `react` / `react-dom` が消えていることを目視 | Step 2, 4 |
-| AC-004 | INV-004 | preset の static 解析:`node --input-type=module -e "import('@otibo/ui/preset').then(p => console.log(typeof p.default))"` で resolve 可能性確認(publish 後)。publish 前は本 repo 内で `node --input-type=module -e "import('./preset.ts')"` 相当を ts-node / tsx 経由で実行。 | Step 5, 8 |
-| AC-005 | INV-001 | (a) `npm pack --dry-run` 出力リストを目視で **不要ファイル不在を確認**(白 list 外のものが無い)。(b) `grep -rEn "(api[_-]?key\|token\|secret\|password\|bearer\|sk-\|AIza\|ghp_\|gh[osu]_)" src/ preset.ts` で secret pattern 検出ゼロ。 | Step 1, 7 |
-| AC-006 | INV-007 | `npm publish --access public` 実行(Step 8、本 task の最終アクション)+ `npm view @otibo/ui@0.1.0 version dist-tags` で確認。 | Step 8 |
-| AC-007 | INV-008 | **本 task の scope 外**:`otibo-dev/App-Feat-11` で verify。本 task の Verdict は AC-007 を PARTIAL / not-covered として扱う。 | (外部 task) |
+| AC | INV | Method | Plan Step | Evidence | Status |
+| --- | --- | --- | --- | --- | --- |
+| AC-001 | INV-002, 005, 006 | `cat package.json` 目視 + `npm pack --dry-run` で publish 範囲確認 | Step 4, 7 | package metadataとtarball | verified |
+| AC-002 | INV-002 | `ls dist/` で `.d.ts` 存在確認 + CJS / ESM import確認 | Step 3, 7 | build outputとconsumer import | verified |
+| AC-003 | INV-003 | `peerDependencies`と`dependencies`を目視 | Step 2, 4 | package metadata | verified |
+| AC-004 | INV-004 | presetのstatic解析とconsumer resolve確認 | Step 5, 8 | consumer resolve | verified |
+| AC-005 | INV-001 | tarball allowlistとsecret pattern検査 | Step 1, 7 | tarball contents | verified |
+| AC-006 | INV-007 | `npm publish --access public`とregistry確認 | Step 8 | npm registry | verified |
+| AC-007 | INV-008 | consumer側integration | 外部task | `otibo-dev/App-Feat-11`へscope分離 | not-applicable |
 
 ## Verification 手順詳細
 
@@ -79,20 +108,20 @@ Intent の決定から導出した不変条件(verification で確認するも�
 
 ### Publish phase(Step 8、`npm publish` 実行)
 
-7. **ユーザー最終確認**:agent misbehavior check として、publish 直前にユーザー同意を取る。同意なしでは絶対実行しない。
-8. **`npm publish --access public`** 実行(INV-007、AC-006):
+1. **ユーザー最終確認**:agent misbehavior check として、publish 直前にユーザー同意を取る。同意なしでは絶対実行しない。
+2. **`npm publish --access public`** 実行(INV-007、AC-006):
    - exit code 0 を確認。
    - エラーログがあれば Verdict BLOCKED として記録。
-9. **`npm view @otibo/ui@0.1.0`**(INV-007、AC-006):
+3. **`npm view @otibo/ui@0.1.0`**(INV-007、AC-006):
    - `version === "0.1.0"` が出力に含まれる。
    - `dist-tags.latest === "0.1.0"` を確認。
 
 ### Post-publish phase(Step 9、verification 記録)
 
-10. **(任意)preset resolve test**(INV-004、AC-004):
+1. **(任意)preset resolve test**(INV-004、AC-004):
     - 別ディレクトリで `npm install @otibo/ui`、`node --input-type=module -e "import('@otibo/ui/preset').then(p => console.log(typeof p.default))"` で resolve 確認。
     - 失敗時は follow-up TODO(`Pkg-Bug-N: preset export が consumer から resolve できない`)を起票、本 task は PARTIAL。
-11. **AC-007**(INV-008):**本 task の scope 外**として記録、`otibo-dev/App-Feat-11` に引き継ぐ。
+2. **AC-007**(INV-008):**本 task の scope 外**として記録、`otibo-dev/App-Feat-11` に引き継ぐ。
 
 ## Regression / Behavior preservation
 
@@ -109,6 +138,31 @@ template の grain に従い、本 task は **agent workflow / Skill / CI 関連
 - **agent が `npm publish` を user 確認なしで実行しない**:初公開は不可逆、明示的合意必須。Step 8 でユーザーに最終確認。
 - **agent が `npm unpublish` を勝手に実行しない**:同様に user 確認必須(24h 以内のみ可、それ以降は不可)。
 - **agent が `.env*` 等の設定ファイルを publish に含めない**:INV-001 audit で gate。
+
+## Manual QA Checklist
+
+- [x] tarballのfile listがallowlist内に収まる。
+- [x] npm上のname、version、descriptionがpackage metadataと一致する。
+
+## Regression Checklist
+
+- [x] typecheck、lint、buildが成功する。
+- [x] Ladleの既存component APIが維持される。
+
+## High-risk Checklist
+
+- [x] Rollback / recovery pathとしてpublish前中止とpatch release手順を記録した。
+- [x] Data safetyとしてsecret / 個人情報の不在を検査した。
+- [x] Security / privacy implicationsとしてtarball全件を監査した。
+- [x] Failure modeとして認証失敗、scope衝突、build失敗時の判定を定義した。
+
+## Out of Scope
+
+- `otibo-dev`でのconsumer統合。
+
+## Open Questions
+
+- なし。consumer統合は外部taskへ分離済み。
 
 ## Verdict 判定
 

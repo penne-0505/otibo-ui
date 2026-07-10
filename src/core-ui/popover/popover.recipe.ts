@@ -8,7 +8,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
  * 輪郭は lift shadow のみで定義する(枠線は持たない)。矢印も持たない。
  *
  * Slots:
- *   - popup: 浮く本体(Base UI Popover.Popup)
+ *   - popup: 浮く本体(Base UI PopoverPopup)
  *   - title: 見出し
  *   - description: 補足文
  */

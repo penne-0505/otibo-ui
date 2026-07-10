@@ -1,12 +1,19 @@
 ---
 title: NavigationMenu
 status: active
-component: src/core-ui/navigation-menu/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/navigation-menu/`
 
 ## Overview
 
@@ -17,29 +24,23 @@ references:
 slot recipe(Panda)+ Base UI NavigationMenu 委譲。slot は `list` / `item` / `trigger` / `icon` / `link` / `viewport` / `content` / `grid`(8 slot)。
 
 ```tsx
-<NavigationMenu.Root>
-  <NavigationMenu.List>
-    <NavigationMenu.Item>
-      <NavigationMenu.Trigger>
-        作品 <NavigationMenu.Icon><Icon name="chevron-down" /></NavigationMenu.Icon>
-      </NavigationMenu.Trigger>
-      <NavigationMenu.Content>
-        <NavigationMenu.Grid>
-          <NavigationMenu.Link href="/works/oil">油彩</NavigationMenu.Link>
-          <NavigationMenu.Link href="/works/ink">水墨</NavigationMenu.Link>
-        </NavigationMenu.Grid>
-      </NavigationMenu.Content>
-    </NavigationMenu.Item>
-    <NavigationMenu.Item>
-      <NavigationMenu.Link href="/about">About</NavigationMenu.Link>
-    </NavigationMenu.Item>
-  </NavigationMenu.List>
-  <NavigationMenu.Portal>
-    <NavigationMenu.Positioner>
-      <NavigationMenu.Viewport />
-    </NavigationMenu.Positioner>
-  </NavigationMenu.Portal>
-</NavigationMenu.Root>
+<NavigationMenuRoot>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>作品</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuGrid>
+          <NavigationMenuLink href="/works/oil">油彩</NavigationMenuLink>
+          <NavigationMenuLink href="/works/ink">水墨</NavigationMenuLink>
+        </NavigationMenuGrid>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/about">About</NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+  <NavigationMenuViewport />
+</NavigationMenuRoot>
 ```
 
 trigger 付き item は dropdown を持ち、trigger なし item は直リンクとして使う。

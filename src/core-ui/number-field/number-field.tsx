@@ -8,13 +8,15 @@ import { Icon } from "../icon/icon"
  * NumberField — stepper つき数値入力。a11y / 値の clamp / scrub は Base UI NumberField。
  *
  * 使い方:
- *   <NumberField.Root defaultValue={3} min={0} max={10}>
- *     <NumberField.Field />
- *   </NumberField.Root>
+ *   <NumberFieldRoot defaultValue={3} min={0} max={10}>
+ *     <NumberFieldField />
+ *   </NumberFieldRoot>
  */
 
 // Field ── 受け皿に [−] 値 [＋] を収めた一体。props は中央の input へ。
-const NumberFieldField = forwardRef<HTMLInputElement, BaseNumberField.Input.Props>(
+export const NumberFieldRoot = BaseNumberField.Root
+
+export const NumberFieldField = forwardRef<HTMLInputElement, BaseNumberField.Input.Props>(
   function NumberFieldField({ className, ...props }, ref) {
     const slot = numberField()
     return (
@@ -30,8 +32,3 @@ const NumberFieldField = forwardRef<HTMLInputElement, BaseNumberField.Input.Prop
     )
   },
 )
-
-export const NumberField = {
-  Root: BaseNumberField.Root,
-  Field: NumberFieldField,
-}

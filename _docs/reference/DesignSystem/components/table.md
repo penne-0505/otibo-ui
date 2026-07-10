@@ -1,11 +1,18 @@
 ---
 title: Table
 status: active
-component: src/core-ui/table/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/table/`
 
 ## Overview
 
@@ -16,25 +23,25 @@ references:
 slot recipe(Panda)+ 純 native(`<table>` / `<thead>` / `<tbody>` / `<tr>` / `<th>` / `<td>`)。slot は `root` / `row` / `head` / `cell`。`<thead>` / `<tbody>` は素の HTML 要素で描く(slot 化しない、CSS 側で `tbody &` で scope)。
 
 ```tsx
-<Table.Root>
+<TableRoot>
   <thead>
-    <Table.Row>
-      <Table.Head>名前</Table.Head>
-      <Table.Head>役割</Table.Head>
-      <Table.Head>状態</Table.Head>
-    </Table.Row>
+    <TableRow>
+      <TableHead>名前</TableHead>
+      <TableHead>役割</TableHead>
+      <TableHead>状態</TableHead>
+    </TableRow>
   </thead>
   <tbody>
-    <Table.Row>
-      <Table.Cell>山田太郎</Table.Cell>
-      <Table.Cell>管理者</Table.Cell>
-      <Table.Cell>active</Table.Cell>
-    </Table.Row>
+    <TableRow>
+      <TableCell>山田太郎</TableCell>
+      <TableCell>管理者</TableCell>
+      <TableCell>active</TableCell>
+    </TableRow>
   </tbody>
-</Table.Root>
+</TableRoot>
 ```
 
-`<Table.Root>` は `<table>`、`borderCollapse: collapse` で hairline が二重にならない。
+`<TableRoot>` は `<table>`、`borderCollapse: collapse` で hairline が二重にならない。
 
 ## Variants
 
@@ -62,7 +69,7 @@ slot recipe(Panda)+ 純 native(`<table>` / `<thead>` / `<tbody>` / `<tr>` / `<th
 
 - **structure** ── native `<table>` / `<thead>` / `<tbody>` / `<tr>` / `<th>` / `<td>` をそのまま使う(role を再定義しない)。SR は native table を正しく読む。
 - **`<th>` scope** ── 列見出しの場合は `scope="col"`、行見出しの場合は `scope="row"` を消費側で付ける(WAI-ARIA Table の標準)。
-- **caption** ── 必要なら `<caption>` を `<Table.Root>` の最初の子として置く(消費側で組む)。
+- **caption** ── 必要なら `<caption>` を `<TableRoot>` の最初の子として置く(消費側で組む)。
 - **sortable / selectable** ── このスタイル recipe は描画のみ。sort / selection / pagination の機構は消費側で組む(Table は最小の primitive)。
 
 ## Motion

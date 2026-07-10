@@ -1,11 +1,18 @@
 ---
 title: NumberField
 status: active
-component: src/core-ui/number-field/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/number-field/`
 
 ## Overview
 
@@ -16,16 +23,12 @@ references:
 slot recipe(Panda)+ Base UI NumberField 委譲。slot は `group` / `input` / `button`(±共通)(3 slot)。
 
 ```tsx
-<Field.Root>
-  <Field.Label>個数</Field.Label>
-  <NumberField.Root min={1} max={99} defaultValue={1}>
-    <NumberField.Group>
-      <NumberField.Decrement>−</NumberField.Decrement>
-      <NumberField.Input />
-      <NumberField.Increment>＋</NumberField.Increment>
-    </NumberField.Group>
-  </NumberField.Root>
-</Field.Root>
+<FieldRoot>
+  <FieldLabel>個数</FieldLabel>
+  <NumberFieldRoot min={1} max={99} defaultValue={1}>
+    <NumberFieldField aria-label="個数" />
+  </NumberFieldRoot>
+</FieldRoot>
 ```
 
 `min` / `max` / `step` / `smallStep` / `largeStep` 等の clamp / step prop は Base UI Root が握る。

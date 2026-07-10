@@ -1,1 +1,1 @@
-export { SegmentedControl } from "./segmented-control"
+export { SegmentedControlItem, SegmentedControlRoot } from "./segmented-control"

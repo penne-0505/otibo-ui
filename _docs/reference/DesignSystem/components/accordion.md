@@ -1,12 +1,19 @@
 ---
 title: Accordion
 status: active
-component: src/core-ui/accordion/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/accordion/`
 
 ## Overview
 
@@ -17,18 +24,12 @@ references:
 slot recipe(Panda)+ Base UI Accordion 委譲。slot は `root` / `item` / `header` / `trigger` / `icon` / `panel` / `panelContent`(7 slot)。
 
 ```tsx
-<Accordion.Root>
-  <Accordion.Item value="basics">
-    <Accordion.Header>
-      <Accordion.Trigger>
-        基本設定 <Accordion.Icon><Icon name="chevron-down" /></Accordion.Icon>
-      </Accordion.Trigger>
-    </Accordion.Header>
-    <Accordion.Panel>
-      <Accordion.PanelContent>...</Accordion.PanelContent>
-    </Accordion.Panel>
-  </Accordion.Item>
-</Accordion.Root>
+<AccordionRoot>
+  <AccordionItem value="basics">
+    <AccordionTrigger>基本設定</AccordionTrigger>
+    <AccordionPanel>...</AccordionPanel>
+  </AccordionItem>
+</AccordionRoot>
 ```
 
 **otibo 既定は非排他(multiple=true)** ── 触っていない section を勝手に閉じない grain。排他にしたい時だけ `multiple={false}` で opt-in(`AccordionRoot` wrapper で既定を反転、Base UI 既定は multiple=false)。
@@ -64,7 +65,7 @@ slot recipe(Panda)+ Base UI Accordion 委譲。slot は `root` / `item` / `heade
 - **primitive** ── `@base-ui/react/accordion`(Root / Item / Header / Trigger / Panel)。
 - **role** ── trigger は `button` + `aria-expanded` + `aria-controls`、panel は `region` + `aria-labelledby`(Base UI 担保)。
 - **keyboard** ── ↑↓ で trigger 間移動、Enter / Space で toggle、Home / End で先頭 / 末尾(Base UI 担保)。
-- **header** ── `<h3>` などで wrap することを消費側が判断(Accordion.Header は `<div>` 既定、margin 0 で見出し階層に乗せる)。
+- **header** ── `AccordionTrigger` が Base UI の header slot と chevron icon を内包する。
 
 ## Motion
 

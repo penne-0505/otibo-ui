@@ -1,11 +1,18 @@
 ---
 title: InlineEdit
 status: active
-component: src/core-ui/inline-edit/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/inline-edit/`
 
 ## Overview
 

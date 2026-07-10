@@ -8,14 +8,14 @@ import { mergeClass } from "../../lib/utils"
  * Base UI Menu に委譲、見た目は otibo recipe(popover / select と同じ raised panel)。
  *
  * 使い方:
- *   <Menu.Root>
- *     <Menu.Trigger render={<Button intent="ghost" size="sm">…</Button>} />
- *     <Menu.Popup>
- *       <Menu.Item onClick={…}>プロフィール</Menu.Item>
- *       <Menu.Separator />
- *       <Menu.Item onClick={…}>ログアウト</Menu.Item>
- *     </Menu.Popup>
- *   </Menu.Root>
+ *   <MenuRoot>
+ *     <MenuTrigger render={<Button intent="ghost" size="sm">…</Button>} />
+ *     <MenuPopup>
+ *       <MenuItem onClick={…}>プロフィール</MenuItem>
+ *       <MenuSeparator />
+ *       <MenuItem onClick={…}>ログアウト</MenuItem>
+ *     </MenuPopup>
+ *   </MenuRoot>
  */
 
 // Popup ── Portal + Positioner で浮かせる。trigger 隣接の action なので既定は下・右寄せ。
@@ -25,7 +25,11 @@ interface MenuPopupProps extends BaseMenu.Popup.Props {
   sideOffset?: BaseMenu.Positioner.Props["sideOffset"]
 }
 
-const MenuPopup = forwardRef<HTMLDivElement, MenuPopupProps>(function MenuPopup(
+export const MenuRoot = BaseMenu.Root
+export const MenuTrigger = BaseMenu.Trigger
+export const MenuGroup = BaseMenu.Group
+
+export const MenuPopup = forwardRef<HTMLDivElement, MenuPopupProps>(function MenuPopup(
   { className, side = "bottom", align = "end", sideOffset = 6, children, ...props },
   ref,
 ) {
@@ -41,7 +45,7 @@ const MenuPopup = forwardRef<HTMLDivElement, MenuPopupProps>(function MenuPopup(
   )
 })
 
-const MenuItem = forwardRef<HTMLDivElement, BaseMenu.Item.Props>(function MenuItem(
+export const MenuItem = forwardRef<HTMLDivElement, BaseMenu.Item.Props>(function MenuItem(
   { className, ...props },
   ref,
 ) {
@@ -49,17 +53,16 @@ const MenuItem = forwardRef<HTMLDivElement, BaseMenu.Item.Props>(function MenuIt
   return <BaseMenu.Item ref={ref} className={mergeClass(slot.item, className)} {...props} />
 })
 
-const MenuSeparator = forwardRef<HTMLDivElement, BaseMenu.Separator.Props>(function MenuSeparator(
-  { className, ...props },
-  ref,
-) {
-  const slot = menu()
-  return (
-    <BaseMenu.Separator ref={ref} className={mergeClass(slot.separator, className)} {...props} />
-  )
-})
+export const MenuSeparator = forwardRef<HTMLDivElement, BaseMenu.Separator.Props>(
+  function MenuSeparator({ className, ...props }, ref) {
+    const slot = menu()
+    return (
+      <BaseMenu.Separator ref={ref} className={mergeClass(slot.separator, className)} {...props} />
+    )
+  },
+)
 
-const MenuGroupLabel = forwardRef<HTMLDivElement, BaseMenu.GroupLabel.Props>(
+export const MenuGroupLabel = forwardRef<HTMLDivElement, BaseMenu.GroupLabel.Props>(
   function MenuGroupLabel({ className, ...props }, ref) {
     const slot = menu()
     return (
@@ -71,13 +74,3 @@ const MenuGroupLabel = forwardRef<HTMLDivElement, BaseMenu.GroupLabel.Props>(
     )
   },
 )
-
-export const Menu = {
-  Root: BaseMenu.Root,
-  Trigger: BaseMenu.Trigger,
-  Popup: MenuPopup,
-  Item: MenuItem,
-  Separator: MenuSeparator,
-  Group: BaseMenu.Group,
-  GroupLabel: MenuGroupLabel,
-}

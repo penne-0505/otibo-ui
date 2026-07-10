@@ -1,6 +1,5 @@
 export type { CardRootProps } from "./card"
 export {
-  Card,
   CardBody,
   CardDescription,
   CardFooter,

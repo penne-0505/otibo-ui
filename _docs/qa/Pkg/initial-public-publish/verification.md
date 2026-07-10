@@ -2,7 +2,7 @@
 title: "QA Verification: Initial public publish of @otibo/ui"
 status: active
 draft_status: n/a
-qa_status: verified
+qa_status: partial
 risk: High
 created_at: 2026-06-21
 updated_at: 2026-06-21
@@ -14,7 +14,15 @@ related_issues: []
 related_prs: []
 ---
 
-## Verdict
+# QA Verification: `Initial public publish of @otibo/ui`
+
+## Summary
+
+0.1.0初回公開時のbuild、tarball、依存関係、secret audit、registry公開を検証した歴史的記録。consumer統合だけは外部taskへ委譲された。
+
+## Verification Verdict
+
+Verdict: PARTIAL
 
 **PASS**(AC-001〜006、本 task scope。AC-007 は外部 task `otibo-dev/App-Feat-11` に引き継ぎ、PARTIAL 扱い)
 
@@ -136,7 +144,54 @@ Verdict: **INV-007 / AC-006 PASS**(search index で confirm、direct view は pr
 
 **Verdict: PASS**(本 task scope に対して。AC-007 は外部 task に切り出されている)。
 
-## Coverage gaps / Residual risks
+## Commands Run
+
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm pack --dry-run
+npm publish --access public
+```
+
+Result: buildとpublishは成功。consumer統合は外部taskへ委譲。
+
+## Automated Test Results
+
+| Command / Test | Result | Notes |
+| --- | --- | --- |
+| typecheck / lint / build | PASS | 初回公開時に実行 |
+| tarball audit | PASS | 不要file / secretなし |
+| npm publish | PASS | `@otibo/ui@0.1.0`公開 |
+
+## Manual QA Results
+
+| Checklist Item | Result | Notes |
+| --- | --- | --- |
+| package metadata | PASS | npm searchで確認 |
+| consumer integration | DEFERRED | `otibo-dev/App-Feat-11` |
+
+## Acceptance Criteria Coverage
+
+| ID | Result | Evidence |
+| --- | --- | --- |
+| AC-001〜AC-006 | PASS | 本文Step 1〜8 |
+| AC-007 | DEFERRED | 外部taskへ委譲 |
+
+## Invariant Coverage
+
+| ID | Result | Evidence |
+| --- | --- | --- |
+| INV-001〜INV-007 | PASS | 本文audit / build / publish結果 |
+| INV-008 | DEFERRED | consumer integration未実施 |
+
+## Deferred / Not Covered
+
+| ID | Reason | Follow-up |
+| --- | --- | --- |
+| AC-007 / INV-008 | 別repoのconsumer確認 | `otibo-dev/App-Feat-11` |
+
+## Residual Risks
 
 - **AC-007(consumer 側 import 動作)** は `otibo-dev/App-Feat-11` で verify。本 task 完了時点では未確認。
 - **`npm view` の direct registry view** が propagation 中(数分〜十数分)。`npm search` で search index hit が確認できているので publish 自体は成功。direct view も時間で復旧する見込み(問題なら follow-up TODO)。

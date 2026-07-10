@@ -2,7 +2,7 @@
 
 ## 0. System Metadata
 
-- **Current Max ID**: `Next ID No: 11` (タスク追加時にインクリメント必須)
+- **Current Max ID**: `Next ID No: 13` (タスク追加時にインクリメント必須)
 - **ID Source of Truth**: このファイルの `Next ID No` 行が、全プロジェクトにおける唯一の ID 発番元である。
 
 ## 1. Task Lifecycle (State Machine)
@@ -374,35 +374,6 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 - **Description**:
   - Context: OSS 配布前に著作者表示をプロジェクトに合わせる。
   - Notes: `Size XS` かつ `Risk Low` のため Plan / Intent / QA は不要。
-- **Plan**: None
-- **Intent**: None
-- **QA**: None
-- **Verification**: None
-
-### Pkg-Enhance-8: [Enhance] Namespace export design — docs note vs deprecate
-
-- **Title**: [Enhance] Namespace export design — docs note vs deprecate
-- **ID**: Pkg-Enhance-8
-- **Priority**: P2
-- **Size**: M
-- **Risk**: Medium
-- **Area**: Pkg
-- **Dependencies**: [](Pkg-Doc-7 完了済み・解決)
-- **Goal**: namespace export を持つ全 component(`Field` / `Card` / `Tabs` / `Toast` / `Combobox` / `NavigationMenu` / `Menu` / `Popover` / `PreviewCard` / `Dialog` / `Tooltip` / `Pagination` / `Accordion` / `Breadcrumb` / `SegmentedControl` / `Select` / `Table` / `RadioGroup` / `ChipGroup` / `NumberField` / `InlineEdit` / `Slider` / `ScrollArea` / 等)について、Next.js App Router RSC consumer に対する正しい使い方が library として明確に方針付けされている(docs note で済ますか、namespace 自体を deprecate するか)。
-- **Acceptance Criteria**:
-  - AC-001: namespace export を持つ全 component が棚卸しされ、`_docs/intent/Pkg/namespace-export-design/decision.md` に方針(docs note / deprecate / 維持の選択 + 理由)が記録されている。
-  - AC-002: 採用方針に応じた library / docs / per-component spec(`_docs/reference/DesignSystem/components/<name>.md`)への反映が完了している。
-  - AC-003: deprecate を選んだ場合、SemVer に従って bump 戦略(major / minor + deprecation period)が plan / intent に明記されている。
-  - AC-004: typecheck / lint / build / publish dry-run が通る。
-- **Steps**:
-  1. [ ] Plan / Intent / QA を作成する(Plan で方針候補を列挙、Intent で決定)
-  2. [ ] namespace export の現状棚卸し(grep + per-component spec)
-  3. [ ] 採用方針に応じた実装(docs 追加 / API 変更 / 両方)
-  4. [ ] Test:typecheck / lint / build、必要なら Ladle で動作確認
-  5. [ ] Verification を残す
-- **Description**:
-  - Context: `otibo-dev/App-Feat-11` で `<Field.Root>` が Next.js App Router の RSC で build 失敗することを発見(Intent §Discovered)。同じ pattern を持つ component が多数あり、library 設計として方針を統一する必要がある。`flat export` は既に各 component で同居しているので、API breaking なしで docs だけ整える選択肢もある。
-  - Notes: Plan / Intent / QA 必須(Size M, Risk Medium)。namespace deprecate を選ぶと breaking change(major / 大きめ minor bump)。docs note のみなら patch。Pkg-Doc-7 が完了して README の最小 fix が出てから本 task に取りかかる(`Pkg-Doc-7` を Dependencies に置く)。
 - **Plan**: None
 - **Intent**: None
 - **QA**: None

@@ -1,12 +1,19 @@
 ---
 title: Avatar
 status: active
-component: src/core-ui/avatar/
+draft_status: n/a
+created_at: 2026-06-21
+updated_at: 2026-07-10
 references:
+  - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
   - "../motion-grammar.md"
   - "../component-selection-map.md"
+related_issues: []
+related_prs: []
 ---
+
+> Implementation: `src/core-ui/avatar/`
 
 ## Overview
 
@@ -17,10 +24,10 @@ references:
 slot recipe(Panda)+ Base UI Avatar 委譲。slot は `root` / `image` / `fallback`(3 slot)。
 
 ```tsx
-<Avatar.Root size="md">
-  <Avatar.Image src="/users/123.jpg" alt="山田太郎" />
-  <Avatar.Fallback>YT</Avatar.Fallback>
-</Avatar.Root>
+<AvatarRoot size="md">
+  <AvatarImage src="/users/123.jpg" alt="山田太郎" />
+  <AvatarFallback>YT</AvatarFallback>
+</AvatarRoot>
 ```
 
 Base UI Avatar が **Image を loaded のときだけマウント**する(load 失敗 / pending では fallback を出す)── consumer は両方並べて書き、表示制御は primitive に任せる。

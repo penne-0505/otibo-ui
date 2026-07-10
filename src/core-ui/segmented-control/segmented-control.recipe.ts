@@ -4,7 +4,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
  * SegmentedControl slot recipe — 単一選択の compact toggle。
  *
  * grammar 上の位置:radio/select と同じ「一つ選ぶ」だが、選択肢が少なく即時に切替える
- * 設定向け。Base UI Tabs を primitive に使い(Tabs.Indicator が active 位置を自動追従)、
+ * 設定向け。Base UI Tabs を primitive に使い(indicator slotがactive位置を自動追従)、
  * 「凹んだ溝に白い pill が滑る」表現にする。
  *
  * motion(答え合わせ中):pill(indicator)が active 位置へ滑る。ラベル色(active=fg.strong /

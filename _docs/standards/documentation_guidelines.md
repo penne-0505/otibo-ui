@@ -196,7 +196,7 @@ draft でのみ、stale 管理のために以下の任意フィールドを追�
 - 個別コマンド:
 
 ```bash
-deno fmt --check scripts/*.mjs
+npx biome check scripts/*.mjs
 deno run --allow-read scripts/validate-frontmatter.mjs
 deno run --allow-read scripts/validate-todo.mjs
 deno run --allow-read scripts/validate-doc-links.mjs
