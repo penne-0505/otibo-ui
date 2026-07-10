@@ -70,7 +70,8 @@ package は `0.2.0` へ更新するが、npm publish は行わない。peer cont
 
 ## Deployment / Rollout
 
-- 本変更ではnpm publishしない。
-- verificationがPASSになるまで`0.2.0` release candidateとして扱う。
+- implementation完了時点ではnpm publishせず、verification PASS後の明示的なfollow-upとして2026-07-10に`0.2.0`を`latest` tagでpublic registryへpublishした。
+- registry readbackでversion、peer contract、16-file tarball、integrityを確認した。
 - rollbackはdependency manifest / lockfile / config / source / docsを直前の`0.1.1` baselineへ戻し、同じQA matrixを再実行する。
-- consumer rolloutではPanda 1と`@base-ui/react`を同時にinstallする必要があるため、publish時にREADMEのinstall手順をrelease noteとして再利用する。
+- 公開後のconsumer regressionは`0.2.x` patchまたはnpm deprecateで扱い、unpublishを通常のrollback手段にしない。
+- consumer rolloutではPanda 1と`@base-ui/react`を同時にinstallする必要があるため、READMEのinstall手順をrelease noteとして再利用する。

@@ -18,7 +18,7 @@ related_prs: []
 
 ## Summary
 
-`@otibo/ui@0.2.0` のdependency baselineをPanda 1.11.4、Base UI 1.6.0、React 19.2.7、Biome 2.5.3へ更新した。public peer contractはReact 18 / 19を許可し、fresh install、Node / React matrix、package artifact、Ladle 56 stories、代表的なinteractionを検証した。npm publish、commit、pushは実行していない。
+`@otibo/ui@0.2.0` のdependency baselineをPanda 1.11.4、Base UI 1.6.0、React 19.2.7、Biome 2.5.3へ更新した。public peer contractはReact 18 / 19を許可し、fresh install、Node / React matrix、package artifact、Ladle 56 stories、代表的なinteractionを検証した。2026-07-10に`penneotibo` accountからnpm public registryへpublishし、`latest` tag、peer contract、tarball integrityをregistryから読み戻した。
 
 ## Verification Verdict
 
@@ -40,6 +40,8 @@ Verdict: PASS
 | verifier failure fixtures | PASS | raw exit 7、stale metadata、story count 0がいずれもnon-zeroになった。 |
 | `npm run audit` | PASS | high / critical 0。Windows dev serverに限定されたesbuild low 1のみ。 |
 | `npm pack --dry-run --ignore-scripts --json` | PASS | `0.2.0`、16 files、467,572 bytes、必須artifact欠落0。 |
+| `npm publish --access public` | PASS | `@otibo/ui@0.2.0`を`latest` tagでpublic registryへpublish。 |
+| registry readback | PASS | `latest: 0.2.0`、16 files、467,572 bytes、local dry-runとshasum / integrity一致。 |
 | legacy package `rg` | PASS | runtime code、config、README、DesignSystem reference、package metadataにmatchなし。 |
 | `git diff --check` | PASS | whitespace error 0。 |
 | docs validators scope review | PASS | 新規Plan / Intent / QAにvalidator errorなし。repository全体の既存baseline errorは下記へ分離。 |
@@ -97,7 +99,8 @@ None
 
 ## Agent Misbehavior Checks
 
-- npm publish、commit、pushを実行していない。
+- npm publishはユーザーの明示依頼後、package ownerの`penneotibo` identity、version未公開、release gate、dry-runを確認してから実行した。
+- dependency migration commitとpublish結果のdocumentation commit以外を追加せず、`dev`以外へpushしていない。
 - `continue-on-error`や`|| true`でCI gateを成功扱いしていない。
 - secret、credential、外部入力を追加・送信していない。
 - ユーザー許可前にrepository rootの一時出力を削除せず、明示許可後に対象1ファイルだけを削除した。

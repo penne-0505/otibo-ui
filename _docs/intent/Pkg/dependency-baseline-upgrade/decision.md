@@ -80,6 +80,6 @@ public component libraryでは、peer rangeがconsumerのinstall contractその�
 
 ## Rollback / Follow-ups
 
-- npm publish前のため、rollbackはrepository changeを直前baselineへ戻すことで完結する。
-- publish後にconsumer regressionが見つかった場合は`0.2.x` patchで修正し、旧deprecated Base UI packageへ戻さない。
+- `0.2.0`は2026-07-10にnpm public registryへpublish済みである。公開後はrepositoryだけを戻してもregistry contractは戻らない。
+- consumer regressionが見つかった場合は`0.2.x` patchで修正し、必要ならaffected versionをdeprecateする。通常のrollback手段としてunpublishや旧deprecated Base UI packageへの復帰は使わない。
 - TypeScript 6 / 7、Vite 8、Gen Interface JP 0.7は各toolchain / visual impactを分離したfollow-upで判断する。
