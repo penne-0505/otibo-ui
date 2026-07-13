@@ -26,7 +26,7 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 - 困ったら冒頭の **At-a-glance**(全 36 component の一行 catalog)→ 該当章 → summary 表、の順に降りる。
 - 個別 component の API / variants / states 詳細は `components/<name>.md` 参照(Phase 3 で整備)。
 
-## At-a-glance (全 36 component, 一行 catalog)
+## At-a-glance (全 39 component, 一行 catalog)
 
 | Component | 領分(一言) | 章 |
 | --- | --- | --- |
@@ -59,12 +59,15 @@ otibo-ui には**「同じことをする」 component が複数ある**(例:選
 | Skeleton | content 到着前の neutral placeholder | §feedback |
 | Progress | 作業の完了率(時間軸) | §feedback |
 | Meter | 現在値の度合い(容量・強度) | §feedback |
-| Table | 行列構造の data display | §data |
+| Table | 行列構造の data display（狭い幅は TableScroll） | §data |
 | Card | 浮く / 区切る紙の面 | §container |
 | Accordion | 開閉できる詳細セクション | §container |
 | Avatar | 人/主体の円(image + fallback) | §identity |
+| LogoFrame | ブランド/マーク(角丸・contain) | §identity |
 | Badge | 静的な小さな identity / metadata チップ | §identity |
 | Icon | 16 viewbox の stroke icon | §identity |
+| MediaFrame | 図版枠(image / empty slot) | §data |
+| Prose | 読み面(measure + reading) | §structure |
 | Separator | inline / section の hairline 区切り | §structure |
 | ScrollArea | カスタムスクロール(細い hairline) | §structure |
 
@@ -340,21 +343,25 @@ otibo に Alert は無い(2026-06-19 削除済)。理由:
 
 | Component | 用途 | 形 |
 | --- | --- | --- |
-| **Table** | 行列の構造(列で比較) | hairline 区切り、行 hover に明度差 |
+| **Table** | 行列の構造(列で比較) | hairline 区切り、行 hover に明度差。狭い幅は TableScroll |
+| **MediaFrame** | 図版の枠 | aspect + image / empty slot |
 | **Card** | 関連情報を一枚にまとめる | 浮く紙(paper.sm/md) |
 | **Badge** | 静的な小さな identity / metadata | 細線の小札(押せない) |
 | **Avatar** | 人 / 主体の円 | image + fallback の丸 |
+| **LogoFrame** | ブランド / マーク | 角丸・contain・muted fallback |
 
 ### 決定木
 
 ```text
 何を並べる?
-├ 行列(列で比較したい) → Table
+├ 行列(列で比較したい) → Table（狭い幅は TableScroll）
+├ 図版枠 → MediaFrame（無いときは empty slot。来る前は Skeleton）
 ├ 一つずつのまとまり(album / 作品 / 通知 card)
 │ ├ 浮く紙として独立 → Card
 │ └ inline の小さなマーカー
 │   ├ 識別 / 状態(Pro / 新規) → Badge
-│   └ 人 / 主体の像 → Avatar
+│   ├ 人 / 主体の像 → Avatar
+│   └ ブランド / マーク → LogoFrame
 ```
 
 ### Badge vs Chip vs Toggle(似て非なる三役)
@@ -409,6 +416,7 @@ inline で「これは誰 / 何か」を示す。
 | Component | 用途 |
 | --- | --- |
 | **Avatar** | 人 / 主体の像(image + fallback) |
+| **LogoFrame** | ブランド / マーク(角丸・contain) |
 | **Badge** | 静的な metadata / 状態 |
 | **Icon** | 16 viewbox の stroke icon(currentColor) |
 
@@ -424,6 +432,7 @@ inline で「これは誰 / 何か」を示す。
 | --- | --- |
 | **Separator** | inline 文字列の縦 hairline / section の hairline |
 | **ScrollArea** | カスタムスクロール(細い hairline scrollbar) |
+| **Prose** | 読み面(maxWidth=prose、reading=ui\|article)。タイポ role は textStyles |
 
 ### Separator の使い時(原則:**構造区切りは余白**)
 

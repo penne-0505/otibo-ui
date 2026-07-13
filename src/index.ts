@@ -77,6 +77,19 @@ export { Input } from "./core-ui/input"
 export type { LinkProps } from "./core-ui/link"
 // Link
 export { Link } from "./core-ui/link"
+// LogoFrame
+export { LogoFrameFallback, LogoFrameImage, LogoFrameRoot } from "./core-ui/logo-frame"
+export type {
+  MediaFrameEmptyProps,
+  MediaFrameImageProps,
+  MediaFrameRootProps,
+} from "./core-ui/media-frame"
+// MediaFrame
+export {
+  MediaFrameEmpty,
+  MediaFrameImage,
+  MediaFrameRoot,
+} from "./core-ui/media-frame"
 // Menu
 export {
   MenuGroup,
@@ -132,6 +145,9 @@ export {
 } from "./core-ui/preview-card"
 // Progress
 export { ProgressLabel, ProgressRoot, ProgressTrack, ProgressValue } from "./core-ui/progress"
+export type { ProseProps } from "./core-ui/prose"
+// Prose
+export { Prose } from "./core-ui/prose"
 export type { RadioGroupProps, RadioProps } from "./core-ui/radio"
 // Radio
 export { Radio, RadioGroup } from "./core-ui/radio"
@@ -167,7 +183,15 @@ export type { SwitchProps } from "./core-ui/switch"
 // Switch
 export { Switch } from "./core-ui/switch"
 // Table
-export { TableBody, TableCell, TableHead, TableHeader, TableRoot, TableRow } from "./core-ui/table"
+export {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRoot,
+  TableRow,
+  TableScroll,
+} from "./core-ui/table"
 // Tabs
 export { TabsList, TabsPanel, TabsRoot, TabsTab } from "./core-ui/tabs"
 // Toast
@@ -176,3 +200,6 @@ export { createToastManager, ToastProvider, ToastToaster, useToastManager } from
 export { Toggle, ToggleGroup } from "./core-ui/toggle"
 // Tooltip
 export { TooltipPopup, TooltipProvider, TooltipRoot, TooltipTrigger } from "./core-ui/tooltip"
+export type { TypographyRole } from "./theme/typography"
+// Typography roles (consumer-side Panda is not required)
+export { textStyle } from "./theme/typography"

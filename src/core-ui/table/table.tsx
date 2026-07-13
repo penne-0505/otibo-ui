@@ -1,4 +1,4 @@
-import { table } from "@otibo/ui/styled-system/recipes"
+import { table, tableScroll } from "@otibo/ui/styled-system/recipes"
 import { forwardRef } from "react"
 import { cx } from "../../lib/utils"
 
@@ -6,22 +6,32 @@ import { cx } from "../../lib/utils"
  * Table — データ表示の表。native の table 要素を otibo recipe で styled。色は使わず hairline と
  * 余白で構造を語り、body 行 hover にだけ quiet な明度差を敷く。
  *
+ * 狭い幅では TableScroll で横スクロールする（行カード化しない）。
+ *
  * 使い方:
- *   <TableRoot>
- *     <TableHeader>
- *       <TableRow>
- *         <TableHead>デバイス</TableHead>
- *         <TableHead>最終アクセス</TableHead>
- *       </TableRow>
- *     </TableHeader>
- *     <TableBody>
- *       <TableRow>
- *         <TableCell>MacBook Pro</TableCell>
- *         <TableCell>たった今</TableCell>
- *       </TableRow>
- *     </TableBody>
- *   </TableRoot>
+ *   <TableScroll>
+ *     <TableRoot>
+ *       <TableHeader>
+ *         <TableRow>
+ *           <TableHead>デバイス</TableHead>
+ *           <TableHead>最終アクセス</TableHead>
+ *         </TableRow>
+ *       </TableHeader>
+ *       <TableBody>
+ *         <TableRow>
+ *           <TableCell>MacBook Pro</TableCell>
+ *           <TableCell>たった今</TableCell>
+ *         </TableRow>
+ *       </TableBody>
+ *     </TableRoot>
+ *   </TableScroll>
  */
+
+export const TableScroll = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  function TableScroll({ className, ...props }, ref) {
+    return <div ref={ref} className={cx(tableScroll(), className)} {...props} />
+  },
+)
 
 export const TableRoot = forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
   function TableRoot({ className, ...props }, ref) {

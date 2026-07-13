@@ -2,6 +2,20 @@
 
 All notable changes to `@otibo/ui` are documented here.
 
+## 0.4.0 - 2026-07-13
+
+### Added
+
+- Typography roles backed by Panda named `textStyles`, exposed to drop-in consumers through the typed `textStyle()` helper (`display`, `heading.sm|md|lg`, `body`, `eyebrow`, `caption`).
+- `Prose` reading surface with `reading="ui" | "article"`.
+- `MediaFrame` (image / empty slots) and `LogoFrame` (brand mark frame with `shape="square" | "auto"` for icon marks vs. wide wordmarks).
+- `TableScroll` for narrow-viewport horizontal table overflow, with scroll-position-aware edge fades (`--otibo-table-scroll-bg` to match the surface behind).
+
+### Fixed
+
+- Propagated `MediaFrameRoot` aspect and fit variants to its image slot while preserving an image-level fit override.
+- Restored unordered and ordered list markers and direct list-item typography inside `Prose`.
+
 ## 0.3.0 - 2026-07-10
 
 ### Changed

@@ -36,6 +36,8 @@ const expectedRecipes = [
   "inlineEdit",
   "input",
   "link",
+  "logoFrame",
+  "mediaFrame",
   "menu",
   "meter",
   "navigationMenu",
@@ -44,6 +46,7 @@ const expectedRecipes = [
   "popover",
   "previewCard",
   "progress",
+  "prose",
   "radio",
   "scrollArea",
   "segmentedControl",
@@ -54,6 +57,7 @@ const expectedRecipes = [
   "spinner",
   "switchRecipe",
   "table",
+  "tableScroll",
   "tabs",
   "toast",
   "toggle",
@@ -259,7 +263,7 @@ function installConsumer(prefix, tarball, dependencies) {
   return consumerDirectory
 }
 
-assert.equal(manifest.version, "0.3.0")
+assert.equal(manifest.version, "0.4.0")
 assert.deepEqual(Object.keys(manifest.exports).sort(), [".", "./styles.css"])
 assert.deepEqual(manifest.exports["."], {
   import: { types: "./dist/index.d.ts", default: "./dist/index.js" },
@@ -299,6 +303,24 @@ for (const recipeSource of recipeSources) {
 assert.ok(styles.includes("@layer otibo-reset"), "compiled CSS must include the otibo reset layer")
 assert.ok(styles.includes("--colors-warm-50"), "compiled CSS must include design tokens")
 assert.ok(styles.includes('font-family:"Gen Interface JP"'), "compiled CSS must include font faces")
+assert.match(styles, /\.otibo-prose > ul\s*\{[^}]*list-style-type:\s*disc/)
+assert.match(styles, /\.otibo-prose > ol\s*\{[^}]*list-style-type:\s*decimal/)
+assert.ok(styles.includes(".otibo-prose > ul > li,.otibo-prose > ol > li"))
+for (const role of [
+  "display",
+  "heading",
+  "heading.sm",
+  "heading.md",
+  "heading.lg",
+  "body",
+  "eyebrow",
+  "caption",
+]) {
+  assert.ok(
+    styles.includes(`.textStyle_${role.replace(".", "\\.")}`),
+    `${role} textStyle must be present in compiled CSS`,
+  )
+}
 
 const fontWeights = new Set(
   [...styles.matchAll(/@font-face\{[^}]*font-weight:(\d+)/g)].map((match) => match[1]),
@@ -356,7 +378,23 @@ run(
       const expected = ${JSON.stringify([...expectedFlatExports, ...preservedStandaloneExports])}
       if (removed.some((name) => name in ui)) process.exit(1)
       if (expected.some((name) => !(name in ui))) process.exit(1)
+      if (ui.textStyle("heading.md") !== "textStyle_heading.md") process.exit(1)
     })`,
+  ],
+  { cwd: consumer },
+)
+run(
+  process.execPath,
+  [
+    "--input-type=module",
+    "--eval",
+    `import React from "react"
+    import { renderToStaticMarkup } from "react-dom/server"
+    import { MediaFrameImage, MediaFrameRoot } from "@otibo/ui"
+    const inherited = renderToStaticMarkup(React.createElement(MediaFrameRoot, { aspect: "auto", fit: "contain" }, React.createElement(MediaFrameImage, { src: "/media.png", alt: "" })))
+    if (!inherited.includes("otibo-media-frame__image--aspect_auto") || !inherited.includes("otibo-media-frame__image--fit_contain")) process.exit(1)
+    const overridden = renderToStaticMarkup(React.createElement(MediaFrameRoot, { fit: "cover" }, React.createElement(MediaFrameImage, { src: "/media.png", alt: "", fit: "contain" })))
+    if (!overridden.includes("otibo-media-frame__image--fit_contain") || overridden.includes("otibo-media-frame__image--fit_cover")) process.exit(1)`,
   ],
   { cwd: consumer },
 )
@@ -368,14 +406,15 @@ run(
     const removed = ${JSON.stringify(removedNamespaceExports)}
     const expected = ${JSON.stringify([...expectedFlatExports, ...preservedStandaloneExports])}
     if (removed.some((name) => name in ui)) process.exit(1)
-    if (expected.some((name) => !(name in ui))) process.exit(1)`,
+    if (expected.some((name) => !(name in ui))) process.exit(1)
+    if (ui.textStyle("heading.md") !== "textStyle_heading.md") process.exit(1)`,
   ],
   { cwd: consumer },
 )
 
 writeFileSync(
   path.join(consumer, "typecheck.ts"),
-  'import "@otibo/ui/styles.css"\nimport type * as OtiboUI from "@otibo/ui"\ntype PublicExports = typeof OtiboUI.Button | typeof OtiboUI.FieldRoot | typeof OtiboUI.DialogPopup\nconst valid: PublicExports | undefined = undefined\nvoid valid\n',
+  'import "@otibo/ui/styles.css"\nimport { textStyle } from "@otibo/ui"\nimport type * as OtiboUI from "@otibo/ui"\ntype PublicExports = typeof OtiboUI.Button | typeof OtiboUI.FieldRoot | typeof OtiboUI.DialogPopup\nconst valid: PublicExports | undefined = undefined\nconst headingClass: string = textStyle("heading.md")\nvoid valid\nvoid headingClass\n',
 )
 run(
   process.execPath,

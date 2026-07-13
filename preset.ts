@@ -14,6 +14,8 @@ import { fieldRecipe } from "./src/core-ui/field/field.recipe"
 import { inlineEditRecipe } from "./src/core-ui/inline-edit/inline-edit.recipe"
 import { inputRecipe } from "./src/core-ui/input/input.recipe"
 import { linkRecipe } from "./src/core-ui/link/link.recipe"
+import { logoFrameRecipe } from "./src/core-ui/logo-frame/logo-frame.recipe"
+import { mediaFrameRecipe } from "./src/core-ui/media-frame/media-frame.recipe"
 import { menuRecipe } from "./src/core-ui/menu/menu.recipe"
 import { meterRecipe } from "./src/core-ui/meter/meter.recipe"
 import { navigationMenuRecipe } from "./src/core-ui/navigation-menu/navigation-menu.recipe"
@@ -22,6 +24,7 @@ import { paginationRecipe } from "./src/core-ui/pagination/pagination.recipe"
 import { popoverRecipe } from "./src/core-ui/popover/popover.recipe"
 import { previewCardRecipe } from "./src/core-ui/preview-card/preview-card.recipe"
 import { progressRecipe } from "./src/core-ui/progress/progress.recipe"
+import { proseRecipe } from "./src/core-ui/prose/prose.recipe"
 import { radioRecipe } from "./src/core-ui/radio/radio.recipe"
 import { scrollAreaRecipe } from "./src/core-ui/scroll-area/scroll-area.recipe"
 import { segmentedControlRecipe } from "./src/core-ui/segmented-control/segmented-control.recipe"
@@ -32,10 +35,12 @@ import { sliderRecipe } from "./src/core-ui/slider/slider.recipe"
 import { spinnerRecipe } from "./src/core-ui/spinner/spinner.recipe"
 import { switchRecipe } from "./src/core-ui/switch/switch.recipe"
 import { tableRecipe } from "./src/core-ui/table/table.recipe"
+import { tableScrollRecipe } from "./src/core-ui/table/table-scroll.recipe"
 import { tabsRecipe } from "./src/core-ui/tabs/tabs.recipe"
 import { toastRecipe } from "./src/core-ui/toast/toast.recipe"
 import { toggleRecipe } from "./src/core-ui/toggle/toggle.recipe"
 import { tooltipRecipe } from "./src/core-ui/tooltip/tooltip.recipe"
+import { textStyles } from "./src/theme/text-styles"
 
 /**
  * otibo Design System — Panda CSS preset.
@@ -412,6 +417,8 @@ export const otiboPreset = definePreset({
         link: linkRecipe,
         separator: separatorRecipe,
         scrollArea: scrollAreaRecipe,
+        prose: proseRecipe,
+        tableScroll: tableScrollRecipe,
       },
       slotRecipes: {
         accordion: accordionRecipe,
@@ -443,7 +450,10 @@ export const otiboPreset = definePreset({
         select: selectRecipe,
         slider: sliderRecipe,
         toast: toastRecipe,
+        mediaFrame: mediaFrameRecipe,
+        logoFrame: logoFrameRecipe,
       },
+      textStyles,
     },
   },
 

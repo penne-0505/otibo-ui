@@ -36,6 +36,8 @@ export default defineConfig({
       inlineEdit: ["*"],
       input: ["*"],
       link: ["*"],
+      logoFrame: ["*"],
+      mediaFrame: ["*"],
       menu: ["*"],
       meter: ["*"],
       navigationMenu: ["*"],
@@ -44,6 +46,7 @@ export default defineConfig({
       popover: ["*"],
       previewCard: ["*"],
       progress: ["*"],
+      prose: ["*"],
       radio: ["*"],
       scrollArea: ["*"],
       segmentedControl: ["*"],
@@ -54,11 +57,28 @@ export default defineConfig({
       spinner: ["*"],
       switchRecipe: ["*"],
       table: ["*"],
+      tableScroll: ["*"],
       tabs: ["*"],
       toast: ["*"],
       toggle: ["*"],
       tooltip: ["*"],
     },
+    css: [
+      {
+        properties: {
+          textStyle: [
+            "display",
+            "heading",
+            "heading.sm",
+            "heading.md",
+            "heading.lg",
+            "body",
+            "eyebrow",
+            "caption",
+          ],
+        },
+      },
+    ],
   },
 
   // Cascade layers — written in the order they should resolve.

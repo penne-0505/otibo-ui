@@ -38,7 +38,7 @@ export function Example() {
 
 compound componentを含め、公開APIはflat named exportに統一されています。React、Vite、Next.js App Routerで同じimport形式を使います。
 
-提供 component の一覧は `dist/index.d.ts` の export を参照(button / link / input / field / card / select / combobox / toggle / chip / segmented-control / tabs / breadcrumb / pagination / navigation-menu / dialog / popover / menu / tooltip / preview-card / table / toast / checkbox / switch / radio / number-field / badge / avatar / icon / accordion / inline-edit / spinner / skeleton / progress / meter / slider / scroll-area / separator)。
+提供 component の一覧は `dist/index.d.ts` の export を参照(button / link / input / field / card / select / combobox / toggle / chip / segmented-control / tabs / breadcrumb / pagination / navigation-menu / dialog / popover / menu / tooltip / preview-card / table / table-scroll / toast / checkbox / switch / radio / number-field / badge / avatar / logo-frame / media-frame / prose / icon / accordion / inline-edit / spinner / skeleton / progress / meter / slider / scroll-area / separator)。
 
 ## Global styles
 

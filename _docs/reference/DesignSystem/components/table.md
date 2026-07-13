@@ -3,7 +3,7 @@ title: Table
 status: active
 draft_status: n/a
 created_at: 2026-06-21
-updated_at: 2026-07-10
+updated_at: 2026-07-12
 references:
   - "_docs/intent/Pkg/namespace-export-design/decision.md"
   - "../principles.md"
@@ -18,30 +18,43 @@ related_prs: []
 
 **データ表示の表**(行列の構造)。Base UI に Table primitive は無いので **native の `<table>` 要素を styled**。otibo が最も得意な **純構造 component** ── 色を使わず、**hairline(`border.subtle`) + 余白 + タイポ**だけで構造を語る。zebra 縞や太枠は持たない(restraint、原則 1 の余白 grain)。行 hover にだけ quiet な `surface.muted` を敷く(色でなく明度差の feedback)。Card 内に収めることを前提とした paddingInline 設計。
 
+狭い幅では **`TableScroll`** wrapper で横スクロールする（行カード化はしない）。端フェードで続きを quiet に示し、**フェードは scroll 位置に追従する**（Lea Verou の local/scroll 背景技法）── 開始位置では左のフェードを出さず、右端まで送ると右のフェードが消える。
+
 ## API
 
 slot recipe(Panda)+ 純 native(`<table>` / `<thead>` / `<tbody>` / `<tr>` / `<th>` / `<td>`)。slot は `root` / `row` / `head` / `cell`。`<thead>` / `<tbody>` は素の HTML 要素で描く(slot 化しない、CSS 側で `tbody &` で scope)。
 
 ```tsx
-<TableRoot>
-  <thead>
-    <TableRow>
-      <TableHead>名前</TableHead>
-      <TableHead>役割</TableHead>
-      <TableHead>状態</TableHead>
-    </TableRow>
-  </thead>
-  <tbody>
-    <TableRow>
-      <TableCell>山田太郎</TableCell>
-      <TableCell>管理者</TableCell>
-      <TableCell>active</TableCell>
-    </TableRow>
-  </tbody>
-</TableRoot>
+<TableScroll>
+  <TableRoot>
+    <thead>
+      <TableRow>
+        <TableHead>名前</TableHead>
+        <TableHead>役割</TableHead>
+        <TableHead>状態</TableHead>
+      </TableRow>
+    </thead>
+    <tbody>
+      <TableRow>
+        <TableCell>山田太郎</TableCell>
+        <TableCell>管理者</TableCell>
+        <TableCell>active</TableCell>
+      </TableRow>
+    </tbody>
+  </TableRoot>
+</TableScroll>
 ```
 
-`<TableRoot>` は `<table>`、`borderCollapse: collapse` で hairline が二重にならない。
+`<TableRoot>` は `<table>`、`borderCollapse: collapse` で hairline が二重にならない。`TableScroll` は overflow-x wrapper（opt-in）。
+
+**`TableScroll` の cover 色**:端フェードの cover は「表の背後の面」に一致させる必要がある。既定は app canvas の `bg`。Card（`surface`）等に載せる場合は CSS 変数 `--otibo-table-scroll-bg` を上書きする。
+
+```tsx
+// Card（surface）内に置くとき
+<TableScroll style={{ "--otibo-table-scroll-bg": "var(--colors-surface)" } as CSSProperties}>
+  <TableRoot>…</TableRoot>
+</TableScroll>
+```
 
 ## Variants
 
@@ -93,6 +106,7 @@ quiet 領域。表の grain として「動かない」が基本、行 hover だ
 - **小さな inline マーカー** → **Badge** / **Avatar**。
 - **長 list の窓送り** → **Pagination**(Table と組み合わせる)。
 - **複雑な editable grid**(spreadsheet 風) → 別 primitive 領域(otibo 未着手)。
+- **狭い幅で溢れる表を行カード化する** → 今は **TableScroll**（横スクロール）。行カード化は未着手。
 
 詳細は `component-selection-map.md` §data。
 
