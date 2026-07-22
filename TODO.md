@@ -2,7 +2,7 @@
 
 ## 0. System Metadata
 
-- **Current Max ID**: `Next ID No: 14` (タスク追加時にインクリメント必須)
+- **Current Max ID**: `Next ID No: 16` (タスク追加時にインクリメント必須)
 - **ID Source of Truth**: このファイルの `Next ID No` 行が、全プロジェクトにおける唯一の ID 発番元である。
 
 ## 1. Task Lifecycle (State Machine)
@@ -110,6 +110,8 @@
 | `Category Refactor` | QA test-plan に behavior-preservation checks を含める。 |
 | Agent workflow / validator / CI / Skill / documentation rule 変更 | QA test-plan に agent misbehavior checks を含める。 |
 
+`Size XS/S` かつ `Risk Low` でも、将来の作業者が未実装と誤認しそうな非対応・制限・省略は intentional omission risk として扱う。その場合は、必須フィールドを増やさず、TODO Description / PR / commit、または必要に応じて Plan Non-Goals / Intent の DEC（Why / Why not）に理由を残す。
+
 ## 4. Completion Rules
 
 タスクを `TODO.md` から削除できるのは、以下を満たす場合のみ。
@@ -184,17 +186,18 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 1. `Next ID No` を読み取り、割り当て予定の ID を決定する。
 2. `Next ID No` をインクリメントしてファイルを更新する。
 3. Inbox の内容を解析し、最適な `Area` / `Category` / `Risk` を決定する。
-4. ID を生成する。
-5. Acceptance Criteria を `AC-001` 形式で書く。
-6. 必須文書条件に従い、Plan / Intent / QA / Verification を `None` または canonical path で埋める。
-7. タスクを `Backlog` の末尾に追加する。
-8. 元の Inbox 行を削除する。
+4. intentional omission risk があるか確認する。将来「未実装なので直す」と誤認されそうな非対応・制限・省略がある場合は、Description に理由を残すか、設計判断として Intent を作成する。
+5. ID を生成する。
+6. Acceptance Criteria を `AC-001` 形式で書く。
+7. 必須文書条件に従い、Plan / Intent / QA / Verification を `None` または canonical path で埋める。
+8. タスクを `Backlog` の末尾に追加する。
+9. 元の Inbox 行を削除する。
 
 ### Promote to Ready
 
 1. `Size >= M` なら Plan / Intent / QA が存在することを確認する。
 2. `Risk >= Medium` なら Intent / QA が存在することを確認する。
-3. QA test-plan の Test Matrix が、主要 AC / INV を最低 1 つの確認手段へ割り当てていることを確認する。
+3. QA test-plan の Test Matrix が主要 AC と、存在する場合の INV を最低 1 つの確認手段へ割り当て、影響する DEC の review scope を示していることを確認する。
 4. Dependencies が解決済みか確認する。
 5. 全てクリアした場合のみ `Ready` セクションへ移動する。
 
@@ -251,7 +254,7 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 - **Goal**: 新規メンバーが onboarding command で初期診断を実行できる。
 - **Acceptance Criteria**:
   - AC-001: command が環境診断を実行し、結果を標準出力に表示する。
-  - AC-002: intent-derived invariant に基づくテストまたは validator が存在する。
+  - AC-002: decision の Why / Change freedom が記録され、必要な場合だけ intent-derived invariant に基づくテストまたは validator が存在する。
 - **Steps**:
   1. [ ] Plan の Scope / Non-Goals を確認する
   2. [ ] QA test-plan の Test Matrix に従って実装と検証を進める
@@ -386,3 +389,37 @@ Risk の詳細は `_docs/standards/quality_assurance.md` を参照する。
 ---
 
 ## In Progress
+
+### Workflow-Chore-15: [Chore] Migrate docs-driven template to v1.0.0
+
+- **Title**: [Chore] Migrate docs-driven template to v1.0.0
+- **ID**: Workflow-Chore-15
+- **Priority**: P1
+- **Size**: L
+- **Risk**: High
+- **Area**: Workflow
+- **Dependencies**: []
+- **Goal**: legacy template baseline から v1.0.0 へ、project 固有の package/runtime/source/test/release 契約を変えずに provenance-locked migration が完了している。
+- **Acceptance Criteria**:
+  - AC-001: B=`37f7198edd9e27f1c7270fb74ce2caf83dca27de`、U=`v1.0.0` / `f71e9ab20466ea2972158334261f5ae2b2265754`、P=`d823baf77878693e46828ec423aaa8d444ec024f` と clean cutoff が記録される。
+  - AC-002: B..U と B..P の union、および migration-created artifacts の全 path が一つの inventory resolution を持ち、final diff に未分類 path がない。
+  - AC-003: v1 validators、fixtures、hooks、paired skills、standards、templates、root guidance が project customization を保った pathwise merge で統合される。
+  - AC-004: generic frontmatter validator は `intent_schema` / `qa_schema` を正しい document type だけで受理し、その他の unknown field warning を維持する fixture を持つ。
+  - AC-005: CI scope は modified legacy docs を隠さない `DD_SCOPE_DIFF_FILTER=ACMR` を使い、provenance command は upstream template repository を明示する。
+  - AC-006: compatibility migration と strict schema migration が別判定され、lock は compatibility checks 後の最後の migration write として exact U を記録する。
+  - AC-007: template lifecycle-self-audit / template-self history を導入せず、削除 path は exact B blob・参照なし・project customization なしの根拠を持つ。
+  - AC-008: docs checks、markdownlint、hooks、smoke、fixtures、paired-skill comparison、diff checks、package release checks/tests/build が成功する。
+  - AC-009: `src/**`、package metadata、runtime、release/publish workflow の挙動変更がない。
+- **Steps**:
+  1. [x] P cutoff と B/U provenance、baseline docs check を凍結する
+  2. [x] migration Plan / Intent / QA と path inventory を用意する
+  3. [x] v1 distribution を gate 順に pathwise merge する
+  4. [x] compatibility checks 後に provenance lock を書く
+  5. [x] QA review と full regression verification を完了する（compatibility は PASS。npm audit baseline / redundant rerun ENOSPC は separate residual として記録）
+- **Description**:
+  - Context: pre-v1.0.0 adoption からの legacy bootstrap migration。
+  - Notes: isolated worktree `/tmp/docs-template-v1-rollout/otibo-ui` の branch `codex/docs-template-v1-rollout` で実施し、元 `dev` checkout と `main` ref は更新しない。
+- **Plan**: _docs/plan/Workflow/docs-template-v1-migration/plan.md
+- **Intent**: _docs/intent/Workflow/docs-template-v1-migration/decision.md
+- **QA**: _docs/qa/Workflow/docs-template-v1-migration/test-plan.md
+- **Verification**: _docs/qa/Workflow/docs-template-v1-migration/verification.md

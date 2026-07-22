@@ -1,17 +1,28 @@
 ---
-title: Intent QA finalization decision
-status: active
+title: "Superseded decision: Intent QA finalization"
+status: superseded
 draft_status: n/a
 created_at: 2026-05-25
-updated_at: 2026-05-25
+updated_at: 2026-07-22
 references:
-  - "_docs/plan/Template/intent-qa-finalization/plan.md"
+  - "_docs/archives/plan/Template/intent-qa-finalization/plan.md"
   - "_docs/qa/Template/intent-qa-finalization/test-plan.md"
+  - "_docs/intent/Workflow/docs-template-v1-migration/decision.md"
+  - "_docs/qa/Workflow/docs-template-v1-migration/test-plan.md"
 related_issues: []
 related_prs: []
 ---
 
-# Intent QA finalization decision
+# Superseded decision: Intent QA finalization
+
+> **Superseded record — not current project guidance.** This template-self
+> decision is retained because Intent records are not archived. Its former
+> temporary plan is archived at
+> [_docs/archives/plan/Template/intent-qa-finalization/plan.md](_docs/archives/plan/Template/intent-qa-finalization/plan.md).
+> For compatibility-migration work and any follow-up, use
+> [_docs/intent/Workflow/docs-template-v1-migration/decision.md](_docs/intent/Workflow/docs-template-v1-migration/decision.md)
+> with
+> [_docs/qa/Workflow/docs-template-v1-migration/test-plan.md](_docs/qa/Workflow/docs-template-v1-migration/test-plan.md).
 
 ## Context
 

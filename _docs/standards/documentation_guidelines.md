@@ -66,25 +66,25 @@ _docs/archives/{draft,plan,survey}/<Area>/<slug>/...
 
 ### `_docs/intent/<Area>/<slug>/decision.md`
 
-- **目的**: 実装上の意図・背景・判断理由の記録。
+- **目的**: 将来の変更者が実装上の意図、判断理由、変更可能範囲を再構成するための記録。
 - **読者**: 設計判断の背景を理解したい開発者。
-- **内容**: Context / Decision / Alternatives / Rationale / Consequences / Quality Implications / Intent-derived Invariants。
-- **QA**: intent は QA の一次資料であり、守るべき invariant を抽出する。
-- **ライフサイクル**: 恒久的な設計判断ログとして保持し、archives へ移送しない。
+- **内容**: Context / DEC-ID 付き Decisions（What / Why / Change freedom、必要な Why not / Revisit when）/ Consequences / Quality Implications / 任意の Intent-derived Invariants。
+- **QA**: intent は QA の一次資料であり、変更が影響する DEC を review する。実装方式を越えて守る結果がある場合だけ invariant を抽出する。
+- **ライフサイクル**: 恒久的な設計判断ログとして保持し、archives へ移送しない。テンプレート repo 自身の meta-work に対する例外は `_docs/standards/documentation_operations.md` を参照する。
 
 ### `_docs/qa/<Area>/<slug>/test-plan.md`
 
 - **目的**: intent / plan / TODO から、品質上守るべき条件と確認手段を設計する。
 - **読者**: 実装者、レビュアー、QA 担当、coding agent。
-- **内容**: Source of Intent / Quality Goal / Acceptance Criteria / Intent-derived Invariants / Risk Assessment / Test Matrix。
+- **内容**: Source of Intent / Quality Goal / Acceptance Criteria / Decision Review Scope / 任意の Intent-derived Invariants / Risk Assessment / Test Matrix。
 - **作成条件**: `Size >= M` または `Risk >= Medium` で必須。
-- **ライフサイクル**: QA docs は persistent quality records であり、archives へ移送しない。obsolete な場合は `status: obsolete` または `status: superseded` にする。
+- **ライフサイクル**: QA docs は persistent quality records であり、archives へ移送しない。obsolete な場合は `status: obsolete` または `status: superseded` にする。テンプレート repo 自身の meta-work に対する例外は `_docs/standards/documentation_operations.md` を参照する。
 
 ### `_docs/qa/<Area>/<slug>/verification.md`
 
 - **目的**: 実装後の検証証跡を残す。
 - **読者**: レビュアー、運用担当、将来の保守者。
-- **内容**: 実行コマンド、手動 QA、AC / INV coverage、Deferred、Residual Risks、Follow-up TODOs、Verification Verdict。
+- **内容**: 実行コマンド、手動 QA、AC coverage、Decision Conformance、該当する INV coverage、Deferred、Residual Risks、Follow-up TODOs、Verification Verdict。
 - **完了条件**: `Size >= M` または `Risk >= Medium` の TODO を完了する前に作成する。`Risk High / Critical` では特に必須。
 - **ライフサイクル**: archive しない。古くなった場合は status を更新し、後継 verification を references で示す。
 
@@ -170,6 +170,7 @@ draft でのみ、stale 管理のために以下の任意フィールドを追�
 3. **小規模変更 (`Size XS/S` かつ `Risk Low`)**:
    - Plan / Intent / QA を省略できる。
    - TODO の Acceptance Criteria と Steps を明確にする。
+   - 将来の作業者が未実装と誤認しそうな非対応・制限・省略がある場合は、intentional omission risk として TODO Description / PR / commit に理由を残す。後続変更に影響する設計判断なら Intent へ昇格する。
 4. **実装完了後**:
    - `qa-review` で verification verdict を確認する。
    - 必要に応じて guide / reference を更新する。
@@ -178,7 +179,8 @@ draft でのみ、stale 管理のために以下の任意フィールドを追�
 ### 品質保証
 
 - QA は実装後ではなく、実装前または実装中に設計する。
-- Test Matrix は acceptance criteria と intent-derived invariant を、実行可能なテスト・manual QA・validator・diff review のいずれかへ紐づける。
+- Test Matrix は acceptance criteria と、存在する場合の intent-derived invariant を、実行可能なテスト・manual QA・validator・diff review のいずれかへ紐づける。
+- verification は変更が影響した DEC を特定し、実装が `Why` と `Change freedom` に沿うことを Decision Conformance で確認する。
 - 実行可能なテストは `_docs/qa/` ではなく、コードベース側の標準的な場所に置く。
 - 実行していないコマンドを verification に書かない。
 - `PARTIAL` / `FAIL` / `BLOCKED` では、残リスクと次アクションを明記する。
@@ -191,17 +193,20 @@ draft でのみ、stale 管理のために以下の任意フィールドを追�
 
 ### 整合性チェック & 自動化
 
-- CI では markdownlint、front-matter/stale チェック、TODO チェック、ローカルリンクチェック、QA チェックを実行する。
-- ローカルでは `scripts/check-docs.sh` を使用できる。
-- 個別コマンド:
+- CI では markdownlint、front-matter/stale チェック、TODO チェック、ローカルリンクチェック、QA チェック、validator fixture、agent workflow smoke check を実行する。
+- ローカル検証の正典は `./scripts/check-docs.sh` とする。
+- 個別に切り分ける場合のコマンド:
 
 ```bash
 npx biome check scripts/*.mjs
-deno run --allow-read scripts/validate-frontmatter.mjs
+deno run --allow-read --allow-env --allow-run=git scripts/validate-frontmatter.mjs
 deno run --allow-read scripts/validate-todo.mjs
-deno run --allow-read scripts/validate-doc-links.mjs
-deno run --allow-read scripts/validate-qa.mjs
-deno run --allow-read --allow-run scripts/test-validators.mjs
+deno run --allow-read --allow-env --allow-run=git scripts/validate-doc-links.mjs
+deno run --allow-read --allow-env --allow-run=git scripts/validate-intent.mjs
+deno run --allow-read --allow-env --allow-run=git scripts/validate-qa.mjs
+deno run --allow-read --allow-write --allow-env --allow-run scripts/test-validators.mjs
+deno run --allow-read --allow-run=git scripts/test-agent-workflow-hook.mjs
+deno run --allow-read scripts/test-agent-workflow-smoke.mjs
 ```
 
 ## 新機能のドキュメント作成手順
@@ -209,12 +214,14 @@ deno run --allow-read --allow-run scripts/test-validators.mjs
 1. TODO の `Size` と `Risk` を確認する。
 2. `Size >= M` なら Plan / Intent / QA test-plan を作成する。
 3. `Risk >= Medium` なら Intent / QA test-plan を作成する。
-4. intent から intent-derived invariant を抽出する。
-5. QA test-plan の Test Matrix で AC / INV の確認手段を割り当てる。
-6. 実装中に判断が変わった場合は Plan / Intent / QA を更新する。
-7. 実装後に verification を作成し、実行コマンド・manual QA・残リスク・verdict を残す。
-8. 実装済み挙動として共有が必要なら guide / reference を更新する。
-9. draft / survey / plan を archive する場合は、archive checklist を満たすことを確認する。
+4. `Size XS/S` かつ `Risk Low` でも intentional omission risk がある場合は、軽量な理由を残すか、設計判断として Intent を作成する。
+5. intent に `DEC-xxx` を作り、`What` / `Why` / `Change freedom` と、必要な `Why not` / `Revisit when` を記録する。
+6. active decision 下で実装方式を越えて守る結果がある場合だけ intent-derived invariant を抽出する。
+7. QA test-plan の Test Matrix で AC と該当する INV の確認手段を割り当て、影響する DEC を Decision Review Scope に置く。
+8. 実装中に判断が変わった場合は Plan / Intent / QA を更新する。
+9. 実装後に verification を作成し、Decision Conformance、実行コマンド、manual QA、残リスク、verdict を残す。
+10. 実装済み挙動として共有が必要なら guide / reference を更新する。
+11. draft / survey / plan を archive する場合は、archive checklist を満たすことを確認する。
 
 ## アーカイブ方針
 

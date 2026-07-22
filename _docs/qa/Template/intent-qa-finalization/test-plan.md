@@ -1,24 +1,34 @@
 ---
-title: Intent QA finalization QA test plan
-status: active
+title: "Superseded QA test plan: Intent QA finalization"
+status: superseded
 draft_status: n/a
 qa_status: planned
 risk: Medium
 created_at: 2026-05-25
-updated_at: 2026-05-25
+updated_at: 2026-07-22
 references:
-  - "_docs/plan/Template/intent-qa-finalization/plan.md"
+  - "_docs/archives/plan/Template/intent-qa-finalization/plan.md"
   - "_docs/intent/Template/intent-qa-finalization/decision.md"
+  - "_docs/intent/Workflow/docs-template-v1-migration/decision.md"
+  - "_docs/qa/Workflow/docs-template-v1-migration/test-plan.md"
 related_issues: []
 related_prs: []
 ---
 
-# Intent QA finalization QA test plan
+# Superseded QA test plan: Intent QA finalization
+
+> **Superseded record — do not use this as an active test plan.** It remains
+> at its canonical QA path because QA records are not archived. Its former
+> plan is archived at
+> [_docs/archives/plan/Template/intent-qa-finalization/plan.md](_docs/archives/plan/Template/intent-qa-finalization/plan.md).
+> Current compatibility-migration verification is defined by
+> [_docs/qa/Workflow/docs-template-v1-migration/test-plan.md](_docs/qa/Workflow/docs-template-v1-migration/test-plan.md)
+> and the linked migration decision.
 
 ## Source of Intent
 
 - TODO task: `Template-Enhance-4`
-- Plan: `_docs/plan/Template/intent-qa-finalization/plan.md`
+- Plan: `_docs/archives/plan/Template/intent-qa-finalization/plan.md`
 - Intent: `_docs/intent/Template/intent-qa-finalization/decision.md`
 
 ## Quality Goal

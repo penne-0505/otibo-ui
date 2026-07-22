@@ -1,6 +1,9 @@
 // Deno版 QA document validator: npm / remote import 依存なし
 
+import { loadScope, makeInScope } from "./scope.mjs"
+
 const TODO_FILE = "TODO.md"
+const QA_SCHEMA = 2
 const RISKS = ["Low", "Medium", "High", "Critical"]
 const QA_STATUS_VALUES = ["planned", "in-progress", "verified", "partial", "failed", "blocked"]
 const TEST_MATRIX_STATUS_VALUES = ["planned", "covered", "verified", "deferred", "not-applicable"]
@@ -219,6 +222,9 @@ const validateFrontMatter = (file, attrs, errors) => {
       add(errors, file, `missing front matter field: ${key}`)
     }
   }
+  if ("qa_schema" in attrs && attrs.qa_schema !== QA_SCHEMA) {
+    add(errors, file, `qa_schema must be ${QA_SCHEMA}`)
+  }
   if (attrs.qa_status && !QA_STATUS_VALUES.includes(attrs.qa_status)) {
     add(errors, file, `qa_status must be one of ${QA_STATUS_VALUES.join(", ")}`)
   }
@@ -232,14 +238,14 @@ const validateFrontMatter = (file, attrs, errors) => {
 
 const validateTestMatrix = (file, src, errors, warnings) => {
   const matrix = sectionContent(src, "Test Matrix")
-  if (!matrix) return
+  if (matrix === null) return
   const rows = matrix
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter((line) => line.startsWith("|") && /AC-|INV-/.test(line))
 
-  if (rows.length === 0) {
-    add(errors, file, "Test Matrix must include at least one AC- or INV- row")
+  if (!rows.some((row) => /\bAC-\d{3}\b/.test(row))) {
+    add(errors, file, "Test Matrix must include at least one AC- row")
   }
 
   for (const row of rows) {
@@ -258,12 +264,15 @@ const validateTestMatrix = (file, src, errors, warnings) => {
 }
 
 const validateTestPlan = async ({ file, src, attrs, area, slug, errors, warnings }) => {
+  const usesWhyFirstSchema = attrs.qa_schema === QA_SCHEMA
+
   if (!["planned", "in-progress"].includes(attrs.qa_status)) {
     add(errors, file, "test-plan qa_status must be planned or in-progress")
   }
 
   const requiredHeadings = [
     "Source of Intent",
+    ...(usesWhyFirstSchema ? ["Decision Review Scope"] : []),
     "Quality Goal",
     "Acceptance Criteria",
     "Intent-derived Invariants",
@@ -294,8 +303,15 @@ const validateTestPlan = async ({ file, src, attrs, area, slug, errors, warnings
   if (!/\bAC-\d{3}\b/.test(ac)) {
     add(errors, file, "Acceptance Criteria must include AC-001 style IDs")
   }
+
+  if (usesWhyFirstSchema && !sectionHasId(src, "Decision Review Scope", "DEC")) {
+    add(errors, file, "Decision Review Scope must include DEC-001 style IDs")
+  }
+
   const invariants = sectionContent(src, "Intent-derived Invariants") ?? ""
-  if (!/\bINV-\d{3}\b/.test(invariants)) {
+  if (usesWhyFirstSchema && !isExplicitNone(invariants) && !/\bINV-\d{3}\b/.test(invariants)) {
+    add(errors, file, "Intent-derived Invariants must be None or include INV-001 style IDs")
+  } else if (!usesWhyFirstSchema && !/\bINV-\d{3}\b/.test(invariants)) {
     add(errors, file, "Intent-derived Invariants must include INV-001 style IDs")
   }
   validateTestMatrix(file, src, errors, warnings)
@@ -325,7 +341,15 @@ const isNoneLike = (content) => {
   return cleaned === "" || /^(None|N\/A|なし)$/i.test(cleaned)
 }
 
+const isExplicitNone = (content) => {
+  const cleaned = stripCodeBlocks(content ?? "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .trim()
+  return /^(?:[-*]\s*)?(None|N\/A|なし)$/i.test(cleaned)
+}
+
 const validateVerification = ({ file, src, attrs, area, slug, errors }) => {
+  const usesWhyFirstSchema = attrs.qa_schema === QA_SCHEMA
   const requiredHeadings = [
     "Summary",
     "Verification Verdict",
@@ -333,6 +357,7 @@ const validateVerification = ({ file, src, attrs, area, slug, errors }) => {
     "Automated Test Results",
     "Manual QA Results",
     "Acceptance Criteria Coverage",
+    ...(usesWhyFirstSchema ? ["Decision Conformance"] : []),
     "Invariant Coverage",
     "Deferred / Not Covered",
     "Residual Risks",
@@ -387,7 +412,19 @@ const validateVerification = ({ file, src, attrs, area, slug, errors }) => {
   if (!sectionHasId(src, "Acceptance Criteria Coverage", "AC")) {
     add(errors, file, "Acceptance Criteria Coverage must include AC- IDs")
   }
-  if (!sectionHasId(src, "Invariant Coverage", "INV")) {
+
+  if (usesWhyFirstSchema && !sectionHasId(src, "Decision Conformance", "DEC")) {
+    add(errors, file, "Decision Conformance must include DEC- IDs")
+  }
+
+  const invariantCoverage = sectionContent(src, "Invariant Coverage") ?? ""
+  if (
+    usesWhyFirstSchema &&
+    !isExplicitNone(invariantCoverage) &&
+    !sectionHasId(src, "Invariant Coverage", "INV")
+  ) {
+    add(errors, file, "Invariant Coverage must be None or include INV- IDs")
+  } else if (!usesWhyFirstSchema && !sectionHasId(src, "Invariant Coverage", "INV")) {
     add(errors, file, "Invariant Coverage must include INV- IDs")
   }
   if (
@@ -482,7 +519,7 @@ const parseArgs = (args) => {
   if (args[0] === "--fixture") {
     return { roots: args.slice(1), fixtureMode: true }
   }
-  return { roots: args, fixtureMode: true }
+  return { roots: args, fixtureMode: false }
 }
 
 const collectMarkdownFiles = async function* (roots) {
@@ -518,12 +555,14 @@ const run = async () => {
   const errors = []
   const warnings = []
   const { roots, fixtureMode } = parseArgs(Deno.args)
+  const inScope = makeInScope(await loadScope())
 
   if (roots.length === 0) {
     add(errors, "(args)", "--fixture requires at least one path")
   }
 
   for await (const file of collectMarkdownFiles(roots)) {
+    if (!inScope(file)) continue
     const src = await Deno.readTextFile(file)
     const { attrs, error } = parseFrontMatter(src)
     if (error || !attrs) {

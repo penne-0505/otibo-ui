@@ -1,17 +1,25 @@
 ---
-title: Intent QA finalization plan
-status: active
+title: "Archived plan: Intent QA finalization"
+status: obsolete
 draft_status: n/a
 created_at: 2026-05-25
-updated_at: 2026-05-25
+updated_at: 2026-07-22
 references:
   - "_docs/intent/Template/intent-qa-finalization/decision.md"
   - "_docs/qa/Template/intent-qa-finalization/test-plan.md"
+  - "_docs/intent/Workflow/docs-template-v1-migration/decision.md"
+  - "_docs/qa/Workflow/docs-template-v1-migration/test-plan.md"
 related_issues: []
 related_prs: []
 ---
 
-# Intent QA finalization plan
+# Archived plan: Intent QA finalization
+
+> **Archive record — not active project guidance.** This temporary plan was
+> moved here during the docs-template v1.0.0 compatibility migration. Do not
+> restart work from this plan; use the current
+> [_docs/intent/Workflow/docs-template-v1-migration/decision.md](_docs/intent/Workflow/docs-template-v1-migration/decision.md)
+> and its QA records for follow-up decisions.
 
 ## Overview
 

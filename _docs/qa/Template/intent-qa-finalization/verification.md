@@ -1,20 +1,29 @@
 ---
-title: Intent QA finalization QA verification
-status: active
+title: "Superseded QA verification: Intent QA finalization"
+status: superseded
 draft_status: n/a
 qa_status: verified
 risk: Medium
 created_at: 2026-05-25
-updated_at: 2026-05-25
+updated_at: 2026-07-22
 references:
-  - "_docs/plan/Template/intent-qa-finalization/plan.md"
+  - "_docs/archives/plan/Template/intent-qa-finalization/plan.md"
   - "_docs/intent/Template/intent-qa-finalization/decision.md"
   - "_docs/qa/Template/intent-qa-finalization/test-plan.md"
+  - "_docs/intent/Workflow/docs-template-v1-migration/decision.md"
+  - "_docs/qa/Workflow/docs-template-v1-migration/test-plan.md"
+  - "_docs/qa/Workflow/docs-template-v1-migration/verification.md"
 related_issues: []
 related_prs: []
 ---
 
-# Intent QA finalization QA verification
+# Superseded QA verification: Intent QA finalization
+
+> **Historical verification — not current project guidance.** This is retained
+> as evidence for the former template-self task and must not be interpreted as
+> the v1.0.0 migration result. See the current
+> [_docs/qa/Workflow/docs-template-v1-migration/verification.md](_docs/qa/Workflow/docs-template-v1-migration/verification.md)
+> and its linked decision/test plan for follow-up.
 
 ## Summary
 

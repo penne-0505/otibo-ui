@@ -80,6 +80,14 @@ token / recipe / themeの深いカスタマイズは0.3.0の公開互換性保�
 - **React 18 / 19**。
 - **TypeScript 5.9** 推奨。
 
+## Development
+
+ドキュメント駆動の作業規約は [Quickstart](QUICKSTART.md) と
+[_docs/documentation_guide.md](_docs/documentation_guide.md) を参照してください。
+ローカルの正典となる docs gate は `npm run docs:check`、package/release gate は
+`npm run release:check` です。template provenance は
+`docs-template.lock.json` に固定します。
+
 ## License
 
 [MIT](LICENSE.txt) © penne / ぺんね

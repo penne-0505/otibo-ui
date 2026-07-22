@@ -1,4 +1,26 @@
-# jj (Jujustu) Workflow Standard
+---
+title: "Quarantined legacy jj workflow"
+status: obsolete
+draft_status: n/a
+created_at: 2026-05-25
+updated_at: 2026-07-22
+references:
+  - "_docs/intent/Workflow/docs-template-v1-migration/decision.md"
+  - "_docs/qa/Workflow/docs-template-v1-migration/verification.md"
+related_issues: []
+related_prs: []
+---
+
+# Quarantined legacy jj workflow
+
+> **NON-OPERATIONAL HISTORICAL REFERENCE. DO NOT EXECUTE OR FOLLOW ANY `jj`
+> COMMANDS BELOW.** This file was moved out of `_docs/standards/` during the
+> v1.0.0 compatibility migration because it conflicts with this repository's
+> Git-based operating model. It is retained only for provenance and deferred
+> deletion review; current work must follow `AGENTS.md` and the active project
+> documentation instead.
+
+## Original text (historical only)
 
 このプロジェクトでは、「jj (Jujutsu)」を用いたバージョン管理を採用しています。一般的な開発フローにおいての使用方法を以下に示します。
 

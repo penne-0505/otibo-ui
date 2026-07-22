@@ -9,9 +9,14 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      DD_SCOPE_BASE: d823baf77878693e46828ec423aaa8d444ec024f
+      DD_SCOPE_DIFF_FILTER: ACMR
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
