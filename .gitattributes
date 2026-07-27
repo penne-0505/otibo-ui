@@ -1,0 +1,7 @@
+# Docs-driven workflow validators are shared tooling, not this project's source.
+# scripts/verify-package.mjs is intentionally excluded: it is this package's own
+# consumer-contract verification, not template tooling.
+scripts/validate-*.mjs linguist-vendored
+scripts/test-*.mjs linguist-vendored
+scripts/agent-workflow-hook.mjs linguist-vendored
+scripts/scope.mjs linguist-vendored
