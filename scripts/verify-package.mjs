@@ -276,7 +276,8 @@ assert.deepEqual(manifest.exports["./styles.css"], {
 assert.deepEqual(Object.keys(manifest.peerDependencies).sort(), ["react", "react-dom"])
 assert.equal(manifest.dependencies["@base-ui/react"], "^1.6.0")
 assert.equal(manifest.devDependencies["@base-ui/react"], undefined)
-assert.equal(manifest.devDependencies["@pandacss/dev"], "^1.11.4")
+// Covers AC-005 (Pkg/dependency-audit-remediation): keep Panda on the patched baseline.
+assert.equal(manifest.devDependencies["@pandacss/dev"], "^1.11.5")
 assert.equal(manifest.devDependencies["gen-interface-jp"], "^0.6.2")
 assert.ok(manifest.sideEffects.includes("**/*.css"))
 
